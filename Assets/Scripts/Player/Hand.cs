@@ -18,7 +18,6 @@ public class Hand : MonoBehaviour
 	//Serialized Fields----------------------------------------------------------------------------
 
 	[SerializeField] private HandSide handSide;
-	[SerializeField] private Transform spawnPoint;
 
 	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
