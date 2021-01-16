@@ -11,31 +11,28 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private AnimationCurve jumpFallOff;
 
     [Header("Looking")]
+    [SerializeField] private float lookSpeed;
     [SerializeField] private float minYAxis;
     [SerializeField] private float maxYAxis;
-    [Tooltip("If the range should be min to 0 and 360 to max rather than min to max, when the range for all angles is [0, 360] not [-180, 180].")]
-    [SerializeField] private bool excludeRange;
-    [SerializeField] private float lookSpeed;
     [SerializeField] private bool invertYAxis;
 
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
     //Components
-
     private CharacterController characterController;
-    private Camera camera;
+    private Camera playerCamera;
 
     //Movement Variables
-
+    private Vector3 movement;
     private float moveLR;
     private float moveFB;
     private bool jump;
     private bool jumping;
 
     //Looking Variables
-
     private float lookLR;
     private float lookUD;
 
@@ -58,7 +55,7 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     protected override void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        camera = GetComponentInChildren<Camera>();
+        playerCamera = GetComponentInChildren<Camera>();
     }
 
     /// <summary>
@@ -87,7 +84,7 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void FixedUpdate()
     {
-
+        
     }
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
@@ -113,47 +110,67 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
         transform.Rotate(0, lookLR * lookSpeed * Time.deltaTime, 0);
 
         //Up and down
-        Vector3 cameraRotation = camera.transform.localRotation.eulerAngles;
+        Vector3 cameraRotation = playerCamera.transform.localRotation.eulerAngles;
         float newRotation = cameraRotation.x + lookUD * lookSpeed * Time.deltaTime * (invertYAxis ? 1 : -1);
-        Debug.Log($"Raw new rotation: {newRotation}");
-        cameraRotation.x = ClampAngle(cameraRotation.x, newRotation, minYAxis, maxYAxis);
-        camera.transform.localRotation = Quaternion.Euler(cameraRotation);
+        cameraRotation.x = ClampAngle(newRotation, minYAxis, maxYAxis);
+        playerCamera.transform.localRotation = Quaternion.Euler(cameraRotation);
     }
 
-    private float ClampAngle(float oldValue, float newValue, float min, float max)
+    /// <summary>
+    /// Clamps a rotation to an acceptable range between -180 degrees and 180 degrees.
+    /// </summary>
+    /// <param name="value">The value to change the rotation to, if it is not out of bounds.</param>
+    /// <param name="min">The minimum acceptable value.</param>
+    /// <param name="max">The maximum acceptable value.</param>
+    /// <returns></returns>
+    private float ClampAngle(float value, float min, float max)
     {
         if (min == max) return min;
 
-        while (newValue > 180) newValue -= 360;
-        while (newValue < -180) newValue += 360;
+        while (value > 180) value -= 360;
+        while (value < -180) value += 360;
 
         //Debug.Log($"min: {min}, newValue: {newValue}, newValue < min: {newValue < min}");
         //Debug.Log($"max: {max}, newValue: {newValue}, newValue > max: {newValue > max}");
 
-        if (newValue < min) return min;
-        if (newValue > max) return max;
+        if (value < min) return min;
+        if (value > max) return max;
 
-        //if (newValue < min ) return min;
-        //{
-        //Debug.Log($"newValue {newValue} < min {min}, returning min value");
-        //return min;
-        //}
-
-        //if (newValue > max) return max;
-        //{
-            //Debug.Log($"newValue {newValue} > max {max}, returning max value");
-            //return max;
-        //}
-
-        return newValue;        
+        return value;        
     }
 
     /// <summary>
-    /// The player moves around their environment.
+    /// The player runs around their environment.
     /// </summary>
     private void Move()
     {
-        Vector3 movement = transform.TransformDirection(Vector3.forward) * moveFB + transform.TransformDirection(Vector3.right) * moveLR;
+        if (!jumping) movement = transform.TransformDirection(Vector3.forward) * moveFB + transform.TransformDirection(Vector3.right) * moveLR;
         characterController.SimpleMove(movement * moveSpeed * Time.deltaTime);
+        if (jump && !jumping) StartCoroutine(Jump());
+    }
+
+    /// <summary>
+    /// The player jumps around their environment.
+    /// </summary>
+    private IEnumerator Jump()
+    {
+        jumping = true;
+        float timeInAir = 0f;
+        bool collisionAbove;
+
+        do
+        {
+            float remainingForce = jumpForce * jumpFallOff.Evaluate(timeInAir);
+            characterController.Move(Vector3.up * remainingForce * Time.deltaTime);
+            timeInAir += Time.deltaTime;
+            collisionAbove = characterController.collisionFlags == CollisionFlags.Above;
+            //Debug.Log($"Jumping up, characterController.isGrounded: {characterController.isGrounded}, collisionAbove: {collisionAbove}");
+            yield return null;
+        }
+        while (!characterController.isGrounded && !collisionAbove);
+
+        while (!characterController.isGrounded) yield return null;
+
+        jumping = false;
     }
 }
