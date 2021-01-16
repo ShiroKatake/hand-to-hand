@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum HandSide
 {
@@ -15,20 +13,11 @@ public class Hand : MonoBehaviour
 
 	private Rigidbody rb;
 
+	public HandSide HandSide { get => handSide; }
+	public Rigidbody Rigidbody { get => rb; }
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
-	}
-
-	void CheckHand()
-	{
-		if (handSide == HandSide.Left)
-		{
-
-		}
-		else if (handSide == HandSide.Right)
-		{
-
-		}
 	}
 }
