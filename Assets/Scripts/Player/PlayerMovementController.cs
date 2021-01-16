@@ -7,14 +7,37 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     //Private Fields---------------------------------------------------------------------------------------------------------------------------------  
 
     //Serialized Fields----------------------------------------------------------------------------                                                    
-
+    
+    [Header("Movement")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float lookSpeed;
     [SerializeField] private float jumpForce;
+
+    [Header("Looking")]
+    [SerializeField] private float minYAxis;
+    [SerializeField] private float maxYAxis;
+    [Tooltip("If the range should be min to 0 and 360 to max rather than min to max, when the range for all angles is [0, 360] not [-180, 180].")]
+    [SerializeField] private bool excludeRange;
+    [SerializeField] private float lookSpeed;
+    [SerializeField] private bool invertYAxis;
 
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
+    //Components
 
+    private CharacterController characterController;
+    private Camera camera;
+
+    //Movement Variables
+
+    private float moveLR;
+    private float moveFB;
+    private bool jump;
+    private bool jumping;
+
+    //Looking Variables
+
+    private float lookLR;
+    private float lookUD;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -34,7 +57,8 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     protected override void Awake()
     {
-        
+        characterController = GetComponent<CharacterController>();
+        camera = GetComponentInChildren<Camera>();
     }
 
     /// <summary>
@@ -53,7 +77,7 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void Update()
     {
-        Input();
+        GetInput();
         Look();
         Move();
     }
@@ -71,9 +95,13 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// <summary>
     /// Gets the player's movement input.
     /// </summary>
-    private void Input()
+    private void GetInput()
     {
-
+        moveLR = Input.GetAxis("Move LR");
+        moveFB = Input.GetAxis("Move FB");
+        jump = Input.GetButtonDown("Jump");
+        lookLR = Input.GetAxis("Look LR");
+        lookUD = Input.GetAxis("Look UD");
     }
 
     /// <summary>
@@ -81,7 +109,43 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void Look()
     {
+        //Left and right
+        transform.Rotate(0, lookLR * lookSpeed * Time.deltaTime, 0);
 
+        //Up and down
+        Vector3 cameraRotation = camera.transform.localRotation.eulerAngles;
+        float newRotation = cameraRotation.x + lookUD * lookSpeed * Time.deltaTime * (invertYAxis ? 1 : -1);
+        Debug.Log($"Raw new rotation: {newRotation}");
+        cameraRotation.x = ClampAngle(cameraRotation.x, newRotation, minYAxis, maxYAxis);
+        camera.transform.localRotation = Quaternion.Euler(cameraRotation);
+    }
+
+    private float ClampAngle(float oldValue, float newValue, float min, float max)
+    {
+        if (min == max) return min;
+
+        while (newValue > 180) newValue -= 360;
+        while (newValue < -180) newValue += 360;
+
+        //Debug.Log($"min: {min}, newValue: {newValue}, newValue < min: {newValue < min}");
+        //Debug.Log($"max: {max}, newValue: {newValue}, newValue > max: {newValue > max}");
+
+        if (newValue < min) return min;
+        if (newValue > max) return max;
+
+        //if (newValue < min ) return min;
+        //{
+        //Debug.Log($"newValue {newValue} < min {min}, returning min value");
+        //return min;
+        //}
+
+        //if (newValue > max) return max;
+        //{
+            //Debug.Log($"newValue {newValue} > max {max}, returning max value");
+            //return max;
+        //}
+
+        return newValue;        
     }
 
     /// <summary>
@@ -89,6 +153,7 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void Move()
     {
-
+        Vector3 movement = transform.TransformDirection(Vector3.forward) * moveFB + transform.TransformDirection(Vector3.right) * moveLR;
+        characterController.SimpleMove(movement * moveSpeed * Time.deltaTime);
     }
 }
