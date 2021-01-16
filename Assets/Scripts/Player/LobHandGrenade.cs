@@ -1,25 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LobHandGrenade : MonoBehaviour
 {
 	[SerializeField] private float grenadeRange;
 	[SerializeField] private Transform leftHandSpawn;
 	[SerializeField] private Transform rightHandSpawn;
-	private Hand leftHand;
-	private Hand rightHand;
+
+	private Rigidbody leftHandRb;
+	private Rigidbody rightHandRb;
 
 	private bool leftHandButton;
 	private bool rightHandButton;
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
 		GetInput();
@@ -32,21 +24,51 @@ public class LobHandGrenade : MonoBehaviour
 		rightHandButton = Input.GetButtonDown("Right Hand");
 	}
 
-	//TODO: Find a way to move GetComponent when the hands are picked up, not before launching
 	private void Launch()
 	{
-		if (leftHandButton == true && leftHand != null)
+		Rigidbody handRb = null;
+		Transform handSpawn = null;
+
+		if (leftHandButton == true && leftHandRb != null)
 		{
-			rightHand.GetComponent<Rigidbody>().AddForce(leftHandSpawn.forward * grenadeRange, ForceMode.Impulse);
+			handRb = leftHandRb;
+			handSpawn = leftHandSpawn;
 		}
-		if (rightHandButton == true && rightHand != null)
+
+		if (rightHandButton == true && rightHandRb != null)
 		{
-			rightHand.GetComponent<Rigidbody>().AddForce(rightHandSpawn.forward * grenadeRange, ForceMode.Impulse);
+			handRb = rightHandRb;
+			handSpawn = rightHandSpawn;
+		}
+
+		if (handRb != null && handSpawn != null)
+		{
+			handRb.AddForce(handSpawn.forward * grenadeRange, ForceMode.Impulse);
+			handRb = null;
 		}
 	}
 
 	private void OnCollisionEnter(Collision other)
 	{
 		Hand hand = other.gameObject.GetComponent<Hand>();
+		if (hand != null)
+		{
+			switch (hand.HandSide)
+			{
+				case HandSide.Left:
+					leftHandRb = hand.Rigidbody;
+					hand.transform.parent = leftHandSpawn;
+					break;
+				case HandSide.Right:
+					rightHandRb = hand.Rigidbody;
+					hand.transform.parent = rightHandSpawn;
+					break;
+				default:
+					break;
+			}
+
+			hand.transform.position = Vector3.zero;
+			hand.transform.rotation = Quaternion.identity;
+		}
 	}
 }
