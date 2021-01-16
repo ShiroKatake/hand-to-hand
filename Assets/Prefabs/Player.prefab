@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3d2ce888baabb47bc28dd593f5bfe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenadeRange: 0
+  grenadeRange: 5
   leftHandSpawn: {fileID: 7861368637507969686}
   rightHandSpawn: {fileID: 8877553970336628051}
 --- !u!1 &1293556760718110439
