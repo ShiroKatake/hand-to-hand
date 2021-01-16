@@ -3,24 +3,30 @@
 public class LobHandGrenade : MonoBehaviour
 {
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
-
-	private Rigidbody leftHandRb;
-	private Rigidbody rightHandRb;
-
+	
 	private bool leftHandButton;
 	private bool rightHandButton;
+
+	private Rigidbody handRb = null;
+	private Transform handSpawn = null;
 
 	//Serialized Fields----------------------------------------------------------------------------
 
 	[SerializeField] private float grenadeRange;
 	[SerializeField] private Transform leftHandSpawn;
 	[SerializeField] private Transform rightHandSpawn;
-	
+	[SerializeField] private Rigidbody leftHandRb;
+	[SerializeField] private Rigidbody rightHandRb;
+
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+
+	private void Update()
+	{
+		GetInput();
+	}
 
 	void FixedUpdate()
     {
-		GetInput();
 		Launch();
 	}
 
@@ -31,6 +37,24 @@ public class LobHandGrenade : MonoBehaviour
 	{
 		leftHandButton = Input.GetButtonDown("Left Hand");
 		rightHandButton = Input.GetButtonDown("Right Hand");
+
+		if (handRb == null)
+		{
+			if (leftHandButton == true && leftHandRb != null)
+			{
+				Debug.Log("left");
+				handRb = leftHandRb;
+				handSpawn = leftHandSpawn;
+				leftHandRb = null;
+			}
+			if (rightHandButton == true && rightHandRb != null)
+			{
+				Debug.Log("right");
+				handRb = rightHandRb;
+				handSpawn = rightHandSpawn;
+				rightHandRb = null;
+			}
+		}
 	}
 
 	/// <summary>
@@ -38,23 +62,9 @@ public class LobHandGrenade : MonoBehaviour
 	/// </summary>
 	private void Launch()
 	{
-		Rigidbody handRb = null;
-		Transform handSpawn = null;
-
-		if (leftHandButton == true && leftHandRb != null)
-		{
-			handRb = leftHandRb;
-			handSpawn = leftHandSpawn;
-		}
-
-		if (rightHandButton == true && rightHandRb != null)
-		{
-			handRb = rightHandRb;
-			handSpawn = rightHandSpawn;
-		}
-
 		if (handRb != null && handSpawn != null)
 		{
+			handRb.useGravity = true;
 			handRb.AddForce(handSpawn.forward * grenadeRange, ForceMode.Impulse);
 			handRb = null;
 		}
