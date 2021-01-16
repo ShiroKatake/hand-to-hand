@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 
-public class LobHandGrenade : MonoBehaviour
+/// <summary>
+/// A controller class for the player throwing their hand grenades.
+/// </summary>
+public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton<PlayerGrenadeThrowController>
 {
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 	
-	private bool leftHandButton;
-	private bool rightHandButton;
-
-	private Rigidbody handRb = null;
-	private Transform handSpawn = null;
-
 	//Serialized Fields----------------------------------------------------------------------------
 
 	[SerializeField] private float grenadeRange;
@@ -18,17 +15,32 @@ public class LobHandGrenade : MonoBehaviour
 	[SerializeField] private Rigidbody leftHandRb;
 	[SerializeField] private Rigidbody rightHandRb;
 
-	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+    //Non-Serialized Fields------------------------------------------------------------------------
+    private bool leftHandButton;
+    private bool rightHandButton;
 
-	private void Update()
+    private Rigidbody handRb = null;
+    private Transform handSpawn = null;
+
+    //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+    
+    /// <summary>
+    /// Update() is run every frame.
+    /// </summary>
+    private void Update()
 	{
 		GetInput();
 	}
 
+    /// <summary>
+    /// FixedUpdate() is run at a fixed interval independant of framerate.
+    /// </summary>
 	void FixedUpdate()
     {
 		Launch();
 	}
+
+    //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
 	/// <summary>
 	/// Gets the player's launching input.
@@ -57,6 +69,8 @@ public class LobHandGrenade : MonoBehaviour
 		}
 	}
 
+    //Recurring Methods (FixedUpdate())--------------------------------------------------------------------------------------------------------------
+
 	/// <summary>
 	/// Launch the grenade hand according to which button was pressed.
 	/// </summary>
@@ -69,6 +83,8 @@ public class LobHandGrenade : MonoBehaviour
 			handRb = null;
 		}
 	}
+
+    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
 	/// <summary>
 	/// Load up an arm if collided.
