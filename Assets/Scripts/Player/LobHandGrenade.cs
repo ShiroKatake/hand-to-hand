@@ -2,9 +2,7 @@
 
 public class LobHandGrenade : MonoBehaviour
 {
-	[SerializeField] private float grenadeRange;
-	[SerializeField] private Transform leftHandSpawn;
-	[SerializeField] private Transform rightHandSpawn;
+	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
 	private Rigidbody leftHandRb;
 	private Rigidbody rightHandRb;
@@ -12,18 +10,32 @@ public class LobHandGrenade : MonoBehaviour
 	private bool leftHandButton;
 	private bool rightHandButton;
 
-    void FixedUpdate()
+	//Serialized Fields----------------------------------------------------------------------------
+
+	[SerializeField] private float grenadeRange;
+	[SerializeField] private Transform leftHandSpawn;
+	[SerializeField] private Transform rightHandSpawn;
+	
+	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+
+	void FixedUpdate()
     {
 		GetInput();
 		Launch();
 	}
 
+	/// <summary>
+	/// Gets the player's launching input.
+	/// </summary>
 	private void GetInput()
 	{
 		leftHandButton = Input.GetButtonDown("Left Hand");
 		rightHandButton = Input.GetButtonDown("Right Hand");
 	}
 
+	/// <summary>
+	/// Launch the grenade hand according to which button was pressed.
+	/// </summary>
 	private void Launch()
 	{
 		Rigidbody handRb = null;
@@ -48,6 +60,10 @@ public class LobHandGrenade : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Load up an arm if collided.
+	/// </summary>
+	/// <param name="other">The object collided with.</param>
 	private void OnCollisionEnter(Collision other)
 	{
 		Hand hand = other.gameObject.GetComponent<Hand>();
