@@ -84,7 +84,7 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void FixedUpdate()
     {
-
+        
     }
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
@@ -99,8 +99,6 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
         jump = Input.GetButtonDown("Jump");
         lookLR = Input.GetAxis("Look LR");
         lookUD = Input.GetAxis("Look UD");
-
-        if (jump) Debug.Log($"Jump");
     }
 
     /// <summary>
