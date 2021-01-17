@@ -180,7 +180,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
             if (hands[hand.HandSide].Count > 0) DisableHand(hands[hand.HandSide][0]);
             hands[hand.HandSide].Insert(0, hand);
 
-            hand.Collider.enabled = false;
+            //hand.Collider.enabled = false;
             hand.Rigidbody.useGravity = false;
             hand.Rigidbody.isKinematic = true;
 
@@ -205,7 +205,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
             hands[hand.HandSide].Remove(hand);
             hand.gameObject.SetActive(true);
             hand.transform.parent = null;
-            hand.Collider.enabled = true;
+            //hand.Collider.enabled = true;
             hand.Rigidbody.useGravity = true;
             hand.Rigidbody.isKinematic = false;
         }

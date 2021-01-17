@@ -5,25 +5,34 @@
 /// </summary>
 public class Weapon : MonoBehaviour
 {
-    //Private Fields---------------------------------------------------------------------------------------------------------------------------------  
+    //Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
-    //Serialized Fields----------------------------------------------------------------------------                                                    
+    //Serialized Fields----------------------------------------------------------------------------
 
+    [Header("Hand")]
+    [SerializeField] private Transform fingertip;
 
+    [Header("Shooting Stats")]
+    [SerializeField] private EProjectileType projectileType;
+    [SerializeField] private float spreadAngle;
+    [SerializeField] private float maxElevation;
+    [SerializeField] private float shotForce;
+    [SerializeField] private float chargePerShot;
+    [SerializeField] private float shotCooldown;
 
-    //Non-Serialized Fields------------------------------------------------------------------------                                                    
+    [Header("Overheating Stats")]
+    [SerializeField] private float heatPerShot;
+    [SerializeField] private float coolingPerSecond;
+    [SerializeField] private float overheatingThreshold;
+    [SerializeField] private float overheatingCooldown;
 
-    
+    //Non-Serialized Fields------------------------------------------------------------------------
 
-    //Public Properties------------------------------------------------------------------------------------------------------------------------------
-
-    //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
-
-
-
-    //Complex Public Properties--------------------------------------------------------------------                                                    
-
-
+    private float timeOfLastShot;
+    private float timeOfLastOverheat;
+    private bool wantToShoot;
+    private float barrelHeat;
+    private bool overheated;
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -33,16 +42,10 @@ public class Weapon : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-
-    }
-
-    /// <summary>
-    /// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
-    /// Start() runs after Awake().
-    /// </summary>
-    private void Start()
-    {
-
+        timeOfLastShot = -1;
+        timeOfLastOverheat = -1;
+        barrelHeat = 0;
+        overheated = false;
     }
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -52,29 +55,63 @@ public class Weapon : MonoBehaviour
     /// </summary>
     private void Update()
     {
-
+        CheckOverheating();
     }
+
+    //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
-    /// FixedUpdate() is run at a fixed interval independant of framerate.
+    /// Checks if it's overheated and needs to cool down.
     /// </summary>
-    private void FixedUpdate()
+    private void CheckOverheating()
     {
+        if (overheated)
+        {
+            float timeSinceOverheat = Time.time - timeOfLastOverheat;
 
+            if (timeSinceOverheat > overheatingCooldown)
+            {
+                overheated = false;
+                barrelHeat = 0;
+            }
+        }
+        else
+        {
+            barrelHeat -= Mathf.Min(barrelHeat, coolingPerSecond * Time.fixedDeltaTime);
+        }
     }
-
-    //Recurring Methods (Update())------------------------------------------------------------------------------------------------------------------  
-
-
-
-    //Recurring Methods (FixedUpdate())--------------------------------------------------------------------------------------------------------------
-
-
-
-    //Recurring Methods (Other)----------------------------------------------------------------------------------------------------------------------
-
-
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Checks if the weapon is ready to shoot.
+    /// </summary>
+    /// <returns>Whether or not the weapon can shoot.</returns>
+    public bool ReadyToShoot()
+    {
+        return !overheated && Time.time - timeOfLastShot > shotCooldown;
+    }
+
+    /// <summary>
+    /// Fires a projectile from this weapon's fingertips.
+    /// </summary>
+    public void Shoot()
+    {
+        //Quaternion randomRotation = Random.rotation;
+        //Quaternion projectileRotation = Quaternion.RotateTowards(barrelTip.transform.rotation, randomRotation, spreadAngle);
+        Quaternion projectileRotation = Quaternion.RotateTowards(fingertip.transform.rotation, Random.rotation, spreadAngle);
+        //Debug.Log($"randomRotation is {randomRotation} (Quaternion) / {randomRotation.eulerAngles} (EulerAngles)");
+        //Debug.Log($"projectileRotation is {projectileRotation} (Quaternion) / {projectileRotation.eulerAngles} (EulerAngles)");
+        Projectile projectile = ProjectileFactory.Instance.Get(transform, fingertip.position, projectileRotation, projectileType);
+        projectile.Shoot(shotForce);
+        //Debug.Log($"{this}.Weapon.Shoot(), projectile is {projectile}");
+        timeOfLastShot = Time.time;
+        barrelHeat += heatPerShot;
+
+        if (barrelHeat > overheatingThreshold)
+        {
+            overheated = true;
+            timeOfLastOverheat = Time.time;
+        }
+    }
 }

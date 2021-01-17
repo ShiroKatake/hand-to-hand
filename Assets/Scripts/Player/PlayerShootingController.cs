@@ -4,46 +4,25 @@
 /// A controller class for the player shooting with their weapons.
 /// </summary>
 public class PlayerShootingController : PrivateInstanceSerializableSingleton<PlayerShootingController>
-{
+{    
     //Private Fields---------------------------------------------------------------------------------------------------------------------------------
-
-    //Serialized Fields----------------------------------------------------------------------------
-
-
 
     //Non-Serialized Fields------------------------------------------------------------------------
 
-
+    private bool canShoot = true;
+    private bool shootLeft;
+    private bool shootRight;
+    private bool tab;
+    private bool shift;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
-    //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
-
-
-
-    //Complex Public Properties--------------------------------------------------------------------                                                    
-
-
-
-    //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
+    //Basic Public Properties----------------------------------------------------------------------
 
     /// <summary>
-    /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
-    /// Awake() runs before Start().
+    /// Is the player is allowed to shoot?
     /// </summary>
-    protected override void Awake()
-    {
-        
-    }
-
-    /// <summary>
-    /// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
-    /// Start() runs after Awake().
-    /// </summary>
-    private void Start()
-    {
-
-    }
+    public bool CanShoot { get => canShoot; set => canShoot = value; }
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -52,26 +31,38 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void Update()
     {
-
-    }
-
-    /// <summary>
-    /// FixedUpdate() is run at a fixed interval independant of framerate.
-    /// </summary>
-	void FixedUpdate()
-    {
-
+        GetInput();
+        CheckShooting();
     }
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Gets the player's input from the keyboard and mouse / gamepad they're using.
+    /// </summary>
+    private void GetInput()
+    {
+        shift = Input.GetButton("Shift");
+        tab = Input.GetButton("Tab");
+        shootLeft = !shift && !tab && Input.GetButton("Left Hand");
+        shootRight = !shift && !tab && Input.GetButton("Right Hand");
+    }
 
+    /// <summary>
+    /// Checks if the player wants to and can shoot based on their input, and tells the appropriate weapon(s) to shoot if they do.
+    /// </summary>
+    private void CheckShooting()
+    {
+        if (shootLeft && ReadyToShoot(Player.Instance.HandController.LeftHand.Weapon))  Player.Instance.HandController.LeftHand.Weapon.Shoot();
+        if (shootRight && ReadyToShoot(Player.Instance.HandController.RightHand.Weapon)) Player.Instance.HandController.RightHand.Weapon.Shoot();
+    }
 
-    //Recurring Methods (FixedUpdate())--------------------------------------------------------------------------------------------------------------
-
-
-
-    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
-
-
+    /// <summary>
+    /// Checks if the player is ready to shoot.
+    /// </summary>
+    /// <returns>Whether or not the player can shoot.</returns>
+    private bool ReadyToShoot(Weapon weapon)
+    {
+        return canShoot && weapon != null && weapon.ReadyToShoot();
+    }
 }
