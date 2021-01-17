@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// A controller class for the player managing their hand grenades.
+/// A base class for hands as grenades.
 /// </summary>
-public class PlayerGrenadeController : PrivateInstanceSerializableSingleton<PlayerGrenadeController>
+public class Grenade : MonoBehaviour
 {
-    //Private Fields---------------------------------------------------------------------------------------------------------------------------------
+    //Private Fields---------------------------------------------------------------------------------------------------------------------------------  
 
-    //Serialized Fields----------------------------------------------------------------------------
+    //Serialized Fields----------------------------------------------------------------------------                                                    
 
 
 
-    //Non-Serialized Fields------------------------------------------------------------------------
+    //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
 
 
@@ -31,7 +31,7 @@ public class PlayerGrenadeController : PrivateInstanceSerializableSingleton<Play
     /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
     /// Awake() runs before Start().
     /// </summary>
-    protected override void Awake()
+    private void Awake()
     {
 
     }
@@ -51,27 +51,30 @@ public class PlayerGrenadeController : PrivateInstanceSerializableSingleton<Play
     /// Update() is run every frame.
     /// </summary>
     private void Update()
-	{
+    {
 
-	}
+    }
 
     /// <summary>
     /// FixedUpdate() is run at a fixed interval independant of framerate.
     /// </summary>
-	void FixedUpdate()
+    private void FixedUpdate()
     {
 
-	}
+    }
 
-    //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
+    //Recurring Methods (Update())------------------------------------------------------------------------------------------------------------------  
 
-	
+
 
     //Recurring Methods (FixedUpdate())--------------------------------------------------------------------------------------------------------------
 
 
 
-    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
+    //Recurring Methods (Other)----------------------------------------------------------------------------------------------------------------------
 
+
+
+    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
 }

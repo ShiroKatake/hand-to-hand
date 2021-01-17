@@ -11,10 +11,6 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 
 	[SerializeField] private float grenadeRange;
 	[SerializeField] private Transform playerCamera;
-	[SerializeField] private Transform leftHandSpawn;
-	[SerializeField] private Transform rightHandSpawn;
-	[SerializeField] private Hand leftHand;
-	[SerializeField] private Hand rightHand;
 
     //Non-Serialized Fields------------------------------------------------------------------------
     private bool leftHandButton;
@@ -30,12 +26,7 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	/// </summary> 
 	protected override void Awake()
 	{
-		base.Awake();
-		if (leftHand != null)
-			leftHand.Collider.enabled = false;
 
-		if (rightHand != null)
-			rightHand.Collider.enabled = false;
 	}
 
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -63,22 +54,23 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	/// </summary>
 	private void GetInput()
 	{
-		leftHandButton = Input.GetButtonDown("Left Hand");
-		rightHandButton = Input.GetButtonDown("Right Hand");
+        bool shift = Input.GetButtonDown("Shift");
+		leftHandButton = shift && Input.GetButtonDown("Left Hand");
+		rightHandButton = shift && Input.GetButtonDown("Right Hand");
 
 		if (hand == null)
 		{
-			if (leftHandButton == true && leftHand != null)
-			{
-				hand = leftHand;
-				leftHand = null;
-			}
-			if (rightHandButton == true && rightHand != null)
-			{
-				hand = rightHand;
-				rightHand = null;
-			}
-		}
+            if (leftHandButton == true && Player.Instance.HandController.LeftHand != null)
+            {
+                hand = Player.Instance.HandController.LeftHand;
+                Player.Instance.HandController.RemoveHand(hand);
+            }
+            else if (rightHandButton == true && Player.Instance.HandController.RightHand != null)
+            {
+                hand = Player.Instance.HandController.RightHand;
+                Player.Instance.HandController.RemoveHand(hand);
+            }
+        }
 	}
 
     //Recurring Methods (FixedUpdate())--------------------------------------------------------------------------------------------------------------
@@ -92,40 +84,6 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 		{
 			hand.Launch(playerCamera.forward, grenadeRange);
 			hand = null;
-		}
-	}
-
-    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
-
-	/// <summary>
-	/// Load up an arm if collided.
-	/// </summary>
-	/// <param name="other">The object collided with.</param>
-	private void OnCollisionEnter(Collision other)
-	{
-		if (!other.gameObject.CompareTag("Hand"))
-			return;
-
-		Hand hand = other.gameObject.GetComponent<Hand>();
-		if (hand != null)
-		{
-			switch (hand.HandSide)
-			{
-				case HandSide.Left:
-					leftHand = hand;
-					hand.transform.parent = leftHandSpawn;
-					break;
-				case HandSide.Right:
-					rightHand = hand;
-					hand.transform.parent = rightHandSpawn;
-					break;
-				default:
-					break;
-			}
-
-			hand.Collider.enabled = false;
-			hand.transform.position = Vector3.zero;
-			hand.transform.rotation = Quaternion.identity;
 		}
 	}
 }

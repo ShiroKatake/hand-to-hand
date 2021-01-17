@@ -772,7 +772,9 @@ GameObject:
   - component: {fileID: 8565084727536431737}
   - component: {fileID: 7801119950937802956}
   - component: {fileID: 2458941502633860550}
+  - component: {fileID: 990773593527778956}
   - component: {fileID: -6394452269363661891}
+  - component: {fileID: -7919403880966836139}
   m_Layer: 0
   m_Name: Left Arm
   m_TagString: Hand
@@ -845,6 +847,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &990773593527778956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519338295946396470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cee688edb3f5947940555c480e2169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-6394452269363661891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,7 +871,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3555b7ded029fdc438de1c75cc360cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handSide: 0
+  handSide: 1
+--- !u!114 &-7919403880966836139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6519338295946396470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ff7b41454bc0d409edbc7647571c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6665237064184884060
 GameObject:
   m_ObjectHideFlags: 0

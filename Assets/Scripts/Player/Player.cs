@@ -12,9 +12,8 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     //Non-Serialized Fields------------------------------------------------------------------------
 
     private PlayerMovementController movementController;
-    private PlayerGrenadeController grenadeController;
+    private PlayerHandController handController;
     private PlayerGrenadeThrowController grenadeThrowController;
-    private PlayerWeaponController weaponController;
     private PlayerShootingController shootingController;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
@@ -29,17 +28,12 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     /// <summary>
     /// The controller class for the player's hand grenades.
     /// </summary>
-    public PlayerGrenadeController GrenadeController { get => grenadeController; }
+    public PlayerHandController HandController { get => handController; }
 
     /// <summary>
     /// The controller class for the player throwing their hand grenades.
     /// </summary>
     public PlayerGrenadeThrowController GrenadeThrowController { get => grenadeThrowController; }
-
-    /// <summary>
-    /// The controller class for the player's weapons.
-    /// </summary>
-    public PlayerWeaponController WeaponController { get => weaponController; }
 
     /// <summary>
     /// The controller class for the player shooting with their current weapon.
@@ -55,9 +49,8 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     protected override void Awake()
     {
         movementController = GetComponent<PlayerMovementController>();
-        grenadeController = GetComponent<PlayerGrenadeController>();
+        handController = GetComponent<PlayerHandController>();
         grenadeThrowController = GetComponent<PlayerGrenadeThrowController>();
-        weaponController = GetComponent<PlayerWeaponController>();
         shootingController = GetComponent<PlayerShootingController>();
     }
 }
