@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!54 &89179123 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6960968407276614594, guid: 46756166d6e68754185c54dd33079d7f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2937806316651439915}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &538147710
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +396,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1929934112 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 103834858410632619, guid: 46756166d6e68754185c54dd33079d7f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2937806316651439915}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2937806316651439915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -402,6 +414,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6244589833954339922, guid: 46756166d6e68754185c54dd33079d7f,
+        type: 3}
+      propertyPath: leftHandRb
+      value: 
+      objectReference: {fileID: 1929934112}
+    - target: {fileID: 6244589833954339922, guid: 46756166d6e68754185c54dd33079d7f,
+        type: 3}
+      propertyPath: rightHandRb
+      value: 
+      objectReference: {fileID: 89179123}
     - target: {fileID: 6837882558463447872, guid: 46756166d6e68754185c54dd33079d7f,
         type: 3}
       propertyPath: m_RootOrder

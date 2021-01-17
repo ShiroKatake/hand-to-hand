@@ -26,10 +26,16 @@ public class Hand : MonoBehaviour
 	private Rigidbody rb;
     private Grenade grenade;
     private Weapon weapon;
+	private Collider handCollider;
 
-	//Public Properties------------------------------------------------------------------------------------------------------------------------------
+    //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
     //Basic Public Properties----------------------------------------------------------------------
+
+    /// <summary>
+    /// The hand's collider component.
+    /// </summary>
+    public Collider Collider { get => handCollider; }
 
     /// <summary>
     /// This hand's grenade component.
@@ -53,14 +59,28 @@ public class Hand : MonoBehaviour
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
-    /// Awake() runs before Start().
-    /// </summary>
-    private void Awake()
+	/// <summary>
+	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+	/// Awake() runs before Start().
+	/// </summary>
+	private void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
         grenade = GetComponent<Grenade>();
         weapon = GetComponent<Weapon>();
+		handCollider = GetComponent<Collider>();
+	}
+
+    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Launch the grenade hand.
+	/// </summary>
+	public void Launch(Vector3 direction, float range)
+	{
+		handCollider.enabled = true;
+		rb.useGravity = true;
+		rb.AddForce(direction * range, ForceMode.Impulse);
+		transform.parent = null;
 	}
 }

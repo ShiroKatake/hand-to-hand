@@ -13,21 +13,37 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	[SerializeField] private Transform playerCamera;
 	[SerializeField] private Transform leftHandSpawn;
 	[SerializeField] private Transform rightHandSpawn;
-	[SerializeField] private Rigidbody leftHandRb;
-	[SerializeField] private Rigidbody rightHandRb;
+	[SerializeField] private Hand leftHand;
+	[SerializeField] private Hand rightHand;
 
     //Non-Serialized Fields------------------------------------------------------------------------
     private bool leftHandButton;
     private bool rightHandButton;
 
-    private Rigidbody handRb = null;
+    private Hand hand = null;
 
-    //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
-    
-    /// <summary>
-    /// Update() is run every frame.
-    /// </summary>
-    private void Update()
+	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+	/// Awake() runs before Start().
+	/// </summary> 
+	protected override void Awake()
+	{
+		base.Awake();
+		if (leftHand != null)
+			leftHand.Collider.enabled = false;
+
+		if (rightHand != null)
+			rightHand.Collider.enabled = false;
+	}
+
+	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Update() is run every frame.
+	/// </summary>
+	private void Update()
 	{
 		GetInput();
 	}
@@ -50,19 +66,17 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 		leftHandButton = Input.GetButtonDown("Left Hand");
 		rightHandButton = Input.GetButtonDown("Right Hand");
 
-		if (handRb == null)
+		if (hand == null)
 		{
-			if (leftHandButton == true && leftHandRb != null)
+			if (leftHandButton == true && leftHand != null)
 			{
-				Debug.Log("left");
-				handRb = leftHandRb;
-				leftHandRb = null;
+				hand = leftHand;
+				leftHand = null;
 			}
-			if (rightHandButton == true && rightHandRb != null)
+			if (rightHandButton == true && rightHand != null)
 			{
-				Debug.Log("right");
-				handRb = rightHandRb;
-				rightHandRb = null;
+				hand = rightHand;
+				rightHand = null;
 			}
 		}
 	}
@@ -74,12 +88,10 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	/// </summary>
 	private void Launch()
 	{
-		if (handRb != null)
+		if (hand != null)
 		{
-			handRb.useGravity = true;
-			handRb.AddForce(playerCamera.forward * grenadeRange, ForceMode.Impulse);
-			handRb.transform.parent = null;
-			handRb = null;
+			hand.Launch(playerCamera.forward, grenadeRange);
+			hand = null;
 		}
 	}
 
@@ -100,17 +112,18 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 			switch (hand.HandSide)
 			{
 				case HandSide.Left:
-					leftHandRb = hand.Rigidbody;
+					leftHand = hand;
 					hand.transform.parent = leftHandSpawn;
 					break;
 				case HandSide.Right:
-					rightHandRb = hand.Rigidbody;
+					rightHand = hand;
 					hand.transform.parent = rightHandSpawn;
 					break;
 				default:
 					break;
 			}
 
+			hand.Collider.enabled = false;
 			hand.transform.position = Vector3.zero;
 			hand.transform.rotation = Quaternion.identity;
 		}
