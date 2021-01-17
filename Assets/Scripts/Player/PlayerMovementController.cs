@@ -64,8 +64,8 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void Start()
     {
-
-    }
+		Cursor.lockState = CursorLockMode.Locked;
+	}
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
 
