@@ -91,6 +91,9 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	/// <param name="other">The object collided with.</param>
 	private void OnCollisionEnter(Collision other)
 	{
+		if (!other.gameObject.CompareTag("Hand"))
+			return;
+
 		Hand hand = other.gameObject.GetComponent<Hand>();
 		if (hand != null)
 		{
