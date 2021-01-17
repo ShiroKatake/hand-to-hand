@@ -63,8 +63,9 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	/// </summary>
 	private void GetInput()
 	{
-		leftHandButton = Input.GetButtonDown("Left Hand");
-		rightHandButton = Input.GetButtonDown("Right Hand");
+        bool shift = Input.GetButtonDown("Shift");
+		leftHandButton = shift && Input.GetButtonDown("Left Hand");
+		rightHandButton = shift && Input.GetButtonDown("Right Hand");
 
 		if (hand == null)
 		{
