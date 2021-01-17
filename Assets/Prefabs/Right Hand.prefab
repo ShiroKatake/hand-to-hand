@@ -90,7 +90,9 @@ GameObject:
   - component: {fileID: 8346435330877509122}
   - component: {fileID: 5691093250104225286}
   - component: {fileID: 2468977310740524724}
+  - component: {fileID: 4369953373060388034}
   - component: {fileID: 290593067573838471}
+  - component: {fileID: 7532790900641131350}
   m_Layer: 0
   m_Name: Right Hand
   m_TagString: Hand
@@ -142,6 +144,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4369953373060388034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970036003800361863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cee688edb3f5947940555c480e2169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &290593067573838471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,4 +168,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3555b7ded029fdc438de1c75cc360cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handSide: 1
+  handSide: 2
+--- !u!114 &7532790900641131350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970036003800361863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ff7b41454bc0d409edbc7647571c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

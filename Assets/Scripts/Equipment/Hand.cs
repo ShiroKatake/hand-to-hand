@@ -11,7 +11,7 @@ public enum HandSide
 }
 
 /// <summary>
-/// 
+/// A base class for hands.
 /// </summary>
 public class Hand : MonoBehaviour
 {
@@ -24,10 +24,17 @@ public class Hand : MonoBehaviour
     //Non-Serialized Fields------------------------------------------------------------------------
 
 	private Rigidbody rb;
+    private Grenade grenade;
+    private Weapon weapon;
 
 	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
     //Basic Public Properties----------------------------------------------------------------------
+
+    /// <summary>
+    /// This hand's grenade component.
+    /// </summary>
+    public Grenade Grenade { get => grenade; }
 
     /// <summary>
     /// Which side is this hand on?
@@ -39,6 +46,11 @@ public class Hand : MonoBehaviour
     /// </summary>
 	public Rigidbody Rigidbody { get => rb; }
 
+    /// <summary>
+    /// This hand's weapon component.
+    /// </summary>
+    public Weapon Weapon { get => weapon; }
+
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -48,5 +60,7 @@ public class Hand : MonoBehaviour
     private void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
+        grenade = GetComponent<Grenade>();
+        weapon = GetComponent<Weapon>();
 	}
 }

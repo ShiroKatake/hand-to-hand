@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// A base class for weapons.
+/// A base class for hands as weapons.
 /// </summary>
 public class Weapon : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
 
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
-
+    
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 

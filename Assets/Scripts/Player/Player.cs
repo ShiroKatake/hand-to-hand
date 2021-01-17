@@ -12,7 +12,7 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     //Non-Serialized Fields------------------------------------------------------------------------
 
     private PlayerMovementController movementController;
-    private PlayerGrenadeController grenadeController;
+    private PlayerHandController grenadeController;
     private PlayerGrenadeThrowController grenadeThrowController;
     private PlayerWeaponController weaponController;
     private PlayerShootingController shootingController;
@@ -29,7 +29,7 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     /// <summary>
     /// The controller class for the player's hand grenades.
     /// </summary>
-    public PlayerGrenadeController GrenadeController { get => grenadeController; }
+    public PlayerHandController GrenadeController { get => grenadeController; }
 
     /// <summary>
     /// The controller class for the player throwing their hand grenades.
@@ -55,7 +55,7 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     protected override void Awake()
     {
         movementController = GetComponent<PlayerMovementController>();
-        grenadeController = GetComponent<PlayerGrenadeController>();
+        grenadeController = GetComponent<PlayerHandController>();
         grenadeThrowController = GetComponent<PlayerGrenadeThrowController>();
         weaponController = GetComponent<PlayerWeaponController>();
         shootingController = GetComponent<PlayerShootingController>();
