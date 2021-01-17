@@ -10,6 +10,7 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	//Serialized Fields----------------------------------------------------------------------------
 
 	[SerializeField] private float grenadeRange;
+	[SerializeField] private Transform playerCamera;
 	[SerializeField] private Transform leftHandSpawn;
 	[SerializeField] private Transform rightHandSpawn;
 	[SerializeField] private Rigidbody leftHandRb;
@@ -20,7 +21,6 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
     private bool rightHandButton;
 
     private Rigidbody handRb = null;
-    private Transform handSpawn = null;
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
     
@@ -56,14 +56,12 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 			{
 				Debug.Log("left");
 				handRb = leftHandRb;
-				handSpawn = leftHandSpawn;
 				leftHandRb = null;
 			}
 			if (rightHandButton == true && rightHandRb != null)
 			{
 				Debug.Log("right");
 				handRb = rightHandRb;
-				handSpawn = rightHandSpawn;
 				rightHandRb = null;
 			}
 		}
@@ -76,10 +74,11 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	/// </summary>
 	private void Launch()
 	{
-		if (handRb != null && handSpawn != null)
+		if (handRb != null)
 		{
 			handRb.useGravity = true;
-			handRb.AddForce(handSpawn.forward * grenadeRange, ForceMode.Impulse);
+			handRb.AddForce(playerCamera.forward * grenadeRange, ForceMode.Impulse);
+			handRb.transform.parent = null;
 			handRb = null;
 		}
 	}
