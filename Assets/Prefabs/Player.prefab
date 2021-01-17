@@ -196,8 +196,8 @@ MonoBehaviour:
   playerCamera: {fileID: 1296430010}
   leftHandSpawn: {fileID: 7861368637507969686}
   rightHandSpawn: {fileID: 8877553970336628051}
-  leftHandRb: {fileID: 103834858410632619}
-  rightHandRb: {fileID: 6960968407276614594}
+  leftHand: {fileID: 300994118728403920}
+  rightHand: {fileID: 5103043403108474865}
 --- !u!114 &6416827675035908714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lookSpeed: 7.5
+  lookSpeed: 15
   minYAxis: -45
   maxYAxis: 45
   invertYAxis: 0
@@ -333,6 +333,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7861368637507969686}
     m_Modifications:
+    - target: {fileID: -6394452269363661891, guid: 32f2613392e04dd438b9f30793df50d2,
+        type: 3}
+      propertyPath: handSide
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3235847227196600190, guid: 32f2613392e04dd438b9f30793df50d2,
         type: 3}
       propertyPath: m_RootOrder
@@ -401,12 +406,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2553276024287311981}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &103834858410632619 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 2458941502633860550, guid: 32f2613392e04dd438b9f30793df50d2,
+--- !u!114 &300994118728403920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -6394452269363661891, guid: 32f2613392e04dd438b9f30793df50d2,
     type: 3}
   m_PrefabInstance: {fileID: 2553276024287311981}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3555b7ded029fdc438de1c75cc360cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4817094765671636342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,6 +425,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8877553970336628051}
     m_Modifications:
+    - target: {fileID: 290593067573838471, guid: 086e25b1e7bed784eaedb5ee78d9810b,
+        type: 3}
+      propertyPath: handSide
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6970036003800361863, guid: 086e25b1e7bed784eaedb5ee78d9810b,
         type: 3}
       propertyPath: m_Name
@@ -482,9 +498,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4817094765671636342}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &6960968407276614594 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 2468977310740524724, guid: 086e25b1e7bed784eaedb5ee78d9810b,
+--- !u!114 &5103043403108474865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 290593067573838471, guid: 086e25b1e7bed784eaedb5ee78d9810b,
     type: 3}
   m_PrefabInstance: {fileID: 4817094765671636342}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3555b7ded029fdc438de1c75cc360cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
