@@ -24,6 +24,7 @@ public class Hand : MonoBehaviour
     //Non-Serialized Fields------------------------------------------------------------------------
 
 	private Rigidbody rb;
+	private Collider handCollider;
 
 	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -38,15 +39,25 @@ public class Hand : MonoBehaviour
     /// This hand's rigidbody component
     /// </summary>
 	public Rigidbody Rigidbody { get => rb; }
+	public Collider Collider { get => handCollider; }
 
-    //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
+	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
-    /// Awake() runs before Start().
-    /// </summary>
-    private void Awake()
+	/// <summary>
+	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+	/// Awake() runs before Start().
+	/// </summary>
+	private void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
+		handCollider = GetComponent<Collider>();
+	}
+
+	public void Launch(Vector3 direction, float range)
+	{
+		handCollider.enabled = true;
+		rb.useGravity = true;
+		rb.AddForce(direction * range, ForceMode.Impulse);
+		transform.parent = null;
 	}
 }
