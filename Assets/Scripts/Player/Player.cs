@@ -48,6 +48,7 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     /// </summary>
     protected override void Awake()
     {
+        base.Awake();
         movementController = GetComponent<PlayerMovementController>();
         handController = GetComponent<PlayerHandController>();
         grenadeThrowController = GetComponent<PlayerGrenadeThrowController>();

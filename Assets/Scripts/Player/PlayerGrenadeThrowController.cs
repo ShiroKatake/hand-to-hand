@@ -13,8 +13,9 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	[SerializeField] private Transform playerCamera;
 
     //Non-Serialized Fields------------------------------------------------------------------------
-    private bool leftHandButton;
-    private bool rightHandButton;
+    private bool throwLeft;
+    private bool throwRight;
+    private bool shift;
 
     private Hand hand = null;
 
@@ -53,23 +54,15 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	/// Gets the player's launching input.
 	/// </summary>
 	private void GetInput()
-	{
-        bool shift = Input.GetButtonDown("Shift");
-		leftHandButton = shift && Input.GetButtonDown("Left Hand");
-		rightHandButton = shift && Input.GetButtonDown("Right Hand");
-
+	{      
 		if (hand == null)
 		{
-            if (leftHandButton == true && Player.Instance.HandController.LeftHand != null)
-            {
-                hand = Player.Instance.HandController.LeftHand;
-                Player.Instance.HandController.RemoveHand(hand);
-            }
-            else if (rightHandButton == true && Player.Instance.HandController.RightHand != null)
-            {
-                hand = Player.Instance.HandController.RightHand;
-                Player.Instance.HandController.RemoveHand(hand);
-            }
+            shift = Input.GetButton("Shift");
+            throwLeft = shift && Input.GetButtonDown("Left Hand");
+            throwRight = shift && Input.GetButtonDown("Right Hand");
+
+            if (throwLeft && Player.Instance.HandController.LeftHand != null) hand = Player.Instance.HandController.LeftHand;
+            else if (throwRight && Player.Instance.HandController.RightHand != null) hand = Player.Instance.HandController.RightHand;
         }
 	}
 
@@ -82,7 +75,8 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	{
 		if (hand != null)
 		{
-			hand.Launch(playerCamera.forward, grenadeRange);
+            Player.Instance.HandController.RemoveHand(hand);
+            hand.Launch(playerCamera.forward, grenadeRange);
 			hand = null;
 		}
 	}

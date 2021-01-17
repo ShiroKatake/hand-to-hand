@@ -14,10 +14,12 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     [SerializeField] private List<Hand> handsOnAwake;
     [SerializeField] private Transform leftHandSpawn;
     [SerializeField] private Transform rightHandSpawn;
+    [SerializeField] private Transform handPool;
 
     //Non-Serialized Fields------------------------------------------------------------------------
 
     private Dictionary<HandSide, List<Hand>> hands;
+    private bool tab;
     private bool swapLeft;
     private bool swapRight;
 
@@ -32,7 +34,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <summary>
     /// The currently equipped left hand.
     /// </summary>
-    public Hand LeftHand { get => hands[HandSide.Left].Count > 0 ? hands[HandSide.Left][0] : null; }
+    public Hand LeftHand { get => (hands[HandSide.Left].Count > 0 ? hands[HandSide.Left][0] : null); }
 
     /// <summary>
     /// The transform the left hand gets childed to.
@@ -42,7 +44,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <summary>
     /// The currently equipped right hand.
     /// </summary>
-    public Hand RightHand { get => hands[HandSide.Right].Count > 0 ? hands[HandSide.Right][0] : null; }
+    public Hand RightHand { get => (hands[HandSide.Right].Count > 0 ? hands[HandSide.Right][0] : null); }
 
     /// <summary>
     /// The transformt he right hand gets childed to.
@@ -60,7 +62,18 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         base.Awake();
         hands = new Dictionary<HandSide, List<Hand>>();
         hands[HandSide.Left] = new List<Hand>();
-        hands[HandSide.Right] = new List<Hand>();        
+        hands[HandSide.Right] = new List<Hand>();
+
+        if (handsOnAwake != null && handsOnAwake.Count > 0)
+        {
+            foreach (Hand h in handsOnAwake)
+            {
+                if (!h.HasGottenComponents) h.GetComponents();
+                AddHand(h);
+                h.gameObject.SetActive(false);
+                //Hand pooling-ish. Hands not in use go in the pool, active hand is unpooled.
+            }
+        }
     }
 
     /// <summary>
@@ -69,18 +82,8 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// </summary>
     private void Start()
     {
-        if (handsOnAwake != null && handsOnAwake.Count > 0)
-        {
-            foreach (Hand h in handsOnAwake)
-            {
-                hands[h.HandSide].Add(h);
-                h.Collider.enabled = false;
-                DisableHand(h);
-            }
-        }
-
-        if (hands[HandSide.Left].Count > 0) EnableHand(hands[HandSide.Left][0]);
-        if (hands[HandSide.Right].Count > 0) EnableHand(hands[HandSide.Right][0]);
+        if (hands[HandSide.Left].Count > 0) hands[HandSide.Left][0].gameObject.SetActive(true);
+        if (hands[HandSide.Right].Count > 0) hands[HandSide.Right][0].gameObject.SetActive(true);
     }
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -89,16 +92,16 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// Update() is run every frame.
     /// </summary>
     private void Update()
-	{
+    {
         GetInput();
         UpdateHands();
-	}
+    }
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
     private void GetInput()
     {
-        bool tab = Input.GetButtonDown("Tab");
+        tab = Input.GetButton("Tab");
         swapLeft = tab && Input.GetButtonDown("Left Hand");
         swapRight = tab && Input.GetButtonDown("Right Hand");
     }
@@ -136,7 +139,11 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <param name="hand">The hand to be enabled.</param>
     private void EnableHand(Hand hand)
     {
+        hand.gameObject.SetActive(true);
         hand.MeshRenderer.enabled = true;
+        hand.transform.parent = (hand.HandSide == HandSide.Left ? leftHandSpawn : rightHandSpawn);
+        hand.transform.localPosition = Vector3.zero;
+        hand.transform.localRotation = Quaternion.identity;
     }
 
     /// <summary>
@@ -145,7 +152,10 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <param name="hand">The hand to be disabled.</param>
     private void DisableHand(Hand hand)
     {
+        hand.transform.parent = handPool;
         hand.MeshRenderer.enabled = false;
+        hand.transform.localPosition = Vector3.zero;
+        hand.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -160,15 +170,44 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     }
 
     /// <summary>
-    /// Removes a hand from the list of left/right hands.
+    /// Adds a hand to the player.
+    /// </summary>
+    /// <param name="hand">The hand to add.</param>
+    private void AddHand(Hand hand)
+    {
+        if (!hands[hand.HandSide].Contains(hand))
+        {
+            if (hands[hand.HandSide].Count > 0) DisableHand(hands[hand.HandSide][0]);
+            hands[hand.HandSide].Insert(0, hand);
+
+            hand.Collider.enabled = false;
+            hand.Rigidbody.useGravity = false;
+            hand.Rigidbody.isKinematic = true;
+
+            hand.transform.parent = (hand.HandSide == HandSide.Left ? leftHandSpawn : rightHandSpawn);
+
+            hand.Rigidbody.velocity = Vector3.zero;
+            hand.Rigidbody.angularVelocity = Vector3.zero;
+            hand.transform.localPosition = Vector3.zero;
+            hand.transform.localRotation = Quaternion.identity;
+        }
+    }
+
+    /// <summary>
+    /// Removes a hand from the player.
     /// </summary>
     /// <param name="hand">The hand to remove.</param>
     public void RemoveHand(Hand hand)
     {
         if (hands[hand.HandSide].Contains(hand))
         {
-            if (hands[hand.HandSide][0] == hand) EnableHand(hands[hand.HandSide][1]);
+            if (hands[hand.HandSide][0] == hand && hands[hand.HandSide].Count > 1) EnableHand(hands[hand.HandSide][1]);
             hands[hand.HandSide].Remove(hand);
+            hand.gameObject.SetActive(true);
+            hand.transform.parent = null;
+            hand.Collider.enabled = true;
+            hand.Rigidbody.useGravity = true;
+            hand.Rigidbody.isKinematic = false;
         }
     }
 
@@ -182,15 +221,6 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         if (!other.gameObject.CompareTag("Hand")) return;
 
         Hand hand = other.gameObject.GetComponent<Hand>();
-
-        if (hand != null)
-        {
-            if (hands[hand.HandSide].Count > 0) DisableHand(hands[hand.HandSide][0]);
-            hands[hand.HandSide].Insert(0, hand);
-            hand.transform.parent = (hand.HandSide == HandSide.Left ? leftHandSpawn : rightHandSpawn);
-            hand.Collider.enabled = false;
-            hand.transform.position = Vector3.zero;
-            hand.transform.rotation = Quaternion.identity;
-        }
+        if (hand != null) AddHand(hand);
     }
 }

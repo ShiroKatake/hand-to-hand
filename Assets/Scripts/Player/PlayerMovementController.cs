@@ -54,6 +54,7 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     protected override void Awake()
     {
+        base.Awake();
         characterController = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
     }
