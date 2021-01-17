@@ -53,6 +53,9 @@ public class Hand : MonoBehaviour
 		handCollider = GetComponent<Collider>();
 	}
 
+	/// <summary>
+	/// Launch the grenade hand.
+	/// </summary>
 	public void Launch(Vector3 direction, float range)
 	{
 		handCollider.enabled = true;
