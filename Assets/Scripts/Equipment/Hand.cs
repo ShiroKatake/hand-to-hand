@@ -27,6 +27,7 @@ public class Hand : MonoBehaviour
     private Grenade grenade;
     private Weapon weapon;
 	private Collider handCollider;
+    private MeshRenderer meshRenderer;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -46,6 +47,11 @@ public class Hand : MonoBehaviour
     /// Which side is this hand on?
     /// </summary>
 	public HandSide HandSide { get => handSide; }
+
+    /// <summary>
+    /// The hand's mesh renderer component.
+    /// </summary>
+    public MeshRenderer MeshRenderer { get => meshRenderer; }
 
     /// <summary>
     /// This hand's rigidbody component
@@ -69,6 +75,7 @@ public class Hand : MonoBehaviour
         grenade = GetComponent<Grenade>();
         weapon = GetComponent<Weapon>();
 		handCollider = GetComponent<Collider>();
+		meshRenderer = GetComponentInChildren<MeshRenderer>();
 	}
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------

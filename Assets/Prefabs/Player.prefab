@@ -181,10 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadeRange: 5
   playerCamera: {fileID: 1296430010}
-  leftHandSpawn: {fileID: 7861368637507969686}
-  rightHandSpawn: {fileID: 8877553970336628051}
-  leftHand: {fileID: 300994118728403920}
-  rightHand: {fileID: 5103043403108474865}
 --- !u!114 &3255609256773630328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa70b57202c3d741a96c645d60a6c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handsOnAwake:
+  - {fileID: 300994118728403920}
+  - {fileID: 5103043403108474865}
+  leftHandSpawn: {fileID: 7861368637507969686}
+  rightHandSpawn: {fileID: 8877553970336628051}
 --- !u!114 &6416827675035908714
 MonoBehaviour:
   m_ObjectHideFlags: 0

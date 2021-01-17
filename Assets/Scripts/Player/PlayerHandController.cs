@@ -11,14 +11,15 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
     //Serialized Fields----------------------------------------------------------------------------
 
-
+    [SerializeField] private List<Hand> handsOnAwake;
+    [SerializeField] private Transform leftHandSpawn;
+    [SerializeField] private Transform rightHandSpawn;
 
     //Non-Serialized Fields------------------------------------------------------------------------
 
     private Dictionary<HandSide, List<Hand>> hands;
     private bool swapLeft;
     private bool swapRight;
-    private bool pickUpHand;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -34,9 +35,19 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     public Hand LeftHand { get => hands[HandSide.Left].Count > 0 ? hands[HandSide.Left][0] : null; }
 
     /// <summary>
+    /// The transform the left hand gets childed to.
+    /// </summary>
+    public Transform LeftHandSpawn { get => leftHandSpawn; }
+
+    /// <summary>
     /// The currently equipped right hand.
     /// </summary>
     public Hand RightHand { get => hands[HandSide.Right].Count > 0 ? hands[HandSide.Right][0] : null; }
+
+    /// <summary>
+    /// The transformt he right hand gets childed to.
+    /// </summary>
+    public Transform RightHandSpawn { get => rightHandSpawn; }
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -46,7 +57,10 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// </summary>
     protected override void Awake()
     {
-        
+        base.Awake();
+        hands = new Dictionary<HandSide, List<Hand>>();
+        hands[HandSide.Left] = new List<Hand>();
+        hands[HandSide.Right] = new List<Hand>();        
     }
 
     /// <summary>
@@ -55,7 +69,18 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// </summary>
     private void Start()
     {
+        if (handsOnAwake != null && handsOnAwake.Count > 0)
+        {
+            foreach (Hand h in handsOnAwake)
+            {
+                hands[h.HandSide].Add(h);
+                h.Collider.enabled = false;
+                DisableHand(h);
+            }
+        }
 
+        if (hands[HandSide.Left].Count > 0) EnableHand(hands[HandSide.Left][0]);
+        if (hands[HandSide.Right].Count > 0) EnableHand(hands[HandSide.Right][0]);
     }
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -69,14 +94,6 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         UpdateHands();
 	}
 
- //   /// <summary>
- //   /// FixedUpdate() is run at a fixed interval independant of framerate.
- //   /// </summary>
-	//void FixedUpdate()
- //   {
-
-	//}
-
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
     private void GetInput()
@@ -84,7 +101,6 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         bool tab = Input.GetButtonDown("Tab");
         swapLeft = tab && Input.GetButtonDown("Left Hand");
         swapRight = tab && Input.GetButtonDown("Right Hand");
-        pickUpHand = Input.GetButtonDown("Pick Up");
     }
 
     //Recurring Methods (FixedUpdate())--------------------------------------------------------------------------------------------------------------
@@ -96,7 +112,6 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     {
         if (swapLeft) SwapHands(HandSide.Left);
         if (swapRight) SwapHands(HandSide.Right);
-        if (pickUpHand) PickUpHand();
     }
 
     /// <summary>
@@ -107,19 +122,10 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     {
         if (hands[side].Count > 1)
         {
-            Debug.Log("PlayerHandController.SwapHands(), EnableHand() and DisableHand() aren't implemented yet, so not running ReQueueHand() yet either.");
-            //ReQueueHand(side);
+            ReQueueHand(side);
             DisableHand(hands[side][hands[side].Count - 1]);
             EnableHand(hands[side][0]);
         }
-    }
-
-    /// <summary>
-    /// Check if the player can pick up a hand, then picks up the hand and adds it to hands.
-    /// </summary>
-    private void PickUpHand()
-    {
-        Debug.Log($"PlayerHandController.PickUpHand() has not been implemented yet.");
     }
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
@@ -130,7 +136,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <param name="hand">The hand to be enabled.</param>
     private void EnableHand(Hand hand)
     {
-        Debug.Log($"PlayerHandController.EnableHand() has not been implemented yet.");
+        hand.MeshRenderer.enabled = true;
     }
 
     /// <summary>
@@ -139,7 +145,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <param name="hand">The hand to be disabled.</param>
     private void DisableHand(Hand hand)
     {
-        Debug.Log($"PlayerHandController.DisableHand() has not been implemented yet.");
+        hand.MeshRenderer.enabled = false;
     }
 
     /// <summary>
@@ -163,6 +169,28 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         {
             if (hands[hand.HandSide][0] == hand) EnableHand(hands[hand.HandSide][1]);
             hands[hand.HandSide].Remove(hand);
+        }
+    }
+
+    /// <summary>
+	/// Load up a hand if collided.
+	/// </summary>
+	/// <param name="other">The object collided with.</param>
+	private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log($"Collision with {other.collider}");
+        if (!other.gameObject.CompareTag("Hand")) return;
+
+        Hand hand = other.gameObject.GetComponent<Hand>();
+
+        if (hand != null)
+        {
+            if (hands[hand.HandSide].Count > 0) DisableHand(hands[hand.HandSide][0]);
+            hands[hand.HandSide].Insert(0, hand);
+            hand.transform.parent = (hand.HandSide == HandSide.Left ? leftHandSpawn : rightHandSpawn);
+            hand.Collider.enabled = false;
+            hand.transform.position = Vector3.zero;
+            hand.transform.rotation = Quaternion.identity;
         }
     }
 }
