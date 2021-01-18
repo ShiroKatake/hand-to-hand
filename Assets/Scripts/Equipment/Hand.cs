@@ -29,6 +29,7 @@ public class Hand : MonoBehaviour
     private Weapon weapon;
 	private Collider handCollider;
     private MeshRenderer meshRenderer;
+    private WeaponStats stats;
 
     //Other
     bool hasGottenComponents;
@@ -40,7 +41,7 @@ public class Hand : MonoBehaviour
     /// <summary>
     /// How much charge does the hand's battery have left out of 100?
     /// </summary>
-    public float BatteryCharge { get => weapon.CurrentAmmo * 100 / weapon.MaxAmmo; }
+    public float BatteryCharge { get => stats.CurrentAmmo * 100 / stats.MaxAmmo; }
 
     /// <summary>
     /// The hand's collider component.
@@ -73,6 +74,11 @@ public class Hand : MonoBehaviour
 	public Rigidbody Rigidbody { get => rb; }
 
     /// <summary>
+    /// This hand's weapon stats component.
+    /// </summary>
+    public WeaponStats Stats { get => stats; }
+
+    /// <summary>
     /// This hand's weapon component.
     /// </summary>
     public Weapon Weapon { get => weapon; }
@@ -96,6 +102,7 @@ public class Hand : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         grenade = GetComponent<Grenade>();
         weapon = GetComponent<Weapon>();
+        stats = GetComponent<WeaponStats>();
         handCollider = GetComponent<Collider>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }

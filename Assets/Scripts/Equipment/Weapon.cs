@@ -1,19 +1,7 @@
 ﻿using UnityEngine;
 
-
 /// <summary>
-/// An enum denoting different firing patterns for weapons.
-/// </summary>
-public enum EWeaponClass
-{
-    Manual,
-    BurstManual,
-    BurstAutomatic,
-    FullyAutomatic
-}
-
-/// <summary>
-/// A base class for weapons.
+/// A base class for the logic for weapons.
 /// </summary>
 public class Weapon : MonoBehaviour
 {
@@ -21,64 +9,20 @@ public class Weapon : MonoBehaviour
 
     //Serialized Fields----------------------------------------------------------------------------
 
-    [Header("Weapon")]
     [SerializeField] private Transform barrelTip;
 
-    [Header("Shooting Stats")]
-    [SerializeField] private EWeaponClass weaponClass;
-    [SerializeField] private EProjectileType projectileType;
-    [SerializeField] private float maxAmmo;
-    [SerializeField] private float pelletsPerShot;
-    [SerializeField] private float spreadAngle;
-    [SerializeField] private float maxElevation;
-    [SerializeField] private float shotForce;
-    [SerializeField] private float shotCooldown;
+    //Non-Serialized Fields--------------------------------------------------------------------
 
-    [Header("Overheating Stats")]
-    [SerializeField] private float heatPerShot;
-    [SerializeField] private float coolingPerSecond;
-    [SerializeField] private float overheatingThreshold;
-    [SerializeField] private float overheatingCooldown;
-
-    //Non-Serialized Fields------------------------------------------------------------------------
-
-    private float currentAmmo;
-    private float timeOfLastShot;
-    private float timeOfLastTriggerRelease;
-    private float timeOfLastOverheat;
-    private bool wantToShoot;
-    private float barrelHeat;
-    private bool overheated;
+    private WeaponStats stats;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
     //Basic Public Properties----------------------------------------------------------------------
 
     /// <summary>
-    /// How much ammunition does this weapon have left?
+    /// The stats of the currently equipped weapon.
     /// </summary>
-    public float CurrentAmmo { get => currentAmmo; }
-
-    /// <summary>
-    /// What's the maximum amount of ammunition this weapon can have?
-    /// </summary>
-    public float MaxAmmo { get => maxAmmo; }
-
-    //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
-
-    /// <summary>
-    /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
-    /// Awake() runs before Start().
-    /// </summary>
-    private void Awake()
-    {
-        timeOfLastShot = -1;
-        timeOfLastTriggerRelease = -1;
-        timeOfLastOverheat = -1;
-        barrelHeat = 0;
-        overheated = false;
-        currentAmmo = maxAmmo;
-    }
+    public WeaponStats CurrentStats { get => stats; set => stats = value; }
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -87,7 +31,7 @@ public class Weapon : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        CheckOverheating();
+        if (stats != null) CheckOverheating();
     }
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
@@ -97,17 +41,17 @@ public class Weapon : MonoBehaviour
     /// </summary>
     private void CheckOverheating()
     {
-        if (overheated)
+        if (stats.Overheated)
         {
-            if (Time.time - timeOfLastOverheat > overheatingCooldown)
+            if (Time.time - stats.TimeOfLastOverheat > stats.OverheatingCooldown)
             {
-                overheated = false;
-                barrelHeat = 0;
+                stats.Overheated = false;
+                stats.BarrelHeat = 0;
             }
         }
         else
         {
-            barrelHeat -= Mathf.Min(barrelHeat, coolingPerSecond * Time.fixedDeltaTime);
+            stats.BarrelHeat -= Mathf.Min(stats.BarrelHeat, stats.CoolingPerSecond * Time.fixedDeltaTime);
         }
     }
 
@@ -119,17 +63,17 @@ public class Weapon : MonoBehaviour
     /// <returns>Whether or not the weapon can shoot.</returns>
     public bool ReadyToShoot(bool triggerDown)
     {
-        if (!triggerDown) timeOfLastTriggerRelease = Time.time;
-        if (currentAmmo <= 0 || Time.time - timeOfLastShot < shotCooldown) return false;
+        if (!triggerDown) stats.TimeOfLastTriggerRelease = Time.time;
+        if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
 
-        switch (weaponClass)
+        switch (stats.WeaponClass)
         { 
             case EWeaponClass.Manual:
-                return timeOfLastTriggerRelease < Time.time; 
+                return stats.TimeOfLastTriggerRelease < Time.time; 
             case EWeaponClass.BurstManual:
-                return !overheated && timeOfLastTriggerRelease < Time.time;
+                return !stats.Overheated && stats.TimeOfLastTriggerRelease < Time.time;
             case EWeaponClass.BurstAutomatic:
-                return !overheated;
+                return !stats.Overheated;
             case EWeaponClass.FullyAutomatic:
                 return true;
             default:
@@ -142,23 +86,23 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public void Shoot()
     {
-        for (int i = 0; i < pelletsPerShot; i++)
+        for (int i = 0; i < stats.PelletsPerShot; i++)
         {
             //Quaternion randomRotation = Random.rotation;
             //Quaternion projectileRotation = Quaternion.RotateTowards(barrelTip.transform.rotation, randomRotation, spreadAngle);
-            Quaternion projectileRotation = Quaternion.RotateTowards(barrelTip.transform.rotation, Random.rotation, spreadAngle);
+            Quaternion projectileRotation = Quaternion.RotateTowards(barrelTip.transform.rotation, Random.rotation, stats.SpreadAngle);
             //Debug.Log($"randomRotation is {randomRotation} (Quaternion) / {randomRotation.eulerAngles} (EulerAngles)");
             //Debug.Log($"projectileRotation is {projectileRotation} (Quaternion) / {projectileRotation.eulerAngles} (EulerAngles)");
-            Projectile projectile = ProjectileFactory.Instance.Get(transform, barrelTip.position, projectileRotation, projectileType);
-            projectile.Shoot(shotForce);
+            Projectile projectile = ProjectileFactory.Instance.Get(transform, barrelTip.position, projectileRotation, stats.ProjectileType);
+            projectile.Shoot(stats.ShotForce);
             //Debug.Log($"{this}.Weapon.Shoot(), projectile is {projectile}");
-            timeOfLastShot = Time.time;
-            barrelHeat += heatPerShot;
+            stats.TimeOfLastShot = Time.time;
+            stats.BarrelHeat += stats.HeatPerShot;
 
-            if (barrelHeat > overheatingThreshold)
+            if (stats.BarrelHeat > stats.OverheatingThreshold)
             {
-                overheated = true;
-                timeOfLastOverheat = Time.time;
+                stats.Overheated = true;
+                stats.TimeOfLastOverheat = Time.time;
             }
         }
     }
