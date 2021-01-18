@@ -20,7 +20,6 @@ public class Hand : MonoBehaviour
     //Serialized Fields----------------------------------------------------------------------------
 
     [SerializeField] private HandSide handSide;
-    [SerializeField] private float batteryCharge;
     
     //Non-Serialized Fields------------------------------------------------------------------------
 
@@ -39,9 +38,9 @@ public class Hand : MonoBehaviour
     //Basic Public Properties----------------------------------------------------------------------
 
     /// <summary>
-    /// How much charge does the hand's battery have left?
+    /// How much charge does the hand's battery have left out of 100?
     /// </summary>
-    public float BatteryCharge { get => batteryCharge; set => batteryCharge = value; }
+    public float BatteryCharge { get => weapon.CurrentAmmo * 100 / weapon.MaxAmmo; }
 
     /// <summary>
     /// The hand's collider component.

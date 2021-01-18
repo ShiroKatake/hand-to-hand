@@ -53,16 +53,18 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void CheckShooting()
     {
-        if (shootLeft && ReadyToShoot(Player.Instance.HandController.LeftHand.Weapon))  Player.Instance.HandController.LeftHand.Weapon.Shoot();
-        if (shootRight && ReadyToShoot(Player.Instance.HandController.RightHand.Weapon)) Player.Instance.HandController.RightHand.Weapon.Shoot();
+        if (shootLeft && ReadyToShoot(Player.Instance.HandController.LeftHand.Weapon, shootLeft))  Player.Instance.HandController.LeftHand.Weapon.Shoot();
+        if (shootRight && ReadyToShoot(Player.Instance.HandController.RightHand.Weapon, shootRight)) Player.Instance.HandController.RightHand.Weapon.Shoot();
     }
 
     /// <summary>
-    /// Checks if the player is ready to shoot.
+    /// Checks if the player is able to shoot and their weapon can shoot.
     /// </summary>
-    /// <returns>Whether or not the player can shoot.</returns>
-    private bool ReadyToShoot(Weapon weapon)
+    /// <param name="weapon">The weapon that the player would shoot with.</param>
+    /// <param name="triggerDown">Is the player holding down the weapon's trigger?</param>
+    /// <returns>Is the player able to shoot and can their weapon shoot right now?</returns>
+    private bool ReadyToShoot(Weapon weapon, bool triggerDown)
     {
-        return canShoot && weapon != null && weapon.ReadyToShoot();
+        return canShoot && weapon != null && weapon.ReadyToShoot(triggerDown);
     }
 }
