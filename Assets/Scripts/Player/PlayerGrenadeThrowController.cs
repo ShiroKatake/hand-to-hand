@@ -14,9 +14,12 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 
     //Non-Serialized Fields------------------------------------------------------------------------
 
-    private bool throwLeft;
-    private bool throwRight;
-    private bool shift;
+    private bool lmbDown;
+    private bool lmbUp;
+    private bool rmbDown;
+    private bool rmbUp;
+    private bool shiftDown;
+    private bool shiftUp;
 
     private Hand hand = null;
 
@@ -58,13 +61,43 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	{      
 		if (hand == null)
 		{
-            shift = Input.GetButton("Shift");
-            throwLeft = shift && Input.GetButtonDown("Left Hand");
-            throwRight = shift && Input.GetButtonDown("Right Hand");
+			shiftDown = Input.GetButton("Shift");
+			shiftUp = Input.GetButtonUp("Shift");
+            lmbDown = Input.GetButton("Left Hand");
+            lmbUp = Input.GetButtonUp("Left Hand");
+            rmbDown = Input.GetButton("Right Hand");
+            rmbUp = Input.GetButtonUp("Right Hand");
 
-            if (throwLeft && Player.Instance.HandController.LeftHand != null) hand = Player.Instance.HandController.LeftHand;
-            else if (throwRight && Player.Instance.HandController.RightHand != null) hand = Player.Instance.HandController.RightHand;
-        }
+			if (shiftDown)
+			{
+				//"Subtle asks" the player via UI to choose which hand to turn into a grenade
+				
+				if (lmbDown)
+				{
+					//Switch left hand animation to grenade
+				}
+				if (lmbUp && Player.Instance.HandController.LeftHand != null)
+				{
+					//Throw left grenade
+					hand = Player.Instance.HandController.LeftHand;
+				}
+
+				if (rmbDown)
+				{
+					//Switch right hand animation to grenade
+				}
+				if (rmbUp && Player.Instance.HandController.RightHand != null)
+				{
+					//Throw right grenade
+					hand = Player.Instance.HandController.RightHand;
+				}
+			}
+
+			else if (shiftUp)
+			{
+				//Switch hand animation back to gun
+			}
+		}
 	}
 
     //Recurring Methods (FixedUpdate())--------------------------------------------------------------------------------------------------------------
