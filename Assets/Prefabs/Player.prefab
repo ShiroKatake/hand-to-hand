@@ -573,6 +573,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd7ddc7b911defb429b4d69254184b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHandAnimator: {fileID: 8127647754141362529}
+  rightHandAnimator: {fileID: 7455068203426436295}
 --- !u!114 &6244589833954339922
 MonoBehaviour:
   m_ObjectHideFlags: 0

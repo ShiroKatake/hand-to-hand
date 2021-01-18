@@ -21,7 +21,11 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
     private bool shiftDown;
     private bool shiftUp;
 
+	private bool isHoldingLeftGrenade;
+	private bool isHoldingRightGrenade;
+
     private Hand hand = null;
+	private Player player;
 
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -32,6 +36,11 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	protected override void Awake()
 	{
 
+	}
+
+	private void Start()
+	{
+		player = Player.Instance;
 	}
 
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -72,30 +81,42 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 			{
 				//"Subtle asks" the player via UI to choose which hand to turn into a grenade
 				
-				if (lmbDown)
+				if (lmbDown && !isHoldingLeftGrenade)
 				{
-					//Switch left hand animation to grenade
+					player.LeftHandAnimator.SetTrigger("Grenade");
+					isHoldingLeftGrenade = true;
 				}
-				if (lmbUp && Player.Instance.HandController.LeftHand != null)
+				if (lmbUp && player.HandController.LeftHand != null)
 				{
-					//Throw left grenade
-					hand = Player.Instance.HandController.LeftHand;
+					hand = player.HandController.LeftHand;
+					isHoldingLeftGrenade = false;
 				}
 
-				if (rmbDown)
+				if (rmbDown && !isHoldingRightGrenade)
 				{
-					//Switch right hand animation to grenade
+					player.RightHandAnimator.SetTrigger("Grenade");
+					isHoldingRightGrenade = true;
 				}
-				if (rmbUp && Player.Instance.HandController.RightHand != null)
+				if (rmbUp && player.HandController.RightHand != null)
 				{
-					//Throw right grenade
-					hand = Player.Instance.HandController.RightHand;
+					hand = player.HandController.RightHand;
+					isHoldingRightGrenade = false;
 				}
 			}
 
 			else if (shiftUp)
 			{
-				//Switch hand animation back to gun
+				if (isHoldingLeftGrenade)
+				{
+					player.LeftHandAnimator.SetTrigger("Pistol");
+					isHoldingLeftGrenade = false;
+				}
+				if (isHoldingRightGrenade)
+				{
+					player.RightHandAnimator.SetTrigger("Pistol");
+					isHoldingRightGrenade = false;
+				}
+
 			}
 		}
 	}

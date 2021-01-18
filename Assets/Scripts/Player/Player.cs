@@ -7,11 +7,16 @@ using UnityEngine;
 /// </summary>
 public class Player : PublicInstanceSerializableSingleton<Player>
 {
-    //Private Fields---------------------------------------------------------------------------------------------------------------------------------
+	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
-    //Non-Serialized Fields------------------------------------------------------------------------
+	//Serialized Fields------------------------------------------------------------------------
 
-    private PlayerMovementController movementController;
+	[SerializeField] private Animator leftHandAnimator;
+	[SerializeField] private Animator rightHandAnimator;
+
+	//Non-Serialized Fields------------------------------------------------------------------------
+
+	private PlayerMovementController movementController;
     private PlayerHandController handController;
     private PlayerGrenadeThrowController grenadeThrowController;
     private PlayerShootingController shootingController;
@@ -40,6 +45,15 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     /// </summary>
     public PlayerShootingController ShootingController { get => shootingController; }
 
+	/// <summary>
+	/// The animator controlling the player's left hand.
+	/// </summary>
+	public Animator LeftHandAnimator { get => leftHandAnimator; }
+
+	/// <summary>
+	/// The animator controlling the player's right hand.
+	/// </summary>
+	public Animator RightHandAnimator { get => rightHandAnimator; }
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
