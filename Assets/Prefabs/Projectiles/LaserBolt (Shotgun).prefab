@@ -95,10 +95,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_templateMaterial: {fileID: 2100000, guid: f68f8c3a3d76fb74cbb880d372c81620, type: 2}
   m_doNotOverwriteTemplateMaterialProperties: 0
-  m_startPos: {x: 0, y: 0, z: -25}
-  m_endPos: {x: 0, y: 0, z: 25}
-  m_lineColor: {r: 0, g: 1, b: 1, a: 0}
-  m_lineWidth: 50
+  m_startPos: {x: 0, y: 0, z: -10}
+  m_endPos: {x: 0, y: 0, z: 10}
+  m_lineColor: {r: 1, g: 0, b: 0, a: 0}
+  m_lineWidth: 20
   m_lightSaberFactor: 0.85
 --- !u!108 &919039349126328985
 Light:
@@ -111,7 +111,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 0.08
   m_Range: 2
   m_SpotAngle: 30
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: -6399079233983291133}
   - component: {fileID: 7263093150868635065}
   m_Layer: 10
-  m_Name: LaserBolt (Pistol)
+  m_Name: LaserBolt (Shotgun)
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,10 +205,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.3441598
-  m_Height: 5.6815
+  m_Radius: 0.13885191
+  m_Height: 2.2864766
   m_Direction: 2
-  m_Center: {x: 0.03121458, y: 0.039018393, z: 2.8468218}
+  m_Center: {x: 0.0121074915, y: 0.014529079, z: 2.8145287}
 --- !u!54 &-6399079233983291133
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -237,6 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0a6fcace2fe434980a0478d44dc5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   damage: 0.5
   lifespan: 5

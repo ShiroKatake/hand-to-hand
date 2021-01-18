@@ -46,15 +46,31 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
         tab = Input.GetButton("Tab");
         shootLeft = !shift && !tab && Input.GetButton("Left Hand");
         shootRight = !shift && !tab && Input.GetButton("Right Hand");
+        Debug.Log($"PlayerShootingController.GetInput(), shift: {shift}, tab: {tab}, shootLeft: {shootLeft}, leftHandWeapon.Stats.TriggerDown: {Player.Instance.HandController.LeftHandWeapon?.CurrentStats.TriggerDown} shootRight: {shootRight}, rightHandWeapon.Stats.TriggerDown: {Player.Instance.HandController.RightHandWeapon?.CurrentStats.TriggerDown}");
     }
 
     /// <summary>
     /// Checks if the player wants to and can shoot based on their input, and tells the appropriate weapon(s) to shoot if they do.
     /// </summary>
     private void CheckShooting()
-    {
-        if (shootLeft && ReadyToShoot(Player.Instance.HandController.LeftHand.Weapon, shootLeft))  Player.Instance.HandController.LeftHand.Weapon.Shoot();
-        if (shootRight && ReadyToShoot(Player.Instance.HandController.RightHand.Weapon, shootRight)) Player.Instance.HandController.RightHand.Weapon.Shoot();
+    {        
+        if (shootLeft)
+        {
+            if (ReadyToShoot(Player.Instance.HandController.LeftHandWeapon, shootLeft)) Player.Instance.HandController.LeftHandWeapon.Shoot();
+        }
+        else
+        {
+            if (Player.Instance.HandController.LeftHandWeapon.CurrentStats != null) Player.Instance.HandController.LeftHandWeapon.CurrentStats.TriggerDown = false;
+        }
+
+        if (shootRight)
+        {
+            if (ReadyToShoot(Player.Instance.HandController.RightHandWeapon, shootRight)) Player.Instance.HandController.RightHandWeapon.Shoot();
+        }
+        else
+        {
+            if (Player.Instance.HandController.RightHandWeapon.CurrentStats != null) Player.Instance.HandController.RightHandWeapon.CurrentStats.TriggerDown = false;
+        }
     }
 
     /// <summary>
@@ -65,6 +81,7 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
     /// <returns>Is the player able to shoot and can their weapon shoot right now?</returns>
     private bool ReadyToShoot(Weapon weapon, bool triggerDown)
     {
+        Debug.Log($"PlayerShootingController.ReadyToShoot()");
         return canShoot && weapon != null && weapon.CurrentStats != null && weapon.ReadyToShoot(triggerDown);
     }
 }

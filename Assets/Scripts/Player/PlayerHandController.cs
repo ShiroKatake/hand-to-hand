@@ -31,29 +31,50 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
     //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
 
-
-
-    //Complex Public Properties--------------------------------------------------------------------                                                    
-
     /// <summary>
-    /// The currently equipped left hand.
+    /// The weapon logic class for the left hand.
     /// </summary>
-    public Hand LeftHand { get => (hands[HandSide.Left].Count > 0 ? hands[HandSide.Left][0] : null); }
+    public Weapon LeftHandWeapon { get => leftHandWeapon; }
 
     /// <summary>
     /// The transform the left hand gets childed to.
     /// </summary>
     public Transform LeftHandSpawn { get => leftHandSpawn; }
 
+
     /// <summary>
-    /// The currently equipped right hand.
+    /// The weapon logic class for the right hand.
     /// </summary>
-    public Hand RightHand { get => (hands[HandSide.Right].Count > 0 ? hands[HandSide.Right][0] : null); }
+    public Weapon RightHandWeapon { get => rightHandWeapon; }
 
     /// <summary>
     /// The transformt he right hand gets childed to.
     /// </summary>
     public Transform RightHandSpawn { get => rightHandSpawn; }
+
+    //Complex Public Properties--------------------------------------------------------------------                                                    
+
+    /// <summary>
+    /// The currently equipped left hand.
+    /// </summary>
+    public Hand LeftHand
+    {
+        get
+        {
+            return (hands[HandSide.Left].Count > 0 ? hands[HandSide.Left][0] : null);
+        }
+    }
+
+    /// <summary>
+    /// The currently equipped right hand.
+    /// </summary>
+    public Hand RightHand
+    {
+        get
+        {
+            return (hands[HandSide.Right].Count > 0 ? hands[HandSide.Right][0] : null);
+        }
+    }
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -172,10 +193,8 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <param name="hand">The hand to add.</param>
     public void AddHand(Hand hand)
     {
-        Debug.Log($"PlayerHandController.AddHand()");
         if (!hands[hand.HandSide].Contains(hand))
         {
-            Debug.Log($"Adding Hand");
             hands[hand.HandSide].Insert(0, hand);
             SetCurrentWeapon(hand.HandSide);
 

@@ -63,15 +63,16 @@ public class Weapon : MonoBehaviour
     /// <returns>Whether or not the weapon can shoot.</returns>
     public bool ReadyToShoot(bool triggerDown)
     {
-        if (!triggerDown) stats.TimeOfLastTriggerRelease = Time.time;
+        Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}");
+        if (!triggerDown) stats.TriggerDown = false;
         if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
 
         switch (stats.WeaponClass)
         { 
             case EWeaponClass.Manual:
-                return stats.TimeOfLastTriggerRelease < Time.time; 
+                return !stats.TriggerDown; 
             case EWeaponClass.BurstManual:
-                return !stats.Overheated && stats.TimeOfLastTriggerRelease < Time.time;
+                return !stats.Overheated && !stats.TriggerDown;
             case EWeaponClass.BurstAutomatic:
                 return !stats.Overheated;
             case EWeaponClass.FullyAutomatic:
@@ -96,6 +97,7 @@ public class Weapon : MonoBehaviour
             Projectile projectile = ProjectileFactory.Instance.Get(transform, barrelTip.position, projectileRotation, stats.ProjectileType);
             projectile.Shoot(stats.ShotForce);
             //Debug.Log($"{this}.Weapon.Shoot(), projectile is {projectile}");
+            stats.TriggerDown = true;
             stats.TimeOfLastShot = Time.time;
             stats.BarrelHeat += stats.HeatPerShot;
 
