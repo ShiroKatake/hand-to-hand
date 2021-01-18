@@ -143,11 +143,15 @@ public class Hand : MonoBehaviour
     /// <param name="other">The object collided with.</param>
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Hand.OnTriggerEnter, Collision with {other.gameObject}");
-        if (other.gameObject.CompareTag("Player") && !grenade.Exploding)
+        Debug.Log($"Hand.OnTriggerEnter, Collision with {other.gameObject}, grenade exploding: {grenade.Exploding}");
+        if (other.gameObject.tag == "Player")
         {
-            Debug.Log($"Adding Hand to player.");
-            Player.Instance.HandController.AddHand(this);
+            Debug.Log($"Player entered trigger collider");
+            if (!grenade.Exploding)
+            {
+                Debug.Log($"Adding Hand to player.");
+                Player.Instance.HandController.AddHand(this);
+            }
         }
     }
 }

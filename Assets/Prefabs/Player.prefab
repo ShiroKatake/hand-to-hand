@@ -164,12 +164,7 @@ SkinnedMeshRenderer:
   m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -514,7 +509,7 @@ GameObject:
   - component: {fileID: 4002572779040018723}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -592,8 +587,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadeRange: 5
   playerCamera: {fileID: 1296430010}
-  leftHandRenderer: {fileID: 0}
-  rightHandRenderer: {fileID: 0}
 --- !u!114 &3255609256773630328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,14 +599,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa70b57202c3d741a96c645d60a6c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handsOnAwake:
-  - {fileID: 0}
-  - {fileID: 0}
-  leftHandWeapon: {fileID: 0}
-  leftHandRenderer: {fileID: 0}
+  handsOnAwake: []
+  leftHandWeapon: {fileID: 6752617737987870070}
+  leftHandRenderer: {fileID: 8619791069779123559}
   leftHandSpawn: {fileID: 7861368637507969686}
-  rightHandWeapon: {fileID: 0}
-  rightHandRenderer: {fileID: 0}
+  rightHandWeapon: {fileID: 2105033502106267870}
+  rightHandRenderer: {fileID: 3912742589235022890}
   rightHandSpawn: {fileID: 8877553970336628051}
   handPool: {fileID: 0}
 --- !u!114 &6416827675035908714
@@ -1615,6 +1606,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6963138596466448261}
   - component: {fileID: 7455068203426436295}
+  - component: {fileID: 1364573347110393122}
+  - component: {fileID: 2105033502106267870}
   m_Layer: 0
   m_Name: VBOT_:RightHand
   m_TagString: Untagged
@@ -1660,6 +1653,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1364573347110393122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945996237662596837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3555b7ded029fdc438de1c75cc360cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSide: 2
+  pickUpCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
+--- !u!114 &2105033502106267870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945996237662596837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ff7b41454bc0d409edbc7647571c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrelTip: {fileID: 5863184293297528960}
 --- !u!1 &5046807181798060906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,6 +2334,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7468403455042658728}
   - component: {fileID: 8127647754141362529}
+  - component: {fileID: 1439113868627831766}
+  - component: {fileID: 6752617737987870070}
   m_Layer: 0
   m_Name: VBOT_:LeftHand
   m_TagString: Untagged
@@ -2358,6 +2381,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1439113868627831766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351409962018752781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3555b7ded029fdc438de1c75cc360cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSide: 1
+  pickUpCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
+--- !u!114 &6752617737987870070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351409962018752781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ff7b41454bc0d409edbc7647571c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrelTip: {fileID: 2948654377013513664}
 --- !u!1 &8424549229290872922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,12 +2582,7 @@ SkinnedMeshRenderer:
   m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
-  - {fileID: 2100000, guid: 2c73767287da294498a84e2d2b7c70ab, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

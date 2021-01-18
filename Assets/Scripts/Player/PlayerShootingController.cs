@@ -65,6 +65,6 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
     /// <returns>Is the player able to shoot and can their weapon shoot right now?</returns>
     private bool ReadyToShoot(Weapon weapon, bool triggerDown)
     {
-        return canShoot && weapon != null && weapon.ReadyToShoot(triggerDown);
+        return canShoot && weapon != null && weapon.CurrentStats != null && weapon.ReadyToShoot(triggerDown);
     }
 }

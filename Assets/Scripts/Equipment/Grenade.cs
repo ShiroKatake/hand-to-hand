@@ -13,7 +13,7 @@ public class Grenade : MonoBehaviour
 
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
-    private bool exploding;
+    private bool exploding = false;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
