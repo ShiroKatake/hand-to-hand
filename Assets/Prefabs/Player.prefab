@@ -609,7 +609,11 @@ MonoBehaviour:
   handsOnAwake:
   - {fileID: 0}
   - {fileID: 0}
+  leftHandWeapon: {fileID: 0}
+  leftHandRenderer: {fileID: 0}
   leftHandSpawn: {fileID: 7861368637507969686}
+  rightHandWeapon: {fileID: 0}
+  rightHandRenderer: {fileID: 0}
   rightHandSpawn: {fileID: 8877553970336628051}
   handPool: {fileID: 0}
 --- !u!114 &6416827675035908714

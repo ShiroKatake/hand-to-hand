@@ -20,6 +20,8 @@ public class Hand : MonoBehaviour
     //Serialized Fields----------------------------------------------------------------------------
 
     [SerializeField] private HandSide handSide;
+    [SerializeField] private Collider pickUpCollider;
+    [SerializeField] private Collider bodyCollider;
     
     //Non-Serialized Fields------------------------------------------------------------------------
 
@@ -27,8 +29,8 @@ public class Hand : MonoBehaviour
 	private Rigidbody rb;
     private Grenade grenade;
     private Weapon weapon;
-	private Collider handCollider;
     private MeshRenderer meshRenderer;
+    private WeaponStats stats;
 
     //Other
     bool hasGottenComponents;
@@ -40,12 +42,12 @@ public class Hand : MonoBehaviour
     /// <summary>
     /// How much charge does the hand's battery have left out of 100?
     /// </summary>
-    public float BatteryCharge { get => weapon.CurrentAmmo * 100 / weapon.MaxAmmo; }
+    public float BatteryCharge { get => stats.CurrentAmmo * 100 / stats.MaxAmmo; }
 
     /// <summary>
-    /// The hand's collider component.
+    /// The hand's non-trigger collider component.
     /// </summary>
-    public Collider Collider { get => handCollider; }
+    public Collider BodyCollider { get => bodyCollider; }
 
     /// <summary>
     /// This hand's grenade component.
@@ -68,9 +70,19 @@ public class Hand : MonoBehaviour
     public MeshRenderer MeshRenderer { get => meshRenderer; }
 
     /// <summary>
+    /// The hand's trigger collider component.
+    /// </summary>
+    public Collider PickUpCollider { get => pickUpCollider; }
+
+    /// <summary>
     /// This hand's rigidbody component
     /// </summary>
 	public Rigidbody Rigidbody { get => rb; }
+
+    /// <summary>
+    /// This hand's weapon stats component.
+    /// </summary>
+    public WeaponStats Stats { get => stats; }
 
     /// <summary>
     /// This hand's weapon component.
@@ -96,7 +108,7 @@ public class Hand : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         grenade = GetComponent<Grenade>();
         weapon = GetComponent<Weapon>();
-        handCollider = GetComponent<Collider>();
+        stats = GetComponent<WeaponStats>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
@@ -105,8 +117,33 @@ public class Hand : MonoBehaviour
 	/// <summary>
 	/// Launch the grenade hand.
 	/// </summary>
+    /// <param name="direction">What direction should the hand be launched in?</param>
+    /// <param name="range">How far should the hand be launched?</param>
 	public void Launch(Vector3 direction, float range)
 	{
+        grenade.Exploding = true;
 		rb.AddForce(direction * range, ForceMode.Impulse);
 	}
+
+    /// <summary>
+    /// Sets the enabled properties of this hand's colliders.
+    /// </summary>
+    /// <param name="enabled">Should the hand's colliders be enabled?</param>
+    public void SetCollidersEnabled(bool enabled)
+    {
+        bodyCollider.enabled = enabled;
+        pickUpCollider.enabled = enabled;
+    }
+
+    //Triggered Methods (OnCollision Methods)--------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Load up a hand if collided.
+    /// </summary>
+    /// <param name="other">The object collided with.</param>
+    private void OnTriggerEnter(Collision other)
+    {
+        Debug.Log($"Hand.OnTriggerEnter, Collision with {other.collider}");
+        if (other.gameObject.CompareTag("Player") && !grenade.Exploding) Player.Instance.HandController.AddHand(this);
+    }
 }

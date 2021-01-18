@@ -13,13 +13,16 @@ public class Grenade : MonoBehaviour
 
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
-
+    private bool exploding;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
     //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
 
-
+    /// <summary>
+    /// Is the grenade about to explode?
+    /// </summary>
+    public bool Exploding { get => exploding; set => exploding = value; }
 
     //Complex Public Properties--------------------------------------------------------------------                                                    
 
