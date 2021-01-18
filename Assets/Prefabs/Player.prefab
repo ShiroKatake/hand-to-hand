@@ -308,7 +308,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 7657105946270907900}
   m_AABB:
     m_Center: {x: -0.0016726479, y: 0.30380756, z: -0.024743885}
-    m_Extent: {x: 0.07529291, y: 0.30204988, z: 0.07362076}
+    m_Extent: {x: 0.32, y: 0.30204988, z: 0.07362076}
   m_DirtyAABB: 0
 --- !u!1 &155320047163557326
 GameObject:
@@ -592,8 +592,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadeRange: 5
   playerCamera: {fileID: 1296430010}
-  leftHandRenderer: {fileID: 0}
-  rightHandRenderer: {fileID: 0}
 --- !u!114 &3255609256773630328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2055,7 +2053,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 1761599747360301840}
   m_AABB:
     m_Center: {x: 0.0032156855, y: 0.30398998, z: -0.02469135}
-    m_Extent: {x: 0.07511027, y: 0.3021771, z: 0.0736364}
+    m_Extent: {x: 0.32, y: 0.3021771, z: 0.0736364}
   m_DirtyAABB: 0
 --- !u!1 &6956911595176153545
 GameObject:
