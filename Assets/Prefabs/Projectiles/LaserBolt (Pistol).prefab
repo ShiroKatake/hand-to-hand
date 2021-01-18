@@ -170,11 +170,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1922835559251403455}
+  - component: {fileID: 3174624796629501199}
   - component: {fileID: -6399079233983291133}
   - component: {fileID: 7263093150868635065}
-  - component: {fileID: 3174624796629501199}
   m_Layer: 10
-  m_Name: LaserBolt (POD)
+  m_Name: LaserBolt (Pistol)
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,6 +195,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &3174624796629501199
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3871022671507897270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.43
+  m_Height: 5.9
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 2.8}
 --- !u!54 &-6399079233983291133
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -223,20 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0a6fcace2fe434980a0478d44dc5b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   damage: 0.5
   lifespan: 5
---- !u!136 &3174624796629501199
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3871022671507897270}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.43
-  m_Height: 5.9
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 2.8}

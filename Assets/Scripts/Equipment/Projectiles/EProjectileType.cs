@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public enum EProjectileType
 {
-    None,
-    PODLaserBolt,
-    ShotgunLaserFragment,
-    MachineGunLaserBolt
+    PistolBolt,
+    BurstRifleBolt,
+    ShotgunPellet,
+    AutoRifleBolt
 }

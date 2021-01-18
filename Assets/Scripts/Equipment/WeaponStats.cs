@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// An enum denoting different firing patterns for weapons.
+/// An enum denoting different firing patterns for weapons. Multiple different weapons can fall within the same class of firing pattern.
 /// </summary>
 public enum EWeaponClass
 {
@@ -11,6 +11,17 @@ public enum EWeaponClass
     BurstManual,
     BurstAutomatic,
     FullyAutomatic
+}
+
+/// <summary>
+/// An enum denoting the differen types of weapons.
+/// </summary>
+public enum EWeaponType
+{
+    Pistol,
+    AutoRifle,
+    BurstRifle,
+    Shotgun
 }
 
 /// <summary>
@@ -25,6 +36,7 @@ public class WeaponStats : MonoBehaviour
 
     [Header("Shooting Stats")]
     [SerializeField] private EWeaponClass weaponClass;
+    [SerializeField] private EWeaponType weaponType;
     [SerializeField] private EProjectileType projectileType;
     [SerializeField] private float maxAmmo;
     [SerializeField] private float pelletsPerShot;
@@ -138,9 +150,14 @@ public class WeaponStats : MonoBehaviour
     public float TimeOfLastTriggerRelease { get => timeOfLastTriggerRelease; set => timeOfLastTriggerRelease = value; }
 
     /// <summary>
-    /// What class of weapon is this weapon?
+    /// What general class of weapon is this weapon?
     /// </summary>
     public EWeaponClass WeaponClass { get => weaponClass; }
+
+    /// <summary>
+    /// What specific type of weapon is this weapon?
+    /// </summary>
+    public EWeaponType WeaponType { get => weaponType; }
 
 
     //public float MaxElevation { get => maxElevation; }
