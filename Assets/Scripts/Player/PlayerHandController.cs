@@ -13,10 +13,10 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
     [SerializeField] private List<Hand> handsOnAwake;
     [SerializeField] private Weapon leftHandWeapon;
-    [SerializeField] private MeshRenderer leftHandRenderer;
+    [SerializeField] private SkinnedMeshRenderer leftHandRenderer;
     [SerializeField] private Transform leftHandSpawn;
     [SerializeField] private Weapon rightHandWeapon;
-    [SerializeField] private MeshRenderer rightHandRenderer;
+    [SerializeField] private SkinnedMeshRenderer rightHandRenderer;
     [SerializeField] private Transform rightHandSpawn;
     [SerializeField] private Transform handPool;
 
@@ -152,9 +152,18 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     private void SetCurrentWeapon(HandSide side)
     {
         Weapon weapon = (side == HandSide.Left ? leftHandWeapon : rightHandWeapon);
-        MeshRenderer weaponRenderer = (side == HandSide.Left ? leftHandRenderer : rightHandRenderer);
+        SkinnedMeshRenderer weaponRenderer = (side == HandSide.Left ? leftHandRenderer : rightHandRenderer);
         weapon.CurrentStats = hands[side][0].Stats;
-        weaponRenderer.material = hands[side][0].Stats.Material;
+        if (!weaponRenderer.enabled) weaponRenderer.enabled = true;
+
+        Material[] materials = new Material[5];
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            materials[i] = hands[side][0].Stats.Material;
+        }
+
+        weaponRenderer.materials = materials;
     }
 
     /// <summary>
@@ -192,14 +201,14 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         if (hands[hand.HandSide].Contains(hand))
         {
             Weapon weapon = (hand.HandSide == HandSide.Left ? leftHandWeapon : rightHandWeapon);
-            MeshRenderer weaponRenderer = (hand.HandSide == HandSide.Left ? leftHandRenderer : rightHandRenderer);
+            SkinnedMeshRenderer weaponRenderer = (hand.HandSide == HandSide.Left ? leftHandRenderer : rightHandRenderer);
             Transform weaponSpawn = (hand.HandSide == HandSide.Left ? leftHandSpawn : rightHandSpawn);
             hands[hand.HandSide].Remove(hand);
 
             if (hands[hand.HandSide].Count == 0)
             {
                 weapon.CurrentStats = null;
-                weaponRenderer.material = null;
+                weaponRenderer.enabled = false;
             }
             else if (hands[hand.HandSide][0].Stats != weapon.CurrentStats)
             {
