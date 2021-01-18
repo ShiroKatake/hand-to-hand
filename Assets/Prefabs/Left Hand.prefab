@@ -1000,6 +1000,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cee688edb3f5947940555c480e2169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionRadius: 1.5
+  explosionForce: 3
 --- !u!114 &2826494575522332541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,6 +1015,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handSide: 1
+  pickUpCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
 --- !u!114 &2478960376746000888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,15 +1030,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrelTip: {fileID: 0}
-  weaponClass: 0
-  projectileType: 0
-  maxAmmo: 0
-  pelletsPerShot: 0
-  spreadAngle: 0
-  maxElevation: 0
-  shotForce: 0
-  shotCooldown: 0
-  heatPerShot: 0
-  coolingPerSecond: 0
-  overheatingThreshold: 0
-  overheatingCooldown: 0

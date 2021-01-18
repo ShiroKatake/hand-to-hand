@@ -5,10 +5,11 @@
 /// </summary>
 public class Grenade : MonoBehaviour
 {
-    //Private Fields---------------------------------------------------------------------------------------------------------------------------------  
+	//Private Fields---------------------------------------------------------------------------------------------------------------------------------  
 
-    //Serialized Fields----------------------------------------------------------------------------                                                    
-
+	//Serialized Fields----------------------------------------------------------------------------                                                    
+	[SerializeField] private float explosionRadius;
+	[SerializeField] private float explosionForce;
 
 
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
@@ -80,4 +81,24 @@ public class Grenade : MonoBehaviour
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
+	public void Explode()
+	{
+		Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+		foreach (Collider collider in colliders)
+		{
+			Rigidbody rb = collider.GetComponent<Rigidbody>();
+			Health health = collider.GetComponent<Health>();
+
+			if (rb != null)
+				rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 1f, ForceMode.Impulse);
+
+			if (health != null)
+			{
+				//Take damage
+			}
+		}
+
+		//Return hand back to pool
+	}
 }
