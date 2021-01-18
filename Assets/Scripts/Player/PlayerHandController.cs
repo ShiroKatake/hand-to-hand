@@ -161,14 +161,16 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// Adds a hand to the player.
     /// </summary>
     /// <param name="hand">The hand to add.</param>
-    private void AddHand(Hand hand)
+    public void AddHand(Hand hand)
     {
+        Debug.Log($"PlayerHandController.AddHand()");
         if (!hands[hand.HandSide].Contains(hand))
         {
+            Debug.Log($"Adding Hand");
             hands[hand.HandSide].Insert(0, hand);
             SetCurrentWeapon(hand.HandSide);
 
-            hand.Collider.enabled = false;
+            hand.SetCollidersEnabled(false);
             hand.Rigidbody.useGravity = false;
             hand.Rigidbody.isKinematic = true;
 
@@ -206,7 +208,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
             hand.gameObject.SetActive(true);
             hand.transform.parent = null;
-            hand.Collider.enabled = true;
+            hand.SetCollidersEnabled(true);
             hand.Rigidbody.useGravity = true;
             hand.Rigidbody.isKinematic = false;
 
@@ -219,18 +221,5 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
             hand.transform.parent = null;            
         }
-    }
-
-    /// <summary>
-	/// Load up a hand if collided.
-	/// </summary>
-	/// <param name="other">The object collided with.</param>
-	private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log($"Collision with {other.collider}");
-        if (!other.gameObject.CompareTag("Hand")) return;
-
-        Hand hand = other.gameObject.GetComponent<Hand>();
-        if (hand != null) AddHand(hand);
     }
 }

@@ -13,6 +13,7 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	[SerializeField] private Transform playerCamera;
 
     //Non-Serialized Fields------------------------------------------------------------------------
+
     private bool throwLeft;
     private bool throwRight;
     private bool shift;

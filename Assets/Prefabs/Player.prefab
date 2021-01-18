@@ -575,7 +575,11 @@ MonoBehaviour:
   handsOnAwake:
   - {fileID: 300994118728403920}
   - {fileID: 5103043403108474865}
+  leftHandWeapon: {fileID: 0}
+  leftHandRenderer: {fileID: 0}
   leftHandSpawn: {fileID: 7861368637507969686}
+  rightHandWeapon: {fileID: 0}
+  rightHandRenderer: {fileID: 0}
   rightHandSpawn: {fileID: 8877553970336628051}
   handPool: {fileID: 0}
 --- !u!114 &6416827675035908714
@@ -1051,6 +1055,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handSide: 2
+  pickUpCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
 --- !u!114 &4123404704565881776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,18 +1070,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrelTip: {fileID: 0}
-  weaponClass: 0
-  projectileType: 0
-  maxAmmo: 0
-  pelletsPerShot: 0
-  spreadAngle: 0
-  maxElevation: 0
-  shotForce: 0
-  shotCooldown: 0
-  heatPerShot: 0
-  coolingPerSecond: 0
-  overheatingThreshold: 0
-  overheatingCooldown: 0
 --- !u!1 &2535493275943221364
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,6 +2423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handSide: 1
+  pickUpCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
 --- !u!114 &3564510204126398520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,18 +2438,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrelTip: {fileID: 0}
-  weaponClass: 0
-  projectileType: 0
-  maxAmmo: 0
-  pelletsPerShot: 0
-  spreadAngle: 0
-  maxElevation: 0
-  shotForce: 0
-  shotCooldown: 0
-  heatPerShot: 0
-  coolingPerSecond: 0
-  overheatingThreshold: 0
-  overheatingCooldown: 0
 --- !u!1 &8805327204512725661
 GameObject:
   m_ObjectHideFlags: 0
