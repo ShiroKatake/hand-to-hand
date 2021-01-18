@@ -16703,10 +16703,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 594088066174833509, guid: 059509f4cb590dc4195cf51ea8e1eef3,
+        type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 2385207255560121417, guid: 059509f4cb590dc4195cf51ea8e1eef3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 2385207255560121417, guid: 059509f4cb590dc4195cf51ea8e1eef3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 2385207255560121417, guid: 059509f4cb590dc4195cf51ea8e1eef3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 2385207255560121417, guid: 059509f4cb590dc4195cf51ea8e1eef3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 2385207255560121417, guid: 059509f4cb590dc4195cf51ea8e1eef3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
     - target: {fileID: 3427252192510888565, guid: 059509f4cb590dc4195cf51ea8e1eef3,
         type: 3}
       propertyPath: m_Name
-      value: Collectable Left Hand
+      value: Collectable Left Hand (Pickup Test)
       objectReference: {fileID: 0}
     - target: {fileID: 6413501897961530941, guid: 059509f4cb590dc4195cf51ea8e1eef3,
         type: 3}
@@ -45341,11 +45371,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816478597652333498, guid: e309f30999da551458a14a3bfc5e76e2,
+        type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
     - target: {fileID: 7838485728254870822, guid: e309f30999da551458a14a3bfc5e76e2,
         type: 3}
       propertyPath: m_Name
-      value: Collectable Right Hand
+      value: Collectable Right Hand (Pickup Test)
       objectReference: {fileID: 0}
+    - target: {fileID: 8712344738617425917, guid: e309f30999da551458a14a3bfc5e76e2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 8712344738617425917, guid: e309f30999da551458a14a3bfc5e76e2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 8712344738617425917, guid: e309f30999da551458a14a3bfc5e76e2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 8712344738617425917, guid: e309f30999da551458a14a3bfc5e76e2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
+    - target: {fileID: 8712344738617425917, guid: e309f30999da551458a14a3bfc5e76e2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 943efd6e9a0ea9e49837da45a57bf895, type: 2}
     - target: {fileID: 9198902792697454755, guid: e309f30999da551458a14a3bfc5e76e2,
         type: 3}
       propertyPath: m_RootOrder
@@ -65248,11 +65308,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 86000043446842726, guid: 46756166d6e68754185c54dd33079d7f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 939335347270622176, guid: 46756166d6e68754185c54dd33079d7f,
         type: 3}
       propertyPath: m_Name
@@ -65312,11 +65367,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944538352986874659, guid: 46756166d6e68754185c54dd33079d7f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46756166d6e68754185c54dd33079d7f, type: 3}
