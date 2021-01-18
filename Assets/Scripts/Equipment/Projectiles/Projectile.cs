@@ -136,12 +136,17 @@ public class Projectile : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     public void OnTriggerEnter(Collider other)
     {
-        //Debug.Log($"{this}.OnTriggerEnter(), other is {other}");
+        //Debug.Log($"{this}.ProjectileCollision(), collidedWith is {collidedWith}");
+        Health damageable = other.GetComponent<Health>();
+        if (damageable != null) damageable.TakeDamage(damage);
 
-		if (!other.CompareTag("Melee Range"))
-		{
-			ProjectileCollision(other);
-		}
+        //Debug.Log($"{gameObject.name} reduced {a.gameObject.name}'s health to {a.Health.Value}; {a.gameObject.name}.ShotBy is now {owner.name}");
+
+        if (!other.CompareTag("Projectile") && !other.isTrigger && (!other.CompareTag(owner.tag) || leftOwnerCollider))
+        {
+            //Debug.Log($"ProjectileCollision, not {owner.tag} or Projectile or Pit Walls; tag is {collidedWith.tag}; position is {transform.position}");
+            ProjectileFactory.Instance.Destroy(this);
+        }
     }
 
     /// <summary>
@@ -158,27 +163,4 @@ public class Projectile : MonoBehaviour
             leftOwnerCollider = true;
         }
     }
-
-    /// <summary>
-    /// Deals damage to enemies upon collision, before cleaning the projectile up.
-    /// </summary>
-    /// <param name="collidedWith">The collider of the other object the projectile collided with.</param>
-    private void ProjectileCollision(Collider collidedWith)
-    {
-        //Debug.Log($"{this}.ProjectileCollision(), collidedWith is {collidedWith}");
-		Health damageable = collidedWith.GetComponent<Health>();
-		if (damageable != null) damageable.TakeDamage(damage);
-
-        //Debug.Log($"{gameObject.name} reduced {a.gameObject.name}'s health to {a.Health.Value}; {a.gameObject.name}.ShotBy is now {owner.name}");
-
-        if (!collidedWith.CompareTag("Projectile") && !collidedWith.CompareTag("Pit Walls") && !collidedWith.isTrigger && (!collidedWith.CompareTag(owner.tag) || leftOwnerCollider))
-        {
-            //Debug.Log($"ProjectileCollision, not {owner.tag} or Projectile or Pit Walls; tag is {collidedWith.tag}; position is {transform.position}");
-            ProjectileFactory.Instance.Destroy(this);
-        }
-
-        //ProjectileFactory.Instance.DestroyProjectile(this);
-        //No, don't put this here. The projectile should not automatically be destroyed upon hitting a
-        //collider, as that would include trigger colliders we want it to ignore.
-	}
 }

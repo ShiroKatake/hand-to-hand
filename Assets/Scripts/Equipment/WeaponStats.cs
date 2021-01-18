@@ -41,7 +41,6 @@ public class WeaponStats : MonoBehaviour
     [SerializeField] private float maxAmmo;
     [SerializeField] private float pelletsPerShot;
     [SerializeField] private float spreadAngle;
-    [SerializeField] private float maxElevation;
     [SerializeField] private float shotForce;
     [SerializeField] private float shotCooldown;
 
@@ -59,6 +58,7 @@ public class WeaponStats : MonoBehaviour
     private float timeOfLastOverheat = -1;
     private float barrelHeat = 0;
     private bool overheated = false;
+    private bool triggerDown = false;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -150,6 +150,11 @@ public class WeaponStats : MonoBehaviour
     public float TimeOfLastTriggerRelease { get => timeOfLastTriggerRelease; set => timeOfLastTriggerRelease = value; }
 
     /// <summary>
+    /// Is this weapon's trigger currently being held down?
+    /// </summary>
+    public bool TriggerDown { get => triggerDown; set => triggerDown = value; }
+
+    /// <summary>
     /// What general class of weapon is this weapon?
     /// </summary>
     public EWeaponClass WeaponClass { get => weaponClass; }
@@ -158,9 +163,6 @@ public class WeaponStats : MonoBehaviour
     /// What specific type of weapon is this weapon?
     /// </summary>
     public EWeaponType WeaponType { get => weaponType; }
-
-
-    //public float MaxElevation { get => maxElevation; }
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 

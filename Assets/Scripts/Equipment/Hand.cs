@@ -29,7 +29,7 @@ public class Hand : MonoBehaviour
 	private Rigidbody rb;
     private Grenade grenade;
     private Weapon weapon;
-    private MeshRenderer meshRenderer;
+    private SkinnedMeshRenderer meshRenderer;
     private WeaponStats stats;
 
     //Other
@@ -67,7 +67,7 @@ public class Hand : MonoBehaviour
     /// <summary>
     /// The hand's mesh renderer component.
     /// </summary>
-    public MeshRenderer MeshRenderer { get => meshRenderer; }
+    public SkinnedMeshRenderer MeshRenderer { get => meshRenderer; }
 
     /// <summary>
     /// The hand's trigger collider component.
@@ -109,7 +109,7 @@ public class Hand : MonoBehaviour
         grenade = GetComponent<Grenade>();
         weapon = GetComponent<Weapon>();
         stats = GetComponent<WeaponStats>();
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
@@ -143,15 +143,6 @@ public class Hand : MonoBehaviour
     /// <param name="other">The object collided with.</param>
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Hand.OnTriggerEnter, Collision with {other.gameObject}, grenade exploding: {grenade.Exploding}");
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log($"Player entered trigger collider");
-            if (!grenade.Exploding)
-            {
-                Debug.Log($"Adding Hand to player.");
-                Player.Instance.HandController.AddHand(this);
-            }
-        }
+        if (other.gameObject.tag == "Player" && !grenade.Exploding) Player.Instance.HandController.AddHand(this);
     }
 }
