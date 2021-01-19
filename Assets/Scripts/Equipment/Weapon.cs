@@ -51,16 +51,8 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        handSide = GetComponent<Hand>().HandSide;
     }
-
-	/// <summary>
-	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
-	/// Awake() runs before Start().
-	/// </summary>
-	private void Awake()
-	{
-		handSide = GetComponent<Hand>().HandSide;
-	}
 
 	/// <summary>
 	/// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
