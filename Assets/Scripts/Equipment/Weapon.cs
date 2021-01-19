@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour
 
     //Non-Serialized Fields--------------------------------------------------------------------
 
+    private AudioSource audioSource;
     private WeaponStats stats;
 	private HandSide handSide;
 	private Animator handAnimator;
@@ -21,19 +22,37 @@ public class Weapon : MonoBehaviour
 
     //Basic Public Properties----------------------------------------------------------------------
 
+    //Complex Public Properties--------------------------------------------------------------------
+
     /// <summary>
     /// The stats of the currently equipped weapon.
     /// </summary>
-    public WeaponStats CurrentStats { get => stats; set => stats = value; }
+    public WeaponStats CurrentStats
+    {
+        get
+        {
+            return stats;
+        }
 
-	/// <summary>
-	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
-	/// Awake() runs before Start().
-	/// </summary>
-	private void Awake()
-	{
-		handSide = GetComponent<Hand>().HandSide;
-	}
+        set
+        {
+            Debug.Log($"Weapon.currentStats will be set to {value}.CurrentStats");
+            stats = value;
+            audioSource.clip = (stats == null ? null : stats.AudioClip);
+        }
+    }
+
+    //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+    /// Awake() runs before Start().
+    /// </summary>
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        handSide = GetComponent<Hand>().HandSide;
+    }
 
 	/// <summary>
 	/// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
@@ -85,7 +104,6 @@ public class Weapon : MonoBehaviour
     {
         Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}, animation.state: {handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")}");
 		if (!handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Finger Pistol")) return false;
-        if (!triggerDown) stats.TriggerDown = false;
 		if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
 
         switch (stats.WeaponClass)
@@ -108,6 +126,8 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public void Shoot()
     {
+        audioSource.Play();
+
         for (int i = 0; i < stats.PelletsPerShot; i++)
         {
             //Quaternion randomRotation = Random.rotation;
