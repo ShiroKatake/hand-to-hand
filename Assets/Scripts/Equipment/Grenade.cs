@@ -11,11 +11,13 @@ public class Grenade : MonoBehaviour
     
 	[SerializeField] private float explosionRadius;
 	[SerializeField] private float explosionForce;
+	[SerializeField] private float cookTime = 3f;
 
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
     private AudioSource audioSource;
     private bool exploding = false;
+	private float timePassed;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -57,7 +59,12 @@ public class Grenade : MonoBehaviour
     /// </summary>
     private void Update()
     {
-
+		if (exploding)
+		{
+			if (timePassed >= cookTime)
+				Explode();
+			timePassed += Time.deltaTime;
+		}
     }
 
     /// <summary>
@@ -82,7 +89,10 @@ public class Grenade : MonoBehaviour
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
-	public void Explode()
+	/// <summary>
+	/// Explode the grenade.
+	/// </summary>
+	private void Explode()
 	{
         Debug.Log($"{this}.Grenade.Explode()");
 		Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
@@ -104,5 +114,6 @@ public class Grenade : MonoBehaviour
         audioSource.Play();
 
 		//Return hand back to pool
+		exploding = false;
 	}
 }
