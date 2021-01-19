@@ -31,8 +31,9 @@ public class WeaponStats : MonoBehaviour
 {
     //Serialized Fields----------------------------------------------------------------------------
 
-    [Header("Appearance")]
+    [Header("Sound and Appearance")]
     [SerializeField] private Material material;
+    [SerializeField] private AudioClip audioClip;
 
     [Header("Shooting Stats")]
     [SerializeField] private EWeaponClass weaponClass;
@@ -63,6 +64,11 @@ public class WeaponStats : MonoBehaviour
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
     //Basic Public Properties----------------------------------------------------------------------
+
+    /// <summary>
+    /// The sound this weapon makes when fired.
+    /// </summary>
+    public AudioClip AudioClip { get => audioClip; }
 
     /// <summary>
     /// How hot is this weapon at the moment?

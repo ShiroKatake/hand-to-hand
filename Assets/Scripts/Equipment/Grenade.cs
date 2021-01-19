@@ -7,13 +7,14 @@ public class Grenade : MonoBehaviour
 {
 	//Private Fields---------------------------------------------------------------------------------------------------------------------------------  
 
-	//Serialized Fields----------------------------------------------------------------------------                                                    
+	//Serialized Fields----------------------------------------------------------------------------    
+    
 	[SerializeField] private float explosionRadius;
 	[SerializeField] private float explosionForce;
 
-
     //Non-Serialized Fields------------------------------------------------------------------------                                                    
 
+    private AudioSource audioSource;
     private bool exploding = false;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
@@ -37,7 +38,7 @@ public class Grenade : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -83,6 +84,7 @@ public class Grenade : MonoBehaviour
 
 	public void Explode()
 	{
+        Debug.Log($"{this}.Grenade.Explode()");
 		Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
 		foreach (Collider collider in colliders)
@@ -98,6 +100,8 @@ public class Grenade : MonoBehaviour
 				//Take damage
 			}
 		}
+
+        audioSource.Play();
 
 		//Return hand back to pool
 	}

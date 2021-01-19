@@ -46,7 +46,7 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
         tab = Input.GetButton("Tab");
         shootLeft = !shift && !tab && Input.GetButton("Left Hand");
         shootRight = !shift && !tab && Input.GetButton("Right Hand");
-        Debug.Log($"PlayerShootingController.GetInput(), shift: {shift}, tab: {tab}, shootLeft: {shootLeft}, leftHandWeapon.Stats.TriggerDown: {Player.Instance.HandController.LeftHandWeapon?.CurrentStats.TriggerDown} shootRight: {shootRight}, rightHandWeapon.Stats.TriggerDown: {Player.Instance.HandController.RightHandWeapon?.CurrentStats.TriggerDown}");
+        Debug.Log($"PlayerShootingController.GetInput(), shift: {shift}, tab: {tab}, shootLeft: {shootLeft}, leftHandWeapon.Stats.TriggerDown: {Player.Instance.HandController.LeftHandWeapon?.CurrentStats?.TriggerDown} shootRight: {shootRight}, rightHandWeapon.Stats.TriggerDown: {Player.Instance.HandController.RightHandWeapon?.CurrentStats?.TriggerDown}");
     }
 
     /// <summary>
