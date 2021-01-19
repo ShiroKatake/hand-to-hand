@@ -88,6 +88,12 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
         }
     }
 
+	/// <summary>
+	/// Set animation state to pistol.
+	/// </summary>
+	/// <param name="animator">The hand's animator.</param>
+	/// <param name="handAnimation">The boolean for toggling.</param>
+	/// <returns></returns>
 	private bool SetAnimationToPistol(Animator animator, bool handAnimation)
 	{
 		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Finger Pistol"))
@@ -102,6 +108,11 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
 		return handAnimation;
 	}
 
+	/// <summary>
+	/// Reset animation state to idle.
+	/// </summary>
+	/// <param name="animator">The hand's animator</param>
+	/// <param name="handAnimation">The toggle boolean to reset to false.</param>
 	public void ResetAnimationToIdle(Animator animator, bool handAnimation)
 	{
 		animator.SetTrigger("Idle");
