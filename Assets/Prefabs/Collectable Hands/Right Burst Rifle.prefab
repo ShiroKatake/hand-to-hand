@@ -1071,7 +1071,7 @@ MonoBehaviour:
   projectileType: 1
   maxAmmo: 36
   pelletsPerShot: 1
-  spreadAngle: 5
+  spreadAngle: 2
   shotForce: 15
   shotCooldown: 0.1
   heatPerShot: 1

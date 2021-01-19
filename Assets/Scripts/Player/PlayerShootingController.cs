@@ -59,7 +59,7 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
         tab = Input.GetButton("Tab");
         shootLeft = !shift && !tab && Input.GetButton("Left Hand");
         shootRight = !shift && !tab && Input.GetButton("Right Hand");
-        Debug.Log($"PlayerShootingController.GetInput(), shift: {shift}, tab: {tab}, shootLeft: {shootLeft}, leftHandWeapon.Stats.TriggerDown: {player.HandController.LeftHandWeapon?.CurrentStats.TriggerDown} shootRight: {shootRight}, rightHandWeapon.Stats.TriggerDown: {player.HandController.RightHandWeapon?.CurrentStats.TriggerDown}");
+        //Debug.Log($"PlayerShootingController.GetInput(), shift: {shift}, tab: {tab}, shootLeft: {shootLeft}, leftHandWeapon.Stats.TriggerDown: {player.HandController.LeftHandWeapon?.CurrentStats.TriggerDown} shootRight: {shootRight}, rightHandWeapon.Stats.TriggerDown: {player.HandController.RightHandWeapon?.CurrentStats.TriggerDown}");
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
 	/// <returns>Is the player able to shoot and can their weapon shoot right now?</returns>
 	private bool ReadyToShoot(Weapon weapon, bool triggerDown)
     {
-        Debug.Log($"PlayerShootingController.ReadyToShoot()");
+        //Debug.Log($"PlayerShootingController.ReadyToShoot()");
         return canShoot && weapon != null && weapon.CurrentStats != null && weapon.ReadyToShoot(triggerDown);
     }
 }

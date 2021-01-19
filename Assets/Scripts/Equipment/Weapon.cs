@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
 
     //Serialized Fields----------------------------------------------------------------------------
 
+    [SerializeField] private bool isHand;
     [SerializeField] private Transform barrelTip;
 
     //Non-Serialized Fields--------------------------------------------------------------------
@@ -36,7 +37,7 @@ public class Weapon : MonoBehaviour
 
         set
         {
-            Debug.Log($"Weapon.currentStats will be set to {value}.CurrentStats");
+            //Debug.Log($"Weapon.currentStats will be set to {value}.CurrentStats");
             stats = value;
             audioSource.clip = (stats == null ? null : stats.AudioClip);
         }
@@ -51,7 +52,7 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        handSide = GetComponent<Hand>().HandSide;
+        if (isHand) handSide = GetComponent<Hand>().HandSide;
     }
 
 	/// <summary>
@@ -60,7 +61,7 @@ public class Weapon : MonoBehaviour
 	/// </summary>
 	private void Start()
 	{
-		handAnimator = handSide == HandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
+		if (isHand) handAnimator = handSide == HandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
 	}
 
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -102,8 +103,9 @@ public class Weapon : MonoBehaviour
     /// <returns>Whether or not the weapon can shoot.</returns>
     public bool ReadyToShoot(bool triggerDown)
     {
-        Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}, animation.state: {handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")}");
-		if (!handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Finger Pistol")) return false;
+        Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}");
+        if (isHand) Debug.Log($"{this}.Weapon.ReadyToShoot(), is hand, animation.state: {handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")}");
+		if (isHand && !handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Finger Pistol")) return false;
 		if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
 
         switch (stats.WeaponClass)
@@ -122,7 +124,7 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// Fires a projectile from this weapon's fingertips.
+    /// Fires a projectile from this weapon's barrel tip.
     /// </summary>
     public void Shoot()
     {
