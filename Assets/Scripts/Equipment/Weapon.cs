@@ -15,6 +15,8 @@ public class Weapon : MonoBehaviour
 
     private AudioSource audioSource;
     private WeaponStats stats;
+	private HandSide handSide;
+	private Animator handAnimator;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -51,12 +53,30 @@ public class Weapon : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+	/// <summary>
+	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+	/// Awake() runs before Start().
+	/// </summary>
+	private void Awake()
+	{
+		handSide = GetComponent<Hand>().HandSide;
+	}
 
-    /// <summary>
-    /// Update() is run every frame.
-    /// </summary>
-    private void Update()
+	/// <summary>
+	/// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
+	/// Start() runs after Awake().
+	/// </summary>
+	private void Start()
+	{
+		handAnimator = handSide == HandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
+	}
+
+	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
+
+	/// <summary>
+	/// Update() is run every frame.
+	/// </summary>
+	private void Update()
     {
         if (stats != null) CheckOverheating();
     }
@@ -92,6 +112,7 @@ public class Weapon : MonoBehaviour
     {
         Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}");
         if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
+		if (!handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")) return false;
 
         switch (stats.WeaponClass)
         { 
