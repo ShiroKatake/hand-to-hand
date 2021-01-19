@@ -102,9 +102,9 @@ public class Weapon : MonoBehaviour
     /// <returns>Whether or not the weapon can shoot.</returns>
     public bool ReadyToShoot(bool triggerDown)
     {
-        Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}");
-        if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
-		if (!handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")) return false;
+        Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}, animation.state: {handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")}");
+		if (!handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Finger Pistol")) return false;
+		if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
 
         switch (stats.WeaponClass)
         { 
