@@ -121,7 +121,7 @@ public class Hand : MonoBehaviour
     /// <param name="range">How far should the hand be launched?</param>
 	public void Launch(Vector3 direction, float range)
 	{
-        grenade.Exploding = true;
+        grenade.PullPin();
 		rb.AddForce(direction * range, ForceMode.Impulse);
 	}
 

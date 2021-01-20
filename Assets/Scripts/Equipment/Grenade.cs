@@ -5,15 +5,22 @@
 /// </summary>
 public class Grenade : MonoBehaviour
 {
-	//Private Fields---------------------------------------------------------------------------------------------------------------------------------  
+    //Private Fields---------------------------------------------------------------------------------------------------------------------------------  
 
-	//Serialized Fields----------------------------------------------------------------------------    
+    //Serialized Fields----------------------------------------------------------------------------    
+    
+    [Header("Explosion Game Objects")]
+    [SerializeField] private GameObject explosionFX;
+    [SerializeField] private GameObject handRenderer;
 
+    [Header("Explosion Stats")]
 	[SerializeField] private float explosionRadius;
 	[SerializeField] private float explosionForce;
 	[SerializeField] private float cookTime = 3f;
-	[SerializeField] private GameObject explosionFX;
-	[SerializeField] private GameObject handRenderer;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip timerSFX;
+    [SerializeField] private AudioClip explosionSFX;
 
 	//Non-Serialized Fields------------------------------------------------------------------------                                                    
 
@@ -23,16 +30,12 @@ public class Grenade : MonoBehaviour
 
 	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
-	//Basic Public Properties----------------------------------------------------------------------                                                                                                                          
+	//Complex Public Properties----------------------------------------------------------------------                                                                                                                          
 
 	/// <summary>
 	/// Is the grenade about to explode?
 	/// </summary>
-	public bool Exploding { get => exploding; set => exploding = value; }
-
-	//Complex Public Properties--------------------------------------------------------------------                                                    
-
-
+	public bool Exploding { get => exploding; }
 
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -92,6 +95,17 @@ public class Grenade : MonoBehaviour
 
 	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Triggers the grenade to explode.
+    /// </summary>
+    public void PullPin()
+    {
+        exploding = true;
+        audioSource.clip = timerSFX;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
 	/// <summary>
 	/// Explode the grenade.
 	/// </summary>
@@ -116,6 +130,10 @@ public class Grenade : MonoBehaviour
 
 		handRenderer.SetActive(false);
 		explosionFX?.SetActive(true);
+
+        audioSource.Stop();
+        audioSource.clip = explosionSFX;
+        audioSource.loop = false;
 		audioSource.Play();
 
 		//Return hand back to pool
