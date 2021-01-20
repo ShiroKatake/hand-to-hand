@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// A base class for the logic for weapons.
@@ -11,6 +13,7 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private bool isHand;
     [SerializeField] private Transform barrelTip;
+    [SerializeField] private List<Collider> ownerColliders;
 
     //Non-Serialized Fields--------------------------------------------------------------------
 
@@ -103,8 +106,8 @@ public class Weapon : MonoBehaviour
     /// <returns>Whether or not the weapon can shoot.</returns>
     public bool ReadyToShoot(bool triggerDown)
     {
-        Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}");
-        if (isHand) Debug.Log($"{this}.Weapon.ReadyToShoot(), is hand, animation.state: {handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")}");
+        //Debug.Log($"{this}.Weapon.ReadyToShoot(), triggerDown: {triggerDown}, stats.TriggerDown: {stats.TriggerDown}");
+        //if (isHand) Debug.Log($"{this}.Weapon.ReadyToShoot(), is hand, animation.state: {handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pistol")}");
 		if (isHand && !handAnimator.GetCurrentAnimatorStateInfo(0).IsName("Finger Pistol")) return false;
 		if (stats.CurrentAmmo <= 0 || Time.time - stats.TimeOfLastShot < stats.ShotCooldown) return false;
 
@@ -137,7 +140,7 @@ public class Weapon : MonoBehaviour
             Quaternion projectileRotation = Quaternion.RotateTowards(barrelTip.transform.rotation, Random.rotation, stats.SpreadAngle);
             //Debug.Log($"randomRotation is {randomRotation} (Quaternion) / {randomRotation.eulerAngles} (EulerAngles)");
             //Debug.Log($"projectileRotation is {projectileRotation} (Quaternion) / {projectileRotation.eulerAngles} (EulerAngles)");
-            Projectile projectile = ProjectileFactory.Instance.Get(transform, barrelTip.position, projectileRotation, stats.ProjectileType);
+            Projectile projectile = ProjectileFactory.Instance.Get(transform, ownerColliders, barrelTip.position, projectileRotation, stats.ProjectileType);
             projectile.Shoot(stats.ShotForce);
             //Debug.Log($"{this}.Weapon.Shoot(), projectile is {projectile}");
             stats.TriggerDown = true;

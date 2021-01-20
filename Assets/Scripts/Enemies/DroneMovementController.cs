@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneMovementController : MonoBehaviour
+public class DroneMovementController : EnemyAimer
 {
     //Private Fields---------------------------------------------------------------------------------------------------------------------------------  
 
@@ -23,20 +23,11 @@ public class DroneMovementController : MonoBehaviour
     private CharacterController characterController;
 
     //Movement Variables
-    private bool playerInRange = false;
     private float currentRotation;
     private float rawRotation;
     private float targetRotation;
+    private float deltaRotation = 9999;
     private float minPlayerDistSquared;
-
-    //Public Properties------------------------------------------------------------------------------------------------------------------------------
-
-    //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
-
-    /// <summary>
-    /// Is the player within the drone's detection range?
-    /// </summary>
-    public bool PlayerInRange { get => playerInRange; }
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -88,7 +79,7 @@ public class DroneMovementController : MonoBehaviour
         targetRotation = MathUtility.Instance.NormaliseAngle(rawRotation);
 
         //Calculate Angle To Rotate By
-        float deltaRotation = Mathf.DeltaAngle(currentRotation, targetRotation);
+        deltaRotation = Mathf.DeltaAngle(currentRotation, targetRotation);
         float rotationDirection = MathUtility.Instance.Sign(deltaRotation);
         deltaRotation = MathUtility.Instance.FloatMagnitude(deltaRotation);
         float fixedUpdateRotation = lookSpeed * Time.fixedDeltaTime;
@@ -114,6 +105,17 @@ public class DroneMovementController : MonoBehaviour
         {
             characterController.SimpleMove(transform.TransformDirection(Vector3.forward) * moveSpeed * Time.deltaTime);
         }
+    }
+
+    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Is this enemy's current rotation within maxAimAngle of the target rotation?
+    /// </summary>
+    /// <returns>Is this enemy's current rotation within maxAimAngle of the target rotation?</returns>
+    public override bool WithinMaxAimAngle()
+    {
+        return deltaRotation <= maxAimAngle;
     }
 
     //Triggered Methods (OnCollision)----------------------------------------------------------------------------------------------------------------

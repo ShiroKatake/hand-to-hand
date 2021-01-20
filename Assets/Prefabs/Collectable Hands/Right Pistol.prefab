@@ -414,11 +414,11 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2dca868620428f84688b6b87f8aeaeea, type: 2}
-  - {fileID: 2100000, guid: 2dca868620428f84688b6b87f8aeaeea, type: 2}
-  - {fileID: 2100000, guid: 2dca868620428f84688b6b87f8aeaeea, type: 2}
-  - {fileID: 2100000, guid: 2dca868620428f84688b6b87f8aeaeea, type: 2}
-  - {fileID: 2100000, guid: 2dca868620428f84688b6b87f8aeaeea, type: 2}
+  - {fileID: 2100000, guid: 1f00dbc9be869474ea928778b84c2573, type: 2}
+  - {fileID: 2100000, guid: 1f00dbc9be869474ea928778b84c2573, type: 2}
+  - {fileID: 2100000, guid: 1f00dbc9be869474ea928778b84c2573, type: 2}
+  - {fileID: 2100000, guid: 1f00dbc9be869474ea928778b84c2573, type: 2}
+  - {fileID: 2100000, guid: 1f00dbc9be869474ea928778b84c2573, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -907,7 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b198285406ae64a9dfb4561d4f54fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 2dca868620428f84688b6b87f8aeaeea, type: 2}
+  material: {fileID: 2100000, guid: 1f00dbc9be869474ea928778b84c2573, type: 2}
   audioClip: {fileID: 8300000, guid: 24378093509ad7240a07ba3dfa0dc230, type: 3}
   weaponClass: 0
   weaponType: 0

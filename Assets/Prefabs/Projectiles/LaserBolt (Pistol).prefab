@@ -97,7 +97,7 @@ MonoBehaviour:
   m_doNotOverwriteTemplateMaterialProperties: 0
   m_startPos: {x: 0, y: 0, z: -25}
   m_endPos: {x: 0, y: 0, z: 25}
-  m_lineColor: {r: 0, g: 1, b: 1, a: 0}
+  m_lineColor: {r: 0, g: 0, b: 1, a: 0}
   m_lineWidth: 50
   m_lightSaberFactor: 0.85
 --- !u!108 &919039349126328985
@@ -111,7 +111,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_Intensity: 0.08
   m_Range: 2
   m_SpotAngle: 30

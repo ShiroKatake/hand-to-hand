@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
     //Other
     private bool active = false;
     private Transform owner;
-    private bool leftOwnerCollider;
+    private List<Collider> ownerColliders;
     private float timeOfLastShot;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
@@ -53,6 +53,11 @@ public class Projectile : MonoBehaviour
     /// The entity that fired the projectile. Should only be set by ProjectileFactory.
     /// </summary>
     public Transform Owner { get => owner; set => owner = value; }
+
+    /// <summary>
+    /// The colliders of the entity that fired the projectile. Should only be set by ProjectileFactory.
+    /// </summary>
+    public List<Collider> OwnerColliders { get => ownerColliders; set => ownerColliders = value; }
 
     /// <summary>
     /// The projectile's mesh renderer component.
@@ -124,7 +129,6 @@ public class Projectile : MonoBehaviour
         rigidbody.isKinematic = false;
         collider.enabled = true;
         rigidbody.AddForce(transform.forward * force);
-        leftOwnerCollider = false;
         ProjectileManager.Instance.RegisterProjectile(this);
     }
 
@@ -142,25 +146,25 @@ public class Projectile : MonoBehaviour
 
         //Debug.Log($"{gameObject.name} reduced {a.gameObject.name}'s health to {a.Health.Value}; {a.gameObject.name}.ShotBy is now {owner.name}");
 
-        if (!other.CompareTag("Projectile") && !other.isTrigger && (!other.CompareTag(owner.tag) || leftOwnerCollider))
+        if (!other.CompareTag("Projectile") && !other.isTrigger && !ownerColliders.Contains(other))
         {
             //Debug.Log($"ProjectileCollision, not {owner.tag} or Projectile or Pit Walls; tag is {collidedWith.tag}; position is {transform.position}");
             ProjectileFactory.Instance.Destroy(this);
         }
     }
 
-    /// <summary>
-    /// OnTriggerExit is called when the Collider other has stopped touching the trigger.
-    /// </summary>
-    /// <param name="other">The other Collider involved in this collision.</param>
-    public void OnTriggerExit(Collider other)
-    {
-        //Debug.Log("ProjectileCollision OnTriggerExit");
+    ///// <summary>
+    ///// OnTriggerExit is called when the Collider other has stopped touching the trigger.
+    ///// </summary>
+    ///// <param name="other">The other Collider involved in this collision.</param>
+    //public void OnTriggerExit(Collider other)
+    //{
+    //    //Debug.Log("ProjectileCollision OnTriggerExit");
 
-        if (!leftOwnerCollider && other.CompareTag(owner.tag))
-        {
-            //Debug.Log("Left owner collider");
-            leftOwnerCollider = true;
-        }
-    }
+    //    if (!leftOwnerCollider && other.CompareTag(owner.tag))
+    //    {
+    //        //Debug.Log("Left owner collider");
+    //        leftOwnerCollider = true;
+    //    }
+    //}
 }

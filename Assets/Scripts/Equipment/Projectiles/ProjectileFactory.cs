@@ -35,13 +35,16 @@ public class ProjectileFactory : Factory<ProjectileFactory, Projectile, EProject
     /// Retrieves Projectiles from a pool if there's any available, and instantiates a new Projectile if there isn't one.
     /// </summary>
     /// <param name="owner">The player or turret firing the projectile from their weapon.</param>
-    /// <param name="barrelTip">The transform of the barrel tip it's being fired from.</param>
+    /// <param name="ownerColliders">The player or enemy firing the projectile from their weapon.</param>
+    /// <param name="position">The position it's being fired from.</param>
+    /// <param name="rotation">The rotation with which it's being fired.</param>
     /// <param name="type">The type of projectile to get.</param>
     /// <returns>A new projectile.</returns>
-    public Projectile Get(Transform owner, Vector3 position, Quaternion rotation, EProjectileType type)
+    public Projectile Get(Transform owner, List<Collider> ownerColliders, Vector3 position, Quaternion rotation, EProjectileType type)
     {
         Projectile projectile = Get(position, type);
         projectile.Owner = owner;
+        projectile.OwnerColliders = ownerColliders;
 		projectile.transform.rotation = rotation;
         //Debug.Log($"{this}.Get(), projectile is {projectile}");
 		return projectile;

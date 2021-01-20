@@ -537,7 +537,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6837882558463447872}
   - component: {fileID: 6561643242134018415}
-  - component: {fileID: 2565879633179353748}
   - component: {fileID: 4484111906889171802}
   - component: {fileID: 6244589833954339922}
   - component: {fileID: 3255609256773630328}
@@ -582,20 +581,6 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &2565879633179353748
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 939335347270622176}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4484111906889171802
 MonoBehaviour:
@@ -2003,7 +1988,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ff7b41454bc0d409edbc7647571c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHand: 1
   barrelTip: {fileID: 1971072657955024540}
+  ownerColliders:
+  - {fileID: 6561643242134018415}
 --- !u!82 &1856763184
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2830,7 +2818,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ff7b41454bc0d409edbc7647571c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHand: 1
   barrelTip: {fileID: 8755492606691268685}
+  ownerColliders:
+  - {fileID: 6561643242134018415}
 --- !u!82 &41624799
 AudioSource:
   m_ObjectHideFlags: 0

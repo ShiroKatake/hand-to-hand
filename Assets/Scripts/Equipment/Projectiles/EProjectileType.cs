@@ -10,5 +10,7 @@ public enum EProjectileType
     PistolBolt,
     BurstRifleBolt,
     ShotgunPellet,
-    AutoRifleBolt
+    AutoRifleBolt,
+    DroneBolt,
+    TurretBolt
 }
