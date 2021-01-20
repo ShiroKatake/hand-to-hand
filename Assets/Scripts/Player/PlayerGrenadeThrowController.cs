@@ -27,6 +27,9 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
     private Hand hand = null;
 	private Player player;
 
+	private Animator leftAnimator;
+	private Animator rightAnimator;
+
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
 	/// <summary>
@@ -41,6 +44,8 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	private void Start()
 	{
 		player = Player.Instance;
+		leftAnimator = player.LeftHandAnimator;
+		rightAnimator = player.RightHandAnimator;
 	}
 
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -83,22 +88,24 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 				
 				if (lmbDown && !isHoldingLeftGrenade)
 				{
-					player.LeftHandAnimator.SetTrigger("Grenade");
+					leftAnimator.SetTrigger("Grenade");
 					isHoldingLeftGrenade = true;
 				}
 				if (lmbUp && player.HandController.LeftHand != null)
 				{
+					leftAnimator.SetTrigger("PullGrenade");
 					hand = player.HandController.LeftHand;
 					isHoldingLeftGrenade = false;
 				}
 
 				if (rmbDown && !isHoldingRightGrenade)
 				{
-					player.RightHandAnimator.SetTrigger("Grenade");
+					rightAnimator.SetTrigger("Grenade");
 					isHoldingRightGrenade = true;
 				}
 				if (rmbUp && player.HandController.RightHand != null)
 				{
+					rightAnimator.SetTrigger("PullGrenade");
 					hand = player.HandController.RightHand;
 					isHoldingRightGrenade = false;
 				}
@@ -108,12 +115,12 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 			{
 				if (isHoldingLeftGrenade)
 				{
-					player.LeftHandAnimator.SetTrigger("Pistol");
+					leftAnimator.SetTrigger("Pistol");
 					isHoldingLeftGrenade = false;
 				}
 				if (isHoldingRightGrenade)
 				{
-					player.RightHandAnimator.SetTrigger("Pistol");
+					rightAnimator.SetTrigger("Pistol");
 					isHoldingRightGrenade = false;
 				}
 
@@ -130,9 +137,13 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	{
 		if (hand != null)
 		{
-            Player.Instance.HandController.RemoveHand(hand);
-            hand.Launch(playerCamera.forward, grenadeRange);
-			hand = null;
+			if (hand.HandSide == HandSide.Left && leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grenade_Pull") || 
+				hand.HandSide == HandSide.Right && rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grenade_Pull"))
+			{
+				Player.Instance.HandController.RemoveHand(hand);
+				hand.Launch(playerCamera.forward, grenadeRange);
+				hand = null;
+			}
 		}
 	}
 }

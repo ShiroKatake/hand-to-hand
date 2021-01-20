@@ -143,6 +143,16 @@ public class Hand : MonoBehaviour
     /// <param name="other">The object collided with.</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !grenade.Exploding) Player.Instance.HandController.AddHand(this);
+		if (other.gameObject.tag == "Player" && !grenade.Exploding)
+		{
+			Player.Instance.HandController.AddHand(this);
+
+			if (handSide == HandSide.Left)
+				Player.Instance.LeftHandAnimator.SetTrigger("Idle");
+			else
+				Player.Instance.RightHandAnimator.SetTrigger("Idle");
+
+			Debug.Log("Set");
+		}
     }
 }
