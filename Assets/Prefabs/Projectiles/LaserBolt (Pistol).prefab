@@ -239,4 +239,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   damage: 0.5
-  lifespan: 5
+  lifespan: 2.5

@@ -528,13 +528,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.25
+  m_Height: 1
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.125, z: 0}
+  m_Center: {x: 0, y: -0.25, z: 0}
 --- !u!135 &8620146222111353501
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -560,12 +560,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0d637397569bd41af031e1260c2394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAimAngle: 3
-  drone: {fileID: 4941868382089745141}
+  body: {fileID: 4941868382089745141}
   targeter: {fileID: 1978317333024782164}
-  moveSpeed: 150
+  maxAimAngle: 3
   lookSpeed: 150
-  minPlayerDistance: 2
+  moveSpeed: 150
+  minPlayerDistance: 5
 --- !u!114 &1155444769409561791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +596,6 @@ MonoBehaviour:
   ownerColliders:
   - {fileID: 5650711780168568874}
   - {fileID: 8620146222111353501}
-  - {fileID: 8070253402684858633}
 --- !u!114 &7150131563448582016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,7 +1107,6 @@ GameObject:
   - component: {fileID: 8055655646217057396}
   - component: {fileID: 90079476171858409}
   - component: {fileID: 6789421530268324303}
-  - component: {fileID: 8070253402684858633}
   m_Layer: 0
   m_Name: Body Model
   m_TagString: Enemy
@@ -1182,19 +1180,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8070253402684858633
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705195352684573333}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6079771124280704045
 GameObject:
   m_ObjectHideFlags: 0

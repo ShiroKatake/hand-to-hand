@@ -13,6 +13,8 @@ public class Player : PublicInstanceSerializableSingleton<Player>
 
 	[SerializeField] private Animator leftHandAnimator;
 	[SerializeField] private Animator rightHandAnimator;
+    [Tooltip("What is half of the player's height i.e. the height radius?")]
+    [SerializeField] private float heightRadius;
 
 	//Non-Serialized Fields------------------------------------------------------------------------
 
@@ -20,20 +22,16 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     private PlayerHandController handController;
     private PlayerGrenadeThrowController grenadeThrowController;
     private PlayerShootingController shootingController;
+    private Camera povCamera;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
     //Basic Public Properties----------------------------------------------------------------------
 
     /// <summary>
-    /// The controller class for the player's movement.
+    /// The player's POV camera.
     /// </summary>
-    public PlayerMovementController MovementController { get => movementController; }
-
-    /// <summary>
-    /// The controller class for the player's hand grenades.
-    /// </summary>
-    public PlayerHandController HandController { get => handController; }
+    public Camera Camera { get => povCamera; }
 
     /// <summary>
     /// The controller class for the player throwing their hand grenades.
@@ -41,19 +39,35 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     public PlayerGrenadeThrowController GrenadeThrowController { get => grenadeThrowController; }
 
     /// <summary>
-    /// The controller class for the player shooting with their current weapon.
+    /// The controller class for the player's hand grenades.
     /// </summary>
-    public PlayerShootingController ShootingController { get => shootingController; }
+    public PlayerHandController HandController { get => handController; }
 
-	/// <summary>
-	/// The animator controlling the player's left hand.
-	/// </summary>
-	public Animator LeftHandAnimator { get => leftHandAnimator; }
+    /// <summary>
+    /// What is half of the player's height i.e. the height radius?
+    /// </summary>
+    public float HeightRadius { get => heightRadius; }
 
-	/// <summary>
+    /// <summary>
+    /// The animator controlling the player's left hand.
+    /// </summary>
+    public Animator LeftHandAnimator { get => leftHandAnimator; }
+
+    /// <summary>
+    /// The controller class for the player's movement.
+    /// </summary>
+    public PlayerMovementController MovementController { get => movementController; }
+
+    /// <summary>
 	/// The animator controlling the player's right hand.
 	/// </summary>
 	public Animator RightHandAnimator { get => rightHandAnimator; }
+
+    /// <summary>
+    /// The controller class for the player shooting with their current weapon.
+    /// </summary>
+    public PlayerShootingController ShootingController { get => shootingController; }
+	
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -67,5 +81,6 @@ public class Player : PublicInstanceSerializableSingleton<Player>
         handController = GetComponent<PlayerHandController>();
         grenadeThrowController = GetComponent<PlayerGrenadeThrowController>();
         shootingController = GetComponent<PlayerShootingController>();
+        povCamera = GetComponentInChildren<Camera>();
     }
 }

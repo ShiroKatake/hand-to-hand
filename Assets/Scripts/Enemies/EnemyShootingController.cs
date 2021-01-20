@@ -12,7 +12,7 @@ public class EnemyShootingController : MonoBehaviour
     //Non-Serialized Fields------------------------------------------------------------------------
 
     //Components
-    private EnemyAimer aimer;
+    private EnemyAimController aimer;
     private Weapon weapon;
 
     //Shooting Variables
@@ -37,7 +37,7 @@ public class EnemyShootingController : MonoBehaviour
     private void Awake()
     {
         weapon = GetComponent<Weapon>();
-        aimer = GetComponent<EnemyAimer>();
+        aimer = GetComponent<EnemyAimController>();
         shootRangeSquared = shootRange * shootRange;
     }
 
