@@ -13,6 +13,7 @@ public class PauseMenu : MonoBehaviour
 	//Non-Serialized Fields--------------------------------------------------------------------
 
 	private bool pause;
+	private GameOverManager gameOverManager;
 
 	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ public class PauseMenu : MonoBehaviour
 	/// </summary>
 	private void Start()
 	{
+		gameOverManager = FindObjectOfType<GameOverManager>();
 		Cursor.lockState = CursorLockMode.Locked;
 		Resume();
 	}
@@ -45,7 +47,7 @@ public class PauseMenu : MonoBehaviour
 	/// </summary>
 	private void GetInput()
 	{
-		if (Input.GetButtonDown("Pause"))
+		if (!gameOverManager.gameOver && Input.GetButtonDown("Pause"))
 		{
 			if (GameIsPaused)
 			{
@@ -63,6 +65,7 @@ public class PauseMenu : MonoBehaviour
 	/// </summary>
 	private void Resume()
 	{
+		Cursor.lockState = CursorLockMode.Locked;
 		pauseMenu.SetActive(false);
 		Time.timeScale = 1f;
 		GameIsPaused = false;
@@ -73,6 +76,7 @@ public class PauseMenu : MonoBehaviour
 	/// </summary>
 	private void Pause()
 	{
+		Cursor.lockState = CursorLockMode.None;
 		pauseMenu.SetActive(true);
 		Time.timeScale = 0f;
 		GameIsPaused = true;

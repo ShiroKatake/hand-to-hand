@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Controls.unity
     guid: 11c242178d71a234296592d654268980
   - enabled: 1
-    path: Assets/Scenes/First Person Controller Prototyping.unity
-    guid: cbab17ed49d2b7a488a6baf10a0f17d5
+    path: Assets/Scenes/Gameplay Scene.unity
+    guid: ca3207ebdca7c4d4ca0476d9a5376aa6
   m_configObjects: {}

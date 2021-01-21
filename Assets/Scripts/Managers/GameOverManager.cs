@@ -8,6 +8,8 @@ public class GameOverManager : MonoBehaviour
 	[SerializeField] GameObject winText;
 	[SerializeField] GameObject loseText;
 
+	public bool gameOver;
+
 	private void Start()
 	{
 		gameOverScreenContainer.SetActive(false);
@@ -27,7 +29,8 @@ public class GameOverManager : MonoBehaviour
 			winText.SetActive(false);
 			gameOverScreenContainer.SetActive(true);
 		}
-
+		Cursor.lockState = CursorLockMode.None;
 		Time.timeScale = 0;
+		gameOver = true;
 	}
 }
