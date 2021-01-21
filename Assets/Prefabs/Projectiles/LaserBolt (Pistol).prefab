@@ -239,4 +239,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   damage: 1
-  range: 50
+  range: 20
