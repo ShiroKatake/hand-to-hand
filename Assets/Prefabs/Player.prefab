@@ -610,6 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b1e281888449440b4a567bb99eb072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 50
 --- !u!114 &6244589833954339922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,7 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3d2ce888baabb47bc28dd593f5bfe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenadeRange: 5
+  throwForce: 10
   playerCamera: {fileID: 1296430010}
 --- !u!114 &3255609256773630328
 MonoBehaviour:

@@ -131,11 +131,11 @@ public class Hand : MonoBehaviour
 	/// Launch the grenade hand.
 	/// </summary>
     /// <param name="direction">What direction should the hand be launched in?</param>
-    /// <param name="range">How far should the hand be launched?</param>
-	public void Launch(Vector3 direction, float range)
+    /// <param name="force">With how much force should the hand be launched?</param>
+	public void Launch(Vector3 direction, float force)
 	{
         grenade.PullPin();
-		rb.AddForce(direction * range, ForceMode.Impulse);
+		rb.AddForce(direction * force, ForceMode.Impulse);
 	}
 
     /// <summary>

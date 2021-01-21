@@ -13,8 +13,6 @@ public class Player : PublicInstanceSerializableSingleton<Player>
 
 	[SerializeField] private Animator leftHandAnimator;
 	[SerializeField] private Animator rightHandAnimator;
-    [Tooltip("What is half of the player's height i.e. the height radius?")]
-    [SerializeField] private float heightRadius;
 
 	//Non-Serialized Fields------------------------------------------------------------------------
 
@@ -42,11 +40,6 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     /// The controller class for the player's hand grenades.
     /// </summary>
     public PlayerHandController HandController { get => handController; }
-
-    /// <summary>
-    /// What is half of the player's height i.e. the height radius?
-    /// </summary>
-    public float HeightRadius { get => heightRadius; }
 
     /// <summary>
     /// The animator controlling the player's left hand.

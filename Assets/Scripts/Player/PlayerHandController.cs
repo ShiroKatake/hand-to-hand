@@ -126,6 +126,9 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Gets the player's input relating to shooting with or switching hands.
+    /// </summary>
     private void GetInput()
     {
         tab = Input.GetButton("Tab");

@@ -9,7 +9,7 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 	
 	//Serialized Fields----------------------------------------------------------------------------
 
-	[SerializeField] private float grenadeRange;
+	[SerializeField] private float throwForce;
 	[SerializeField] private Transform playerCamera;
 
     //Non-Serialized Fields------------------------------------------------------------------------
@@ -32,16 +32,11 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 
 	//Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
-	/// <summary>
-	/// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
-	/// Awake() runs before Start().
-	/// </summary> 
-	protected override void Awake()
-	{
-
-	}
-
-	private void Start()
+    /// <summary>
+    /// Start() is run on the frame when a script is enabled just before any of the Update methods are called for the first time. 
+    /// Start() runs after Awake().
+    /// </summary>
+    private void Start()
 	{
 		player = Player.Instance;
 		leftAnimator = player.LeftHandAnimator;
@@ -142,7 +137,7 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 				hand.HandSide == HandSide.Right && rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grenade_Pull"))
 			{
 				Player.Instance.HandController.RemoveHand(hand);
-				hand.Launch(playerCamera.forward, grenadeRange);
+				hand.Launch(playerCamera.forward, throwForce);
 				hand = null;
 			}
 		}

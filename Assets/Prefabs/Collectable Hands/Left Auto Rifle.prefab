@@ -307,8 +307,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionFX: {fileID: 5740227256969413736}
   handRenderer: {fileID: 8405634781710638256}
-  explosionRadius: 0
-  explosionForce: 0
+  explosionRadius: 2
+  explosionForce: 3
+  explosionDamage: 7.5
   cookTime: 3
   timerSFX: {fileID: 8300000, guid: 5f494ca39d0b18549905937df8f6649a, type: 3}
   explosionSFX: {fileID: 8300000, guid: fd6e12a038482604f9ef63a8d122ff54, type: 3}

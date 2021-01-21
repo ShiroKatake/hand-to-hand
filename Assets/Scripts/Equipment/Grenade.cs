@@ -18,6 +18,7 @@ public class Grenade : MonoBehaviour
     [Header("Explosion Stats")]
 	[SerializeField] private float explosionRadius;
 	[SerializeField] private float explosionForce;
+	[SerializeField] private float explosionDamage;
 	[SerializeField] private float cookTime = 3f;
 
     [Header("Audio")]
@@ -30,6 +31,8 @@ public class Grenade : MonoBehaviour
 	private bool exploding = false;
 	private float timePassed;
 	private ParticleSystem[] fxs;
+    private WeaponStats stats;
+
 	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
 	//Complex Public Properties----------------------------------------------------------------------                                                                                                                          
@@ -48,6 +51,7 @@ public class Grenade : MonoBehaviour
 	private void Awake()
 	{
 		audioSource = GetComponent<AudioSource>();
+        stats = GetComponent<WeaponStats>();
 	}
 
 	/// <summary>
@@ -57,6 +61,7 @@ public class Grenade : MonoBehaviour
 	private void Start()
 	{
 		handRenderer.SetActive(true);
+
 		if (explosionFX != null)
 		{
 			explosionFX.SetActive(false);
@@ -74,7 +79,8 @@ public class Grenade : MonoBehaviour
 	{
 		if (exploding)
 		{
-			GetComponent<Hand>().CanCollect = false;
+            Hand hand = GetComponent<Hand>();
+            if (hand != null) hand.CanCollect = false;
 			if (timePassed >= cookTime)
 				Explode();
 			timePassed += Time.deltaTime;
@@ -119,7 +125,8 @@ public class Grenade : MonoBehaviour
 	/// </summary>
 	private void Explode()
 	{
-		Debug.Log($"{this}.Grenade.Explode()");
+        Debug.Log($"{this}.Grenade.Explode()");
+        float explosionMultiplier = (stats == null ? 1 : stats.CurrentAmmo / stats.MaxAmmo);
 		Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
 		foreach (Collider collider in colliders)
@@ -127,17 +134,12 @@ public class Grenade : MonoBehaviour
 			Rigidbody rb = collider.GetComponent<Rigidbody>();
 			Health health = collider.GetComponent<Health>();
 
-			if (rb != null)
-				rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 1f, ForceMode.Impulse);
-
-			if (health != null)
-			{
-				//Take damage
-			}
+			if (rb != null) rb.AddExplosionForce(explosionForce * explosionMultiplier, transform.position, explosionRadius, 1f, ForceMode.Impulse);
+			if (health != null) health.TakeDamage(explosionDamage * explosionMultiplier);
 		}
 
 		handRenderer.SetActive(false);
-		explosionFX?.SetActive(true);
+		explosionFX.SetActive(true);
 
         audioSource.Stop();
         audioSource.clip = explosionSFX;
