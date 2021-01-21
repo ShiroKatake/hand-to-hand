@@ -133,8 +133,8 @@ public class PlayerGrenadeThrowController : PrivateInstanceSerializableSingleton
 		if (hand != null)
 		{
 			hand.CanCollect = false;
-			if (hand.HandSide == HandSide.Left && leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grenade_Pull") || 
-				hand.HandSide == HandSide.Right && rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grenade_Pull"))
+			if (hand.HandSide == EHandSide.Left && leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grenade_Pull") || 
+				hand.HandSide == EHandSide.Right && rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grenade_Pull"))
 			{
 				Player.Instance.HandController.RemoveHand(hand);
 				hand.Launch(playerCamera.forward, throwForce);

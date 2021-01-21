@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
 
     private AudioSource audioSource;
     private WeaponStats stats;
-	private HandSide handSide;
+	private EHandSide handSide;
 	private Animator handAnimator;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour
 	/// </summary>
 	private void Start()
 	{
-		if (isHand) handAnimator = handSide == HandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
+		if (isHand) handAnimator = handSide == EHandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
 	}
 
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------

@@ -123,10 +123,10 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
 	/// </summary>
 	/// <param name="animator">The hand's animator</param>
 	/// <param name="handAnimation">The toggle boolean to reset to false.</param>
-	public void ResetShooting(HandSide handside)
+	public void ResetShooting(EHandSide handside)
 	{
 		Debug.Log("Reset");
-		if (handside == HandSide.Left)
+		if (handside == EHandSide.Left)
 		{
 			leftHandAnimationIsSet = false;
 		}

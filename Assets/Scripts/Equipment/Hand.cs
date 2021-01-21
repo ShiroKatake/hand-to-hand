@@ -3,7 +3,7 @@
 /// <summary>
 /// Which handside the object is.
 /// </summary>
-public enum HandSide
+public enum EHandSide
 {
     None,
 	Left,
@@ -19,7 +19,7 @@ public class Hand : MonoBehaviour
 
     //Serialized Fields----------------------------------------------------------------------------
 
-    [SerializeField] private HandSide handSide;
+    [SerializeField] private EHandSide handSide;
     [SerializeField] private Collider pickUpCollider;
     [SerializeField] private Collider bodyCollider;
     
@@ -64,7 +64,7 @@ public class Hand : MonoBehaviour
     /// <summary>
     /// Which side is this hand on?
     /// </summary>
-	public HandSide HandSide { get => handSide; }
+	public EHandSide HandSide { get => handSide; }
 
     /// <summary>
     /// Has this hand run its awake method and retrieved its other components yet?
@@ -109,7 +109,7 @@ public class Hand : MonoBehaviour
 
 	private void Start()
 	{
-		handAnimator = handSide == HandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
+		handAnimator = handSide == EHandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
 	}
 
 	/// <summary>
