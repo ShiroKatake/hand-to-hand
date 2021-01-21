@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// A non-serialized singleton class for reusable maths methods that don't seem to be included in Mathf or any other classes or libraries or that have been put together because people can't be bothered Googling the actual methods.
 /// </summary>
-public class MathUtility : Singleton<MathUtility>
+public class MathUtility
 {
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// MathUtility's constructor method.
-    /// WARNING: DO NOT CALL IN-CODE. IT IS ONLY PUBLIC FOR SINGLETON.INSTANCE TO USE.
-    /// </summary>
-    public MathUtility()
-    {
+    ///// <summary>
+    ///// MathUtility's constructor method.
+    ///// WARNING: DO NOT CALL IN-CODE. IT IS ONLY PUBLIC FOR SINGLETON.INSTANCE TO USE.
+    ///// </summary>
+    //public MathUtility()
+    //{
 
-    }
+    //}
 
     //Utility Methods--------------------------------------------------------------------------------------------------------------------------------  
 
@@ -27,9 +28,51 @@ public class MathUtility : Singleton<MathUtility>
     /// </summary>
     /// <param name="num">The number to square</param>
     /// <returns>Num squared.</returns>
-    public float Square(float num)
+    public static float Square(float num)
     {
         return num * num;
+    }
+
+    /// <summary>
+    /// The 2D distance squared on the x/y plane between two positions.
+    /// </summary>
+    /// <param name="a">The first position</param>
+    /// <param name="b">The second position.</param>
+    /// <returns>The distance between the two positions on the x/y plane.</returns>
+    public static float DistanceSquaredXY(Vector3 a, Vector3 b)
+    {
+        float deltaX = a.x - b.x;
+        float deltaY = a.y - b.y;
+        float distSquared = deltaX * deltaX + deltaY * deltaY;
+        return distSquared;
+    }
+
+    /// <summary>
+    /// The 2D distance squared on the x/z plane between two positions.
+    /// </summary>
+    /// <param name="a">The first position</param>
+    /// <param name="b">The second position.</param>
+    /// <returns>The distance between the two positions on the x/z plane.</returns>
+    public static float DistanceSquaredXZ(Vector3 a, Vector3 b)
+    {
+        float deltaX = a.x - b.x;
+        float deltaZ = a.z - b.z;
+        float distSquared = deltaX * deltaX + deltaZ * deltaZ;
+        return distSquared;
+    }
+
+    /// <summary>
+    /// The 2D distance squared on the y/z plane between two positions.
+    /// </summary>
+    /// <param name="a">The first position</param>
+    /// <param name="b">The second position.</param>
+    /// <returns>The distance between the two positions on the y/z plane.</returns>
+    public static float DistanceSquaredYZ(Vector3 a, Vector3 b)
+    {
+        float deltaY = a.y - b.y;
+        float deltaZ = a.z - b.z;
+        float distSquared = deltaY * deltaY + deltaZ * deltaZ;
+        return distSquared;
     }
 
     //Number Magnitude-----------------------------------------------------------------------------
@@ -39,7 +82,7 @@ public class MathUtility : Singleton<MathUtility>
     /// </summary>
     /// <param name="num">The number to calculate the magnitude of.</param>
     /// <returns>The magnitude of the number.</returns>
-    public float FloatMagnitude(float num)
+    public static float FloatMagnitude(float num)
     {
         if (num < 0)
         {
@@ -54,7 +97,7 @@ public class MathUtility : Singleton<MathUtility>
     /// </summary>
     /// <param name="num">The number to calculate the magnitude of.</param>
     /// <returns>The magnitude of the number.</returns>
-    public int IntMagnitude(int num)
+    public static int IntMagnitude(int num)
     {
         if (num < 0)
         {
@@ -71,7 +114,7 @@ public class MathUtility : Singleton<MathUtility>
     /// </summary>
     /// <param name="num">The number to determine the sign of.</param>
     /// <returns>The sign (+1 or -1) of the number.</returns>
-    public int Sign(float num)
+    public static int Sign(float num)
     {
         return (num < 0 ? -1 : 1);
     }
@@ -81,7 +124,7 @@ public class MathUtility : Singleton<MathUtility>
 	/// </summary>
 	/// <param name="num">The number to determine.</param>
 	/// <returns>whether the number is odd (true) or not (false).</returns>
-	public bool IsOdd(float num)
+	public static bool IsOdd(float num)
 	{
 		return (num % 2 == 1);
 	}
@@ -91,7 +134,7 @@ public class MathUtility : Singleton<MathUtility>
 	/// </summary>
 	/// <param name="num">The number to determine.</param>
 	/// <returns>whether the number is even (true) or not (false).</returns>
-	public bool IsEven(float num)
+	public static bool IsEven(float num)
 	{
 		return (num % 2 == 0);
 	}
@@ -103,7 +146,7 @@ public class MathUtility : Singleton<MathUtility>
     /// </summary>
     /// <param name="angle">The raw angle.</param>
     /// <returns>The normalised angle.</returns>
-    public float NormaliseAngle(float angle)
+    public static float NormaliseAngle(float angle)
     {
         while (angle > 360)
         {
@@ -125,7 +168,7 @@ public class MathUtility : Singleton<MathUtility>
     /// <param name="a">The counter-clockwise-most bound of what's acceptable for the angle being checked.</param>
     /// <param name="b">The clockwise-most bound of what's acceptable for the angle being checked.</param>
     /// <returns>Whether the angle being checked is between a and b.</returns>
-    public bool AngleIsBetween(float angle, float a, float b)
+    public static bool AngleIsBetween(float angle, float a, float b)
     {
         angle = NormaliseAngle(angle);
 

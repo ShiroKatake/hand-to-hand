@@ -71,8 +71,8 @@ public class TurretAimingController : EnemyAimController
 
         //Calculate Change In Elevation
         deltaElevation = Mathf.DeltaAngle(currentElevation, targetElevation);
-        float elevationDirection = MathUtility.Instance.Sign(deltaElevation);
-        deltaElevation = MathUtility.Instance.FloatMagnitude(deltaElevation);
+        float elevationDirection = MathUtility.Sign(deltaElevation);
+        deltaElevation = MathUtility.FloatMagnitude(deltaElevation);
         float fixedUpdateElevation = elevationSpeed * Time.fixedDeltaTime;
 
         //Calculate New Elevation

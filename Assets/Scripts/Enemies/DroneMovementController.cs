@@ -51,11 +51,7 @@ public class DroneMovementController : EnemyAimController
     /// </summary>
     private void Move()
     {
-        float deltaX = Player.Instance.transform.position.x - transform.position.x;
-        float deltaZ = Player.Instance.transform.position.z - transform.position.z;
-        float distSquared = deltaX * deltaX + deltaZ * deltaZ;
-
-        if (distSquared > minPlayerDistSquared)
+        if (MathUtility.DistanceSquaredXZ(Player.Instance.transform.position, transform.position) > minPlayerDistSquared)
         {
             characterController.SimpleMove(transform.TransformDirection(Vector3.forward) * moveSpeed * Time.deltaTime);
         }

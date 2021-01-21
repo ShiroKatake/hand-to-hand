@@ -75,7 +75,7 @@
 //        float rawElevation = targeter.rotation.eulerAngles.x + elevationColliderOffset.y;
 
 //        //Rotation
-//        targetTurretRotation = MathUtility.Instance.NormaliseAngle(rawRotation);
+//        targetTurretRotation = MathUtility.NormaliseAngle(rawRotation);
 
 //        //Elevation
 //        targetBarrelElevation = (rawElevation > 90 ? 360 - rawElevation : rawElevation * -1);
@@ -94,12 +94,12 @@
 //        //if (currentTurretRotation != targetTurretRotation)  //Left here in comments in case we want to put it back into usage for optimisation purposes.
 //        //{
 //        float deltaRotation = Mathf.DeltaAngle(currentTurretRotation, targetTurretRotation);
-//        float rotationDirection = MathUtility.Instance.Sign(deltaRotation);
-//        deltaRotation = MathUtility.Instance.FloatMagnitude(deltaRotation);
+//        float rotationDirection = MathUtility.Sign(deltaRotation);
+//        deltaRotation = MathUtility.FloatMagnitude(deltaRotation);
 //        float fixedUpdateRotation = rotationSpeed * Time.fixedDeltaTime;
 
 //        currentTurretRotation += rotationDirection * Mathf.Min(deltaRotation, fixedUpdateRotation);
-//        currentTurretRotation = MathUtility.Instance.NormaliseAngle(currentTurretRotation);
+//        currentTurretRotation = MathUtility.NormaliseAngle(currentTurretRotation);
 //        baseCollider.localRotation = Quaternion.Euler(rotationColliderOffset.x, rotationColliderOffset.y, rotationColliderOffset.z + currentTurretRotation);
 //        baseModel.localRotation = Quaternion.Euler(
 //            rotationColliderOffset.x + rotationModelCounterOffset.x, 
@@ -111,8 +111,8 @@
 //        //if (currentBarrelElevation != targetBarrelElevation)  //Left here in comments in case we want to put it back into usage for optimisation purposes.
 //        //{
 //        float deltaElevation = Mathf.DeltaAngle(currentBarrelElevation, targetBarrelElevation);
-//        float elevationDirection = MathUtility.Instance.Sign(deltaElevation);
-//        deltaElevation = MathUtility.Instance.FloatMagnitude(deltaElevation);
+//        float elevationDirection = MathUtility.Sign(deltaElevation);
+//        deltaElevation = MathUtility.FloatMagnitude(deltaElevation);
 //        float fixedUpdateElevation = elevationSpeed * Time.fixedDeltaTime;
 
 //        currentBarrelElevation += elevationDirection * Mathf.Min(deltaElevation, fixedUpdateElevation);

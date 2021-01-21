@@ -68,14 +68,10 @@ public class EnemyShootingController : MonoBehaviour
     /// <returns>Is the player able to shoot and can their weapon shoot right now?</returns>
     private bool ReadyToShoot()
     {
-        float deltaX = Player.Instance.transform.position.x - transform.position.x;
-        float deltaZ = Player.Instance.transform.position.z - transform.position.z;
-        float distSquared = deltaX * deltaX + deltaZ + deltaZ;
-
         return canShoot 
             && aimer.PlayerInRange 
             && aimer.WithinMaxAimAngle()
             && weapon.ReadyToShoot(true)
-            && distSquared <= shootRangeSquared;
+            && MathUtility.DistanceSquaredXZ(Player.Instance.transform.position, transform.position) <= shootRangeSquared;
     }
 }

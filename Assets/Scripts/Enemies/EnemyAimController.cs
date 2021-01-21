@@ -81,17 +81,17 @@ public abstract class EnemyAimController : MonoBehaviour
         //Calculate Target Rotation
         targeter.LookAt(Player.Instance.Camera.transform.position);
         rawRotation = targeter.rotation.eulerAngles.y;
-        targetRotation = MathUtility.Instance.NormaliseAngle(rawRotation);
+        targetRotation = MathUtility.NormaliseAngle(rawRotation);
 
         //Calculate Change In Rotation
         deltaRotation = Mathf.DeltaAngle(currentRotation, targetRotation);
-        float rotationDirection = MathUtility.Instance.Sign(deltaRotation);
-        deltaRotation = MathUtility.Instance.FloatMagnitude(deltaRotation);
+        float rotationDirection = MathUtility.Sign(deltaRotation);
+        deltaRotation = MathUtility.FloatMagnitude(deltaRotation);
         float fixedUpdateRotation = lookSpeed * Time.fixedDeltaTime;
 
         //Calculate New Rotation
         currentRotation += rotationDirection * Mathf.Min(deltaRotation, fixedUpdateRotation);
-        currentRotation = MathUtility.Instance.NormaliseAngle(currentRotation);
+        currentRotation = MathUtility.NormaliseAngle(currentRotation);
 
         //Apply New Rotation
         body.localRotation = Quaternion.Euler(0, currentRotation, 0);

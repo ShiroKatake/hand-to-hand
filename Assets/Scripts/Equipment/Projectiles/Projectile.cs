@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     [Header("Projectile Stats")]
     [SerializeField] private EProjectileType type;
     [SerializeField] private float damage;
-    [SerializeField] private float lifespan;
+    [SerializeField] private float range;
 
     //Non-Serialized Fields------------------------------------------------------------------------
 
@@ -29,6 +29,8 @@ public class Projectile : MonoBehaviour
     private Transform owner;
     private List<Collider> ownerColliders;
     private float timeOfLastShot;
+    private Vector3 shotFrom;
+    private float rangeSquared;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -86,7 +88,8 @@ public class Projectile : MonoBehaviour
         light = GetComponentInChildren<Light>();
         renderer = GetComponentInChildren<MeshRenderer>();
         rigidbody = GetComponent<Rigidbody>();
-	}
+        rangeSquared = range * range;
+    }
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -95,10 +98,7 @@ public class Projectile : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (active && (transform.position.y < 0 || Time.time - timeOfLastShot > lifespan))
-        {
-            ProjectileFactory.Instance.Destroy(this);
-        }
+        if (active && MathUtility.DistanceSquaredXZ(transform.position, shotFrom) >= rangeSquared) ProjectileFactory.Instance.Destroy(this);
     }
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ public class Projectile : MonoBehaviour
     {
         yield return null;
 
-        timeOfLastShot = Time.time;
+        shotFrom = transform.position;
         active = true;
         rigidbody.isKinematic = false;
         collider.enabled = true;

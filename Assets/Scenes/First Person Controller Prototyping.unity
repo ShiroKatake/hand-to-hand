@@ -64153,6 +64153,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Pistol
       objectReference: {fileID: 0}
+    - target: {fileID: 8043733539231537969, guid: 90d053c2630caca42a49eeb0a245bf70,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8993654843751530164, guid: 90d053c2630caca42a49eeb0a245bf70,
         type: 3}
       propertyPath: m_RootOrder
@@ -64234,6 +64239,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Handmine
       objectReference: {fileID: 0}
+    - target: {fileID: 5648623622185224600, guid: d65313361d5648f4f9c0a59b17a91ece,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6705021085113805853, guid: d65313361d5648f4f9c0a59b17a91ece,
         type: 3}
       propertyPath: m_RootOrder
@@ -64307,6 +64317,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Left Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 3963848756842528149, guid: 78b1280f0f64a6947bc20e26d1215011,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4725178959127957981, guid: 78b1280f0f64a6947bc20e26d1215011,
         type: 3}
@@ -64822,13 +64837,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2413713448027853014, guid: 3276090f805720d4a801f904c7ef784c,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2413713448027853014, guid: 3276090f805720d4a801f904c7ef784c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2413713448027853014, guid: 3276090f805720d4a801f904c7ef784c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2413713448027853014, guid: 3276090f805720d4a801f904c7ef784c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.419
       objectReference: {fileID: 0}
     - target: {fileID: 2413713448027853014, guid: 3276090f805720d4a801f904c7ef784c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0.099998474
       objectReference: {fileID: 0}
     - target: {fileID: 2413713448027853014, guid: 3276090f805720d4a801f904c7ef784c,
         type: 3}
@@ -64906,13 +64936,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6879088045003873606, guid: 1d3748842785489478c6927c4ef73ed8,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879088045003873606, guid: 1d3748842785489478c6927c4ef73ed8,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879088045003873606, guid: 1d3748842785489478c6927c4ef73ed8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879088045003873606, guid: 1d3748842785489478c6927c4ef73ed8,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.639
       objectReference: {fileID: 0}
     - target: {fileID: 6879088045003873606, guid: 1d3748842785489478c6927c4ef73ed8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0.099998474
       objectReference: {fileID: 0}
     - target: {fileID: 6879088045003873606, guid: 1d3748842785489478c6927c4ef73ed8,
         type: 3}
@@ -64990,13 +65035,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2651214523749891161, guid: ad296b9aa8e1399489401e6277fdb0ee,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651214523749891161, guid: ad296b9aa8e1399489401e6277fdb0ee,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651214523749891161, guid: ad296b9aa8e1399489401e6277fdb0ee,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651214523749891161, guid: ad296b9aa8e1399489401e6277fdb0ee,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.61
       objectReference: {fileID: 0}
     - target: {fileID: 2651214523749891161, guid: ad296b9aa8e1399489401e6277fdb0ee,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0.099998474
       objectReference: {fileID: 0}
     - target: {fileID: 2651214523749891161, guid: ad296b9aa8e1399489401e6277fdb0ee,
         type: 3}
@@ -65061,6 +65121,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Left Handmine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2961442052352165985, guid: f96e3c6c30d238846ba62d9b4c7fb27b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6883885690780312617, guid: f96e3c6c30d238846ba62d9b4c7fb27b,
         type: 3}
