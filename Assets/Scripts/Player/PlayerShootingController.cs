@@ -74,7 +74,11 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
         }
         else
         {
-            if (player.HandController.LeftHandWeapon.CurrentStats != null) player.HandController.LeftHandWeapon.CurrentStats.TriggerDown = false;
+			if (player.HandController.LeftHandWeapon.CurrentStats != null)
+			{
+				player.HandController.LeftHandWeapon.CurrentStats.TriggerDown = false;
+				leftHandAnimationIsSet = false;
+			}
 		}
 
         if (shootRight)
@@ -84,8 +88,13 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
         }
         else
         {
-			if (player.HandController.RightHandWeapon.CurrentStats != null) player.HandController.RightHandWeapon.CurrentStats.TriggerDown = false;
-        }
+			if (player.HandController.RightHandWeapon.CurrentStats != null)
+			{
+				player.HandController.RightHandWeapon.CurrentStats.TriggerDown = false;
+				rightHandAnimationIsSet = false;
+			}
+
+		}
     }
 
 	/// <summary>
@@ -96,13 +105,14 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
 	/// <returns></returns>
 	private bool SetAnimationToPistol(Animator animator, bool handAnimation)
 	{
-		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Finger Pistol"))
-			return handAnimation;
-		
-		if (!handAnimation)
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") ||
+			animator.GetCurrentAnimatorStateInfo(0).IsName("Grenade"))
 		{
-			animator.SetTrigger("Pistol");
-			handAnimation = true;
+			if (!handAnimation)
+			{
+				animator.SetTrigger("Pistol");
+				handAnimation = true;
+			}
 		}
 
 		return handAnimation;
@@ -113,10 +123,15 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
 	/// </summary>
 	/// <param name="animator">The hand's animator</param>
 	/// <param name="handAnimation">The toggle boolean to reset to false.</param>
-	public void ResetAnimationToIdle(Animator animator, bool handAnimation)
+	public void ResetShooting(HandSide handside)
 	{
-		animator.SetTrigger("Idle");
-		handAnimation = false;
+		Debug.Log("Reset");
+		if (handside == HandSide.Left)
+		{
+			leftHandAnimationIsSet = false;
+		}
+		else
+			rightHandAnimationIsSet = false;
 	}
 
 	/// <summary>

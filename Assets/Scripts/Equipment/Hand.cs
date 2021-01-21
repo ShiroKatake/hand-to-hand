@@ -32,6 +32,7 @@ public class Hand : MonoBehaviour
     private SkinnedMeshRenderer meshRenderer;
     private WeaponStats stats;
 	private bool canCollect = true;
+	private Animator handAnimator;
 
     //Other
     bool hasGottenComponents;
@@ -106,10 +107,15 @@ public class Hand : MonoBehaviour
         if (!hasGottenComponents) GetComponents();
 	}
 
-    /// <summary>
-    /// Gets this hand's other components.
-    /// </summary>
-    public void GetComponents()
+	private void Start()
+	{
+		handAnimator = handSide == HandSide.Left ? Player.Instance.LeftHandAnimator : Player.Instance.RightHandAnimator;
+	}
+
+	/// <summary>
+	/// Gets this hand's other components.
+	/// </summary>
+	public void GetComponents()
     {
         hasGottenComponents = true;
         rb = GetComponent<Rigidbody>();
@@ -153,6 +159,7 @@ public class Hand : MonoBehaviour
 		if (other.gameObject.tag == "Player" && canCollect)
 		{
 			Player.Instance.HandController.AddHand(this);
+			Player.Instance.HandController.ResetAnimationToIdle(handAnimator, handSide);
 		}
     }
 }
