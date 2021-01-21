@@ -262,4 +262,18 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
             hand.transform.parent = null;            
         }
     }
+
+	/// <summary>
+	/// Reset animation state to idle.
+	/// </summary>
+	/// <param name="animator">The hand's animator</param>
+	/// <param name="handAnimation">The toggle boolean to reset to false.</param>
+	public void ResetAnimationToIdle(Animator animator, HandSide handSide)
+	{
+		if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+		{
+			Player.Instance.ShootingController.ResetShooting(handSide);
+			animator.SetTrigger("Idle");
+		}
+	}
 }
