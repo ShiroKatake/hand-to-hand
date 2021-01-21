@@ -3,31 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum ELevels
-{
-	MainMenu,
-	Gameplay
-}
-
 public class LevelManager : MonoBehaviour
 {
-	public static LevelManager Instance { get; set; }
-
-	private void Awake()
+	public void LoadScene(int level)
 	{
-		if (Instance == null)
-		{
-			Instance = this;
-			DontDestroyOnLoad(gameObject);
-		}
-		else
-		{
-			Destroy(gameObject);
-		}
+		SceneManager.LoadScene(level);
 	}
 
-	public void LoadScene(ELevels level)
+	public void Quit()
 	{
-		SceneManager.LoadScene((int)level);
+		Application.Quit();
 	}
 }
