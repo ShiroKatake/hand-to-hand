@@ -7,20 +7,34 @@ using UnityEngine;
 /// </summary>
 public class PlayerDeathController : Health
 {
-    //Private Fields---------------------------------------------------------------------------------------------------------------------------------
+	//Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
-    //Serialized Fields----------------------------------------------------------------------------
+	//Serialized Fields----------------------------------------------------------------------------
 
-    //Non-Serialized Fields------------------------------------------------------------------------
+	//Non-Serialized Fields------------------------------------------------------------------------
 
-    //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
+	private HealthUI healthUI;
 
-    /// <summary>
-    /// Handles the death of the player.
-    /// </summary>
-    protected override void Die()
+	protected override void Awake()
+	{
+		base.Awake();
+		healthUI = FindObjectOfType<HealthUI>();
+	}
+
+	//Triggered Methods------------------------------------------------------------------------------------------------------------------------------
+
+	public override void TakeDamage(float amount)
+	{
+		base.TakeDamage(amount);
+		healthUI.SetHeath(CurrentHealth / MaxHealth);
+	}
+
+	/// <summary>
+	/// Handles the death of the player.
+	/// </summary>
+	protected override void Die()
     {
-        //Time.timeScale = 0;
+		FindObjectOfType<GameOverManager>().SetGameOver(false);
         Debug.Log($"PlayerDeathController.Die() is not implemented yet, but the player should be dead now.");
     }
 }

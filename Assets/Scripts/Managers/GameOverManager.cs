@@ -8,7 +8,12 @@ public class GameOverManager : MonoBehaviour
 	[SerializeField] GameObject winText;
 	[SerializeField] GameObject loseText;
 
-    public void SetGameOver(bool victory)
+	private void Start()
+	{
+		gameOverScreenContainer.SetActive(false);
+	}
+
+	public void SetGameOver(bool victory)
 	{
 		if (victory)
 		{
