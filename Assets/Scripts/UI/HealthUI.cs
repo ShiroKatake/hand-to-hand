@@ -11,7 +11,7 @@ public class HealthUI : MonoBehaviour
 	/// Set HP bar to specified amount.
 	/// </summary>
 	/// <param name="amount">A value between 0 and 1.</param>
-	public void SetHeath(int amount)
+	public void SetHeath(float amount)
 	{
 		healthBar.fillAmount = amount;
 	}

@@ -56,18 +56,21 @@ public class HandUI : MonoBehaviour
 	/// </summary>
 	/// <param name="weaponIndex">The index of the weapon in the list.</param>
 	/// <param name="weaponType">Type of weapon to change color to.</param>
-	public void SetDotColor(int weaponIndex, EWeaponType weaponType)
+	/// <param name="ammoCount">A percentage value between 0 and 1.</param>
+	public void SetDotColor(int weaponIndex, EWeaponType weaponType, float ammoCount)
 	{
 		weapons[weaponIndex].color = WeaponColor(weaponType);
+		weapons[weaponIndex].fillAmount = ammoCount;
 	}
 
 	/// <summary>
 	/// Change color of dots or hand to disabled color depending on the index provided.
 	/// </summary>
 	/// <param name="weaponIndex">The index of the weapon in the list.</param>
-	public void SetDotColor(int weaponIndex)
+	public void ResetDotColor(int weaponIndex)
 	{
 		weapons[weaponIndex].color = disabledColor;
+		weapons[weaponIndex].fillAmount = 1;
 	}
 
 	/// <summary>

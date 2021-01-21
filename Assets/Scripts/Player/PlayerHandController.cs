@@ -29,15 +29,15 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     private bool swapRight;
     private bool initializing;
 
+	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 	public UnityAction<EHandSide> OnWeaponChange;
-    //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
-    //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
+	//Basic Public Properties----------------------------------------------------------------------                                                                                                                          
 
-    /// <summary>
-    /// The weapon logic class for the left hand.
-    /// </summary>
-    public Weapon LeftHandWeapon { get => leftHandWeapon; }
+	/// <summary>
+	/// The weapon logic class for the left hand.
+	/// </summary>
+	public Weapon LeftHandWeapon { get => leftHandWeapon; }
 
     /// <summary>
     /// The transform the left hand gets childed to.
