@@ -50,7 +50,7 @@ public class Health : MonoBehaviour
 	/// Damage the object and trigger things that would happen when the object gets damaged.
 	/// </summary>
 	/// <param name="amount">The amount of damage to take.</param>
-	public void TakeDamage(float amount)
+	public virtual void TakeDamage(float amount)
 	{
         Debug.Log($"{this}.Health.TakeDamage()");
 		currentHealth -= amount;

@@ -21,6 +21,7 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     private PlayerGrenadeThrowController grenadeThrowController;
     private PlayerShootingController shootingController;
     private Camera povCamera;
+    private PlayerDeathController deathController;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -60,6 +61,11 @@ public class Player : PublicInstanceSerializableSingleton<Player>
     /// The controller class for the player shooting with their current weapon.
     /// </summary>
     public PlayerShootingController ShootingController { get => shootingController; }
+
+    /// <summary>
+    /// The controller class for the player shooting with their current weapon.
+    /// </summary>
+    public PlayerDeathController DeathController { get => deathController; }
 	
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
@@ -75,5 +81,7 @@ public class Player : PublicInstanceSerializableSingleton<Player>
         grenadeThrowController = GetComponent<PlayerGrenadeThrowController>();
         shootingController = GetComponent<PlayerShootingController>();
         povCamera = GetComponentInChildren<Camera>();
-    }
+		deathController = GetComponent<PlayerDeathController>();
+
+	}
 }
