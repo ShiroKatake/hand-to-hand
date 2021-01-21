@@ -753,15 +753,10 @@ MonoBehaviour:
   isPlayerWeapon: 0
   barrelTip: {fileID: 2471259521489830455}
   ownerColliders:
+  - {fileID: 3341718569997992808}
+  - {fileID: 1785086228717465487}
+  - {fileID: 8981080613852096059}
   - {fileID: 4111065599423638019}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &6603035616553007947
 MonoBehaviour:
   m_ObjectHideFlags: 0

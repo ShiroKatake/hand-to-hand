@@ -151,19 +151,4 @@ public class Projectile : MonoBehaviour
             ProjectileFactory.Instance.Destroy(this);
         }
     }
-
-    ///// <summary>
-    ///// OnTriggerExit is called when the Collider other has stopped touching the trigger.
-    ///// </summary>
-    ///// <param name="other">The other Collider involved in this collision.</param>
-    //public void OnTriggerExit(Collider other)
-    //{
-    //    //Debug.Log("ProjectileCollision OnTriggerExit");
-
-    //    if (!leftOwnerCollider && other.CompareTag(owner.tag))
-    //    {
-    //        //Debug.Log("Left owner collider");
-    //        leftOwnerCollider = true;
-    //    }
-    //}
 }
