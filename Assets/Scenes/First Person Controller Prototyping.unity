@@ -64708,11 +64708,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Handmine
       objectReference: {fileID: 0}
-    - target: {fileID: 5648623622185224600, guid: d65313361d5648f4f9c0a59b17a91ece,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6705021085113805853, guid: d65313361d5648f4f9c0a59b17a91ece,
         type: 3}
       propertyPath: m_RootOrder
@@ -65435,11 +65430,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Left Handmine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2961442052352165985, guid: f96e3c6c30d238846ba62d9b4c7fb27b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6883885690780312617, guid: f96e3c6c30d238846ba62d9b4c7fb27b,
         type: 3}

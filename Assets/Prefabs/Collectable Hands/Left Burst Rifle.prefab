@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 5872849551536107518}
   - component: {fileID: 9088414254153108660}
   - component: {fileID: 6115096936145518981}
+  - component: {fileID: -838365558337775620}
   - component: {fileID: 1029253029829519390}
   - component: {fileID: 5204424670902032077}
   m_Layer: 0
@@ -327,6 +328,19 @@ MonoBehaviour:
   handSide: 1
   pickUpCollider: {fileID: 4809899468851232774}
   bodyCollider: {fileID: 2295783072885881588}
+--- !u!114 &-838365558337775620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019153833316561166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f74d2bc8b81e040931dba61fedf3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0.01
 --- !u!114 &1029253029829519390
 MonoBehaviour:
   m_ObjectHideFlags: 0

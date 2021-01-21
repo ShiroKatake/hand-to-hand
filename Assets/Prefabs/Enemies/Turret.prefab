@@ -700,6 +700,7 @@ GameObject:
   - component: {fileID: 4111065599423638019}
   - component: {fileID: 3367764137855626976}
   - component: {fileID: 4921942208906369361}
+  - component: {fileID: 6088236549878406354}
   - component: {fileID: 2574389052723567433}
   - component: {fileID: 6603035616553007947}
   - component: {fileID: 3961955664723835820}
@@ -773,6 +774,18 @@ MonoBehaviour:
   elevationSpeed: 150
   minElevation: -30
   maxElevation: 30
+--- !u!114 &6088236549878406354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355378854840707101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a734503901639e140a1aa659cf80f20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2574389052723567433
 MonoBehaviour:
   m_ObjectHideFlags: 0
