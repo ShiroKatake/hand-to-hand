@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// A base class for the logic for weapons.
@@ -23,16 +24,17 @@ public class Weapon : MonoBehaviour
 	private EHandSide handSide;
 	private Animator handAnimator;
 
-    //Public Properties------------------------------------------------------------------------------------------------------------------------------
+	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
-    //Basic Public Properties----------------------------------------------------------------------
+	//Basic Public Properties----------------------------------------------------------------------
+	public UnityAction<EHandSide> OnWeaponChange;
 
-    //Complex Public Properties--------------------------------------------------------------------
+	//Complex Public Properties--------------------------------------------------------------------
 
-    /// <summary>
-    /// The stats of the currently equipped weapon.
-    /// </summary>
-    public WeaponStats CurrentStats
+	/// <summary>
+	/// The stats of the currently equipped weapon.
+	/// </summary>
+	public WeaponStats CurrentStats
     {
         get
         {
@@ -156,5 +158,7 @@ public class Weapon : MonoBehaviour
                 stats.TimeOfLastOverheat = Time.time;
             }
         }
-    }
+
+		if (isHand) OnWeaponChange.Invoke(handSide);
+	}
 }

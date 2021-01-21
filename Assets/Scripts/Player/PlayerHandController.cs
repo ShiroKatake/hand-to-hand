@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// A controller class for the player managing their hand grenades.
@@ -28,14 +29,15 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     private bool swapRight;
     private bool initializing;
 
-    //Public Properties------------------------------------------------------------------------------------------------------------------------------
+	//Public Properties------------------------------------------------------------------------------------------------------------------------------
+	public UnityAction<EHandSide> OnWeaponChange;
 
-    //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
+	//Basic Public Properties----------------------------------------------------------------------                                                                                                                          
 
-    /// <summary>
-    /// The weapon logic class for the left hand.
-    /// </summary>
-    public Weapon LeftHandWeapon { get => leftHandWeapon; }
+	/// <summary>
+	/// The weapon logic class for the left hand.
+	/// </summary>
+	public Weapon LeftHandWeapon { get => leftHandWeapon; }
 
     /// <summary>
     /// The transform the left hand gets childed to.
@@ -49,9 +51,19 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     public Weapon RightHandWeapon { get => rightHandWeapon; }
 
     /// <summary>
-    /// The transformt he right hand gets childed to.
+    /// The transform the right hand gets childed to.
     /// </summary>
     public Transform RightHandSpawn { get => rightHandSpawn; }
+
+	/// <summary>
+	/// List of left hands currently loaded.
+	/// </summary>
+	public List<Hand> LeftHands { get => hands[EHandSide.Left]; }
+
+	/// <summary>
+	/// List of right hands currently loaded.
+	/// </summary>
+	public List<Hand> RightHands { get => hands[EHandSide.Right]; }
 
     //Complex Public Properties--------------------------------------------------------------------                                                    
 
@@ -126,9 +138,6 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Gets the player's input relating to shooting with or switching hands.
-    /// </summary>
     private void GetInput()
     {
         tab = Input.GetButton("Tab");
@@ -157,7 +166,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         {
             ReQueueHand(side);
             SetCurrentWeapon(side);
-        }
+		}
     }
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
@@ -192,7 +201,9 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         }
 
         weaponRenderer.materials = materials;
-    }
+
+		OnWeaponChange?.Invoke(side);
+	}
 
     /// <summary>
     /// Adds a hand to the player.
@@ -263,8 +274,9 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
             hand.transform.localRotation = Quaternion.identity;
 
             hand.transform.parent = null;            
-        }
-    }
+			OnWeaponChange?.Invoke(hand.HandSide);
+		}
+	}
 
 	/// <summary>
 	/// Reset animation state to idle.
