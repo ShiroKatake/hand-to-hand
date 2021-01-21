@@ -55,12 +55,16 @@ public class PlayerShootingController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void GetInput()
     {
-        shift = Input.GetButton("Shift");
-        tab = Input.GetButton("Tab");
-        shootLeft = !shift && !tab && Input.GetButton("Left Hand");
-        shootRight = !shift && !tab && Input.GetButton("Right Hand");
-        //Debug.Log($"PlayerShootingController.GetInput(), shift: {shift}, tab: {tab}, shootLeft: {shootLeft}, leftHandWeapon.Stats.TriggerDown: {player.HandController.LeftHandWeapon?.CurrentStats.TriggerDown} shootRight: {shootRight}, rightHandWeapon.Stats.TriggerDown: {player.HandController.RightHandWeapon?.CurrentStats.TriggerDown}");
-    }
+		if (!PauseMenu.GameIsPaused)
+		{
+			shift = Input.GetButton("Shift");
+			tab = Input.GetButton("Tab");
+			shootLeft = !shift && !tab && Input.GetButton("Left Hand");
+			shootRight = !shift && !tab && Input.GetButton("Right Hand");
+			//Debug.Log($"PlayerShootingController.GetInput(), shift: {shift}, tab: {tab}, shootLeft: {shootLeft}, leftHandWeapon.Stats.TriggerDown: {player.HandController.LeftHandWeapon?.CurrentStats.TriggerDown} shootRight: {shootRight}, rightHandWeapon.Stats.TriggerDown: {player.HandController.RightHandWeapon?.CurrentStats.TriggerDown}");
+		}
+
+	}
 
     /// <summary>
     /// Checks if the player wants to and can shoot based on their input, and tells the appropriate weapon(s) to shoot if they do.
