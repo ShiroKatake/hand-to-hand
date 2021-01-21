@@ -56,6 +56,7 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        stats = GetComponent<WeaponStats>();
         if (isHand) handSide = GetComponent<Hand>().HandSide;
     }
 

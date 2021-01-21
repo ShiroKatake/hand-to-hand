@@ -105,6 +105,7 @@ public class Hand : MonoBehaviour
     /// </summary>
     public void GetComponents()
     {
+        hasGottenComponents = true;
         rb = GetComponent<Rigidbody>();
         grenade = GetComponent<Grenade>();
         weapon = GetComponent<Weapon>();
@@ -146,13 +147,6 @@ public class Hand : MonoBehaviour
 		if (other.gameObject.tag == "Player" && !grenade.Exploding)
 		{
 			Player.Instance.HandController.AddHand(this);
-
-			if (handSide == HandSide.Left)
-				Player.Instance.LeftHandAnimator.SetTrigger("Idle");
-			else
-				Player.Instance.RightHandAnimator.SetTrigger("Idle");
-
-			Debug.Log("Set");
 		}
     }
 }

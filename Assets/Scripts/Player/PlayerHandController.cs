@@ -26,6 +26,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     private bool tab;
     private bool swapLeft;
     private bool swapRight;
+    private bool initializing;
 
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
@@ -84,6 +85,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// </summary>
     protected override void Awake()
     {
+        initializing = true;
         base.Awake();
         hands = new Dictionary<HandSide, List<Hand>>();
         hands[HandSide.Left] = new List<Hand>();
@@ -97,6 +99,8 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
                 AddHand(h);
             }
         }
+
+        initializing = false;
     }
 
     /// <summary>
@@ -193,21 +197,29 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// <param name="hand">The hand to add.</param>
     public void AddHand(Hand hand)
     {
-        if (!hands[hand.HandSide].Contains(hand))
+        foreach (Hand h in hands[hand.HandSide])
         {
-            hands[hand.HandSide].Insert(0, hand);
-            SetCurrentWeapon(hand.HandSide);
+            if (hand.Stats.Type == h.Stats.Type) return;
+        }
 
-            hand.SetCollidersEnabled(false);
-            hand.Rigidbody.useGravity = false;
-            hand.Rigidbody.isKinematic = true;
+        hands[hand.HandSide].Insert(0, hand);
+        SetCurrentWeapon(hand.HandSide);
 
-            hand.transform.parent = handPool;
+        hand.SetCollidersEnabled(false);
+        hand.Rigidbody.useGravity = false;
+        hand.Rigidbody.isKinematic = true;
 
-            hand.Rigidbody.velocity = Vector3.zero;
-            hand.Rigidbody.angularVelocity = Vector3.zero;
-            hand.transform.localPosition = Vector3.zero;
-            hand.transform.localRotation = Quaternion.identity;
+        hand.transform.parent = handPool;
+
+        hand.Rigidbody.velocity = Vector3.zero;
+        hand.Rigidbody.angularVelocity = Vector3.zero;
+        hand.transform.localPosition = Vector3.zero;
+        hand.transform.localRotation = Quaternion.identity;
+
+        if (!initializing)
+        {
+            if (hand.HandSide == HandSide.Left) Player.Instance.LeftHandAnimator.SetTrigger("Idle");
+            else Player.Instance.RightHandAnimator.SetTrigger("Idle");
         }
     }
 

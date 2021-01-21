@@ -111,7 +111,7 @@ public class Grenade : MonoBehaviour
 	/// </summary>
 	private void Explode()
 	{
-		Debug.Log($"{this}.Grenade.Explode()");
+		//Debug.Log($"{this}.Grenade.Explode()");
 		Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
 		foreach (Collider collider in colliders)

@@ -161,14 +161,14 @@ public class WeaponStats : MonoBehaviour
     public bool TriggerDown { get => triggerDown; set => triggerDown = value; }
 
     /// <summary>
+    /// What specific type of weapon is this weapon?
+    /// </summary>
+    public EWeaponType Type { get => weaponType; }
+
+    /// <summary>
     /// What general class of weapon is this weapon?
     /// </summary>
     public EWeaponClass WeaponClass { get => weaponClass; }
-
-    /// <summary>
-    /// What specific type of weapon is this weapon?
-    /// </summary>
-    public EWeaponType WeaponType { get => weaponType; }
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 

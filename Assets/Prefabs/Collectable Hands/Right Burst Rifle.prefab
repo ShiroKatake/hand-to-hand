@@ -1002,7 +1002,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4091210806209497317
 Rigidbody:
@@ -1032,11 +1032,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cee688edb3f5947940555c480e2169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionFX: {fileID: 1715862650925419571}
+  handRenderer: {fileID: 2629494504717604868}
   explosionRadius: 0
   explosionForce: 0
   cookTime: 3
-  explosionFX: {fileID: 1715862650925419571}
-  handRenderer: {fileID: 2629494504717604868}
+  timerSFX: {fileID: 8300000, guid: 5f494ca39d0b18549905937df8f6649a, type: 3}
+  explosionSFX: {fileID: 8300000, guid: fd6e12a038482604f9ef63a8d122ff54, type: 3}
 --- !u!114 &2201437369939616982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,7 +1090,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fd6e12a038482604f9ef63a8d122ff54, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
