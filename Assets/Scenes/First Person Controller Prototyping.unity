@@ -33701,11 +33701,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
-    - target: {fileID: 6355378854840707101, guid: b86539d888de68346aaf1273f7f354ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b86539d888de68346aaf1273f7f354ca, type: 3}
 --- !u!1 &1104344105
@@ -37184,6 +37179,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195558874814441713, guid: b0737325beb8cf040b66fbcb3f301ca0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4941868382089745141, guid: b0737325beb8cf040b66fbcb3f301ca0,
         type: 3}
@@ -57889,7 +57889,7 @@ PrefabInstance:
     - target: {fileID: 6355378854840707101, guid: b86539d888de68346aaf1273f7f354ca,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b86539d888de68346aaf1273f7f354ca, type: 3}
@@ -62083,6 +62083,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195558874814441713, guid: b0737325beb8cf040b66fbcb3f301ca0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4941868382089745141, guid: b0737325beb8cf040b66fbcb3f301ca0,
         type: 3}
