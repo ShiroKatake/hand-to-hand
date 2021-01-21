@@ -15,8 +15,13 @@ public class HandDestructionController : Health
 
     //Initialization Methods-------------------------------------------------------------------------------------------------------------------------
 
-    private void Awake()
+    /// <summary>
+    /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
+    /// Awake() runs before Start().
+    /// </summary>
+    protected override void Awake()
     {
+        base.Awake();
         grenade = GetComponent<Grenade>();
     }
 

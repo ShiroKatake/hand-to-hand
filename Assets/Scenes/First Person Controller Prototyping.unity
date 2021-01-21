@@ -33701,6 +33701,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 6355378854840707101, guid: b86539d888de68346aaf1273f7f354ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b86539d888de68346aaf1273f7f354ca, type: 3}
 --- !u!1 &1104344105
@@ -57880,6 +57885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355378854840707101, guid: b86539d888de68346aaf1273f7f354ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b86539d888de68346aaf1273f7f354ca, type: 3}

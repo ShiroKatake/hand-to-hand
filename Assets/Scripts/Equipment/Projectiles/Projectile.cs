@@ -142,8 +142,12 @@ public class Projectile : MonoBehaviour
     {
         if (!other.isTrigger && !ownerColliders.Contains(other))
         {
-            Health damageable = other.GetComponent<Health>();
-            if (damageable != null) damageable.TakeDamage(damage);
+            if (other.tag != owner.tag)
+            {
+                Health damageable = other.GetComponent<Health>();
+                if (damageable != null) damageable.TakeDamage(damage);
+            }
+            
             ProjectileFactory.Instance.Destroy(this);
         }
     }

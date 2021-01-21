@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretDestructionController : MonoBehaviour
+public class TurretDestructionController : Health
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Private Fields---------------------------------------------------------------------------------------------------------------------------------
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //Serialized Fields----------------------------------------------------------------------------
 }

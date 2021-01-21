@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDeathController : MonoBehaviour
+public class PlayerDeathController : Health
 {
     // Start is called before the first frame update
     void Start()
