@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 4773575517456218473}
   - component: {fileID: 5872582023059756689}
   - component: {fileID: 9142200788136359387}
+  - component: {fileID: 4847401641556237975}
   - component: {fileID: 2619807694195886641}
   - component: {fileID: 4618998169894889925}
   m_Layer: 0
@@ -311,6 +312,19 @@ MonoBehaviour:
   cookTime: 3
   timerSFX: {fileID: 8300000, guid: 5f494ca39d0b18549905937df8f6649a, type: 3}
   explosionSFX: {fileID: 8300000, guid: fd6e12a038482604f9ef63a8d122ff54, type: 3}
+--- !u!114 &4847401641556237975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2961442052352165985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f74d2bc8b81e040931dba61fedf3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0.01
 --- !u!114 &2619807694195886641
 MonoBehaviour:
   m_ObjectHideFlags: 0

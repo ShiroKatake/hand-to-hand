@@ -37180,6 +37180,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone
       objectReference: {fileID: 0}
+    - target: {fileID: 2195558874814441713, guid: b0737325beb8cf040b66fbcb3f301ca0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4941868382089745141, guid: b0737325beb8cf040b66fbcb3f301ca0,
         type: 3}
       propertyPath: m_RootOrder
@@ -57881,6 +57886,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 6355378854840707101, guid: b86539d888de68346aaf1273f7f354ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b86539d888de68346aaf1273f7f354ca, type: 3}
 --- !u!1 &1910725491
@@ -62074,6 +62084,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone
       objectReference: {fileID: 0}
+    - target: {fileID: 2195558874814441713, guid: b0737325beb8cf040b66fbcb3f301ca0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4941868382089745141, guid: b0737325beb8cf040b66fbcb3f301ca0,
         type: 3}
       propertyPath: m_RootOrder
@@ -64708,11 +64723,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Handmine
       objectReference: {fileID: 0}
-    - target: {fileID: 5648623622185224600, guid: d65313361d5648f4f9c0a59b17a91ece,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6705021085113805853, guid: d65313361d5648f4f9c0a59b17a91ece,
         type: 3}
       propertyPath: m_RootOrder
@@ -65435,11 +65445,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Left Handmine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2961442052352165985, guid: f96e3c6c30d238846ba62d9b4c7fb27b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6883885690780312617, guid: f96e3c6c30d238846ba62d9b4c7fb27b,
         type: 3}

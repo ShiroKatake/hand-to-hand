@@ -140,15 +140,14 @@ public class Projectile : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     public void OnTriggerEnter(Collider other)
     {
-        //Debug.Log($"{this}.ProjectileCollision(), collidedWith is {collidedWith}");
-        Health damageable = other.GetComponent<Health>();
-        if (damageable != null) damageable.TakeDamage(damage);
-
-        //Debug.Log($"{gameObject.name} reduced {a.gameObject.name}'s health to {a.Health.Value}; {a.gameObject.name}.ShotBy is now {owner.name}");
-
-        if (!other.CompareTag("Projectile") && !other.isTrigger && !ownerColliders.Contains(other))
+        if (!other.isTrigger && !ownerColliders.Contains(other))
         {
-            //Debug.Log($"ProjectileCollision, not {owner.tag} or Projectile or Pit Walls; tag is {collidedWith.tag}; position is {transform.position}");
+            if (other.tag != owner.tag)
+            {
+                Health damageable = other.GetComponent<Health>();
+                if (damageable != null) damageable.TakeDamage(damage);
+            }
+            
             ProjectileFactory.Instance.Destroy(this);
         }
     }

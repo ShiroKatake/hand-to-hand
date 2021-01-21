@@ -39,7 +39,7 @@ public class Health : MonoBehaviour
     /// Awake() is run when the script instance is being loaded, regardless of whether or not the script is enabled. 
     /// Awake() runs before Start().
     /// </summary>
-    private void Awake()
+    protected virtual void Awake()
     {
 		currentHealth = maxHealth;
 	}
@@ -52,27 +52,38 @@ public class Health : MonoBehaviour
 	/// <param name="amount">The amount of damage to take.</param>
 	public void TakeDamage(float amount)
 	{
+        Debug.Log($"{this}.Health.TakeDamage()");
 		currentHealth -= amount;
 		currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
+        if (IsDead()) Die();
 	}
 
-	/// <summary>
-	/// Heal the object and trigger things that would happen when the object gets healed.
-	/// </summary>
-	/// <param name="amount">The amount of healing to give.</param>
-	public void Heal(float amount)
-	{
-		currentHealth += amount;
-		currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-	}
+	///// <summary>
+	///// Heal the object and trigger things that would happen when the object gets healed.
+	///// </summary>
+	///// <param name="amount">The amount of healing to give.</param>
+	//public void Heal(float amount)
+	//{
+	//	currentHealth += amount;
+	//	currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+	//}
 
     /// <summary>
     /// Checks if health is 0 or less.
     /// </summary>
     /// <returns>Is the object this health class is a component of dead?</returns>
-    public bool IsDead()
+    private bool IsDead()
     {
         return currentHealth <= 0;
+    }
+
+    /// <summary>
+    /// Handles the death or destruction of this object.
+    /// </summary>
+    protected virtual void Die()
+    {
+        Debug.Log($"Health.Die() is not implemented yet.");
     }
 
     /// <summary>
