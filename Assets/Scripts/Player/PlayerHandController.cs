@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// A controller class for the player managing their hand grenades.
@@ -22,12 +23,13 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
     //Non-Serialized Fields------------------------------------------------------------------------
 
-    private Dictionary<HandSide, List<Hand>> hands;
+    private Dictionary<EHandSide, List<Hand>> hands;
     private bool tab;
     private bool swapLeft;
     private bool swapRight;
     private bool initializing;
 
+	public UnityAction<EHandSide> OnWeaponChange;
     //Public Properties------------------------------------------------------------------------------------------------------------------------------
 
     //Basic Public Properties----------------------------------------------------------------------                                                                                                                          
@@ -49,9 +51,19 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     public Weapon RightHandWeapon { get => rightHandWeapon; }
 
     /// <summary>
-    /// The transformt he right hand gets childed to.
+    /// The transform the right hand gets childed to.
     /// </summary>
     public Transform RightHandSpawn { get => rightHandSpawn; }
+
+	/// <summary>
+	/// List of left hands currently loaded.
+	/// </summary>
+	public List<Hand> LeftHands { get => hands[EHandSide.Left]; }
+
+	/// <summary>
+	/// List of right hands currently loaded.
+	/// </summary>
+	public List<Hand> RightHands { get => hands[EHandSide.Right]; }
 
     //Complex Public Properties--------------------------------------------------------------------                                                    
 
@@ -62,7 +74,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     {
         get
         {
-            return (hands[HandSide.Left].Count > 0 ? hands[HandSide.Left][0] : null);
+            return (hands[EHandSide.Left].Count > 0 ? hands[EHandSide.Left][0] : null);
         }
     }
 
@@ -73,7 +85,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     {
         get
         {
-            return (hands[HandSide.Right].Count > 0 ? hands[HandSide.Right][0] : null);
+            return (hands[EHandSide.Right].Count > 0 ? hands[EHandSide.Right][0] : null);
         }
     }
 
@@ -87,9 +99,9 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     {
         initializing = true;
         base.Awake();
-        hands = new Dictionary<HandSide, List<Hand>>();
-        hands[HandSide.Left] = new List<Hand>();
-        hands[HandSide.Right] = new List<Hand>();
+        hands = new Dictionary<EHandSide, List<Hand>>();
+        hands[EHandSide.Left] = new List<Hand>();
+        hands[EHandSide.Right] = new List<Hand>();
 
         if (handsOnAwake != null && handsOnAwake.Count > 0)
         {
@@ -109,8 +121,8 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// </summary>
     private void Start()
     {
-        if (hands[HandSide.Left].Count > 0) SetCurrentWeapon(HandSide.Left);
-        if (hands[HandSide.Right].Count > 0) SetCurrentWeapon(HandSide.Right);
+        if (hands[EHandSide.Left].Count > 0) SetCurrentWeapon(EHandSide.Left);
+        if (hands[EHandSide.Right].Count > 0) SetCurrentWeapon(EHandSide.Right);
     }
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -126,9 +138,6 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
     //Recurring Methods (Update())-------------------------------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Gets the player's input relating to shooting with or switching hands.
-    /// </summary>
     private void GetInput()
     {
         tab = Input.GetButton("Tab");
@@ -143,21 +152,21 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// </summary>
     private void UpdateHands()
     {
-        if (swapLeft) SwapHands(HandSide.Left);
-        if (swapRight) SwapHands(HandSide.Right);
+        if (swapLeft) SwapHands(EHandSide.Left);
+        if (swapRight) SwapHands(EHandSide.Right);
     }
 
     /// <summary>
     /// If the player has more than one hand for their left or right, swaps the current hand for the next one in the list.
     /// </summary>
     /// <param name="side"></param>
-    private void SwapHands(HandSide side)
+    private void SwapHands(EHandSide side)
     {
         if (hands[side].Count > 1)
         {
             ReQueueHand(side);
             SetCurrentWeapon(side);
-        }
+		}
     }
 
     //Triggered Methods------------------------------------------------------------------------------------------------------------------------------
@@ -166,7 +175,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// Moves a hand to the back of the queue to update the current left/right hand.
     /// </summary>
     /// <param name="side"></param>
-    private void ReQueueHand(HandSide side)
+    private void ReQueueHand(EHandSide side)
     {
         Hand hand = hands[side][0];
         hands[side].Remove(hand);
@@ -177,10 +186,10 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     /// Enables a hand.
     /// </summary>
     /// <param name="hand">The hand to be enabled.</param>
-    private void SetCurrentWeapon(HandSide side)
+    private void SetCurrentWeapon(EHandSide side)
     {
-        Weapon weapon = (side == HandSide.Left ? leftHandWeapon : rightHandWeapon);
-        SkinnedMeshRenderer weaponRenderer = (side == HandSide.Left ? leftHandRenderer : rightHandRenderer);
+        Weapon weapon = (side == EHandSide.Left ? leftHandWeapon : rightHandWeapon);
+        SkinnedMeshRenderer weaponRenderer = (side == EHandSide.Left ? leftHandRenderer : rightHandRenderer);
         weapon.CurrentStats = hands[side][0].Stats;
         if (!weaponRenderer.enabled) weaponRenderer.enabled = true;
 
@@ -192,7 +201,9 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
         }
 
         weaponRenderer.materials = materials;
-    }
+
+		OnWeaponChange?.Invoke(side);
+	}
 
     /// <summary>
     /// Adds a hand to the player.
@@ -221,7 +232,7 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
 
         if (!initializing)
         {
-            if (hand.HandSide == HandSide.Left) Player.Instance.LeftHandAnimator.SetTrigger("Idle");
+            if (hand.HandSide == EHandSide.Left) Player.Instance.LeftHandAnimator.SetTrigger("Idle");
             else Player.Instance.RightHandAnimator.SetTrigger("Idle");
         }
     }
@@ -234,9 +245,9 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
     {
         if (hands[hand.HandSide].Contains(hand))
         {
-            Weapon weapon = (hand.HandSide == HandSide.Left ? leftHandWeapon : rightHandWeapon);
-            SkinnedMeshRenderer weaponRenderer = (hand.HandSide == HandSide.Left ? leftHandRenderer : rightHandRenderer);
-            Transform weaponSpawn = (hand.HandSide == HandSide.Left ? leftHandSpawn : rightHandSpawn);
+            Weapon weapon = (hand.HandSide == EHandSide.Left ? leftHandWeapon : rightHandWeapon);
+            SkinnedMeshRenderer weaponRenderer = (hand.HandSide == EHandSide.Left ? leftHandRenderer : rightHandRenderer);
+            Transform weaponSpawn = (hand.HandSide == EHandSide.Left ? leftHandSpawn : rightHandSpawn);
             hands[hand.HandSide].Remove(hand);
 
             if (hands[hand.HandSide].Count == 0)
@@ -263,15 +274,16 @@ public class PlayerHandController : PrivateInstanceSerializableSingleton<PlayerH
             hand.transform.localRotation = Quaternion.identity;
 
             hand.transform.parent = null;            
-        }
-    }
+			OnWeaponChange?.Invoke(hand.HandSide);
+		}
+	}
 
 	/// <summary>
 	/// Reset animation state to idle.
 	/// </summary>
 	/// <param name="animator">The hand's animator</param>
 	/// <param name="handAnimation">The toggle boolean to reset to false.</param>
-	public void ResetAnimationToIdle(Animator animator, HandSide handSide)
+	public void ResetAnimationToIdle(Animator animator, EHandSide handSide)
 	{
 		if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
 		{
