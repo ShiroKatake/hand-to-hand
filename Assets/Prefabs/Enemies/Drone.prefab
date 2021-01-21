@@ -592,6 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHand: 0
+  isPlayerWeapon: 0
   barrelTip: {fileID: 5344455669105766713}
   ownerColliders:
   - {fileID: 5650711780168568874}
@@ -613,7 +614,7 @@ MonoBehaviour:
   weaponClass: 2
   weaponType: 2
   projectileType: 4
-  maxAmmo: 1e+9
+  maxAmmo: 9999
   pelletsPerShot: 1
   spreadAngle: 1
   shotForce: 10

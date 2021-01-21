@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     //Serialized Fields----------------------------------------------------------------------------
 
     [SerializeField] private bool isHand;
+    [SerializeField] private bool isPlayerWeapon;
     [SerializeField] private Transform barrelTip;
     [SerializeField] private List<Collider> ownerColliders;
 
@@ -132,6 +133,7 @@ public class Weapon : MonoBehaviour
     public void Shoot()
     {
         audioSource.Play();
+        if (isPlayerWeapon) stats.CurrentAmmo--;
 
         for (int i = 0; i < stats.PelletsPerShot; i++)
         {

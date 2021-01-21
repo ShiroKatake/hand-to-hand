@@ -1990,6 +1990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHand: 1
+  isPlayerWeapon: 1
   barrelTip: {fileID: 1971072657955024540}
   ownerColliders:
   - {fileID: 6561643242134018415}
@@ -2820,6 +2821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHand: 1
+  isPlayerWeapon: 1
   barrelTip: {fileID: 8755492606691268685}
   ownerColliders:
   - {fileID: 6561643242134018415}

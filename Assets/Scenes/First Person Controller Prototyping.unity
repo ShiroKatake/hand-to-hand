@@ -36888,11 +36888,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone
       objectReference: {fileID: 0}
-    - target: {fileID: 2195558874814441713, guid: b0737325beb8cf040b66fbcb3f301ca0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4941868382089745141, guid: b0737325beb8cf040b66fbcb3f301ca0,
         type: 3}
       propertyPath: m_RootOrder
@@ -61579,11 +61574,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195558874814441713, guid: b0737325beb8cf040b66fbcb3f301ca0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4941868382089745141, guid: b0737325beb8cf040b66fbcb3f301ca0,
         type: 3}
