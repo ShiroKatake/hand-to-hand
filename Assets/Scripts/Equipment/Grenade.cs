@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// A base class for hands as grenades.
@@ -27,7 +28,7 @@ public class Grenade : MonoBehaviour
 	private AudioSource audioSource;
 	private bool exploding = false;
 	private float timePassed;
-
+	private ParticleSystem[] fxs;
 	//Public Properties------------------------------------------------------------------------------------------------------------------------------
 
 	//Complex Public Properties----------------------------------------------------------------------                                                                                                                          
@@ -55,7 +56,12 @@ public class Grenade : MonoBehaviour
 	private void Start()
 	{
 		handRenderer.SetActive(true);
-		explosionFX?.SetActive(false);
+		if (explosionFX != null)
+		{
+			explosionFX.SetActive(false);
+			fxs = explosionFX.GetComponentsInChildren<ParticleSystem>();
+		}
+
 	}
 
 	//Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -67,6 +73,7 @@ public class Grenade : MonoBehaviour
 	{
 		if (exploding)
 		{
+			GetComponent<Hand>().CanCollect = false;
 			if (timePassed >= cookTime)
 				Explode();
 			timePassed += Time.deltaTime;
@@ -111,7 +118,7 @@ public class Grenade : MonoBehaviour
 	/// </summary>
 	private void Explode()
 	{
-		//Debug.Log($"{this}.Grenade.Explode()");
+		Debug.Log($"{this}.Grenade.Explode()");
 		Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
 		foreach (Collider collider in colliders)
@@ -138,5 +145,26 @@ public class Grenade : MonoBehaviour
 
 		//Return hand back to pool
 		exploding = false;
+		IEnumerator enumerator = Destroy();
+		StartCoroutine(enumerator);
+	}
+
+	private bool FXStoppedPlaying()
+	{
+		bool isPlaying;
+		foreach (ParticleSystem fx in fxs)
+		{
+			isPlaying = fx.isPlaying;
+			if (fx.isPlaying)
+				return false;
+		}
+
+		return true;
+	}
+
+	IEnumerator Destroy()
+	{
+		yield return new WaitForSeconds(4f);
+		Destroy(gameObject);
 	}
 }

@@ -31,6 +31,7 @@ public class Hand : MonoBehaviour
     private Weapon weapon;
     private SkinnedMeshRenderer meshRenderer;
     private WeaponStats stats;
+	private bool canCollect;
 
     //Other
     bool hasGottenComponents;
@@ -48,6 +49,11 @@ public class Hand : MonoBehaviour
     /// The hand's non-trigger collider component.
     /// </summary>
     public Collider BodyCollider { get => bodyCollider; }
+
+    /// <summary>
+    /// This hand's grenade component.
+    /// </summary>
+    public bool CanCollect { get => canCollect; set => canCollect = value; }
 
     /// <summary>
     /// This hand's grenade component.
@@ -144,7 +150,7 @@ public class Hand : MonoBehaviour
     /// <param name="other">The object collided with.</param>
     private void OnTriggerEnter(Collider other)
     {
-		if (other.gameObject.tag == "Player" && !grenade.Exploding)
+		if (other.gameObject.tag == "Player" && canCollect)
 		{
 			Player.Instance.HandController.AddHand(this);
 		}
