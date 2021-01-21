@@ -31,7 +31,7 @@ public class Hand : MonoBehaviour
     private Weapon weapon;
     private SkinnedMeshRenderer meshRenderer;
     private WeaponStats stats;
-	private bool canCollect;
+	private bool canCollect = true;
 
     //Other
     bool hasGottenComponents;
