@@ -45,7 +45,24 @@ public class Weapon : MonoBehaviour
         {
             //Debug.Log($"Weapon.currentStats will be set to {value}.CurrentStats");
             stats = value;
-            audioSource.clip = (stats == null ? null : stats.AudioClip);
+
+            if (audioSource == null)
+            {
+                audioSource = GetComponent<AudioSource>();
+            }
+
+            if (stats == null)
+            {
+                audioSource.clip = null;
+            }
+            else if (audioSource != null)
+            {
+                audioSource.clip = stats.AudioClip;
+            }
+            else
+            {
+                Debug.LogError($"{this}.Weapon has no audioSource that can have an audio clip applioed to it by Weapon.CurrentStats.set");
+            }
         }
     }
 
