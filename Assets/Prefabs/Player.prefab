@@ -597,7 +597,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandAnimator: {fileID: 8127647754141362529}
   rightHandAnimator: {fileID: 7455068203426436295}
-  heightRadius: 0
 --- !u!114 &-7635113623041830180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8e282d360670442bfae6ac97331542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 100
+  moveSpeed: 6
   jumpForce: 10
   jumpFallOff:
     serializedVersion: 2
@@ -685,7 +684,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  lookSpeed: 15
+  lookSpeed: 40
   minYAxis: -45
   maxYAxis: 45
   invertYAxis: 0

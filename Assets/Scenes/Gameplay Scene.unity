@@ -2168,6 +2168,16 @@ PrefabInstance:
       propertyPath: handsOnAwake.Array.data[1]
       value: 
       objectReference: {fileID: 1332874818}
+    - target: {fileID: 6416827675035908714, guid: 46756166d6e68754185c54dd33079d7f,
+        type: 3}
+      propertyPath: lookSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416827675035908714, guid: 46756166d6e68754185c54dd33079d7f,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6837882558463447872, guid: 46756166d6e68754185c54dd33079d7f,
         type: 3}
       propertyPath: m_RootOrder
