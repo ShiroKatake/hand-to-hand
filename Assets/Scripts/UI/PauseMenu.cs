@@ -28,6 +28,7 @@ public class PauseMenu : MonoBehaviour
 	private void Start()
 	{
 		gameOverManager = FindObjectOfType<GameOverManager>();
+		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		Resume();
 	}
@@ -65,6 +66,7 @@ public class PauseMenu : MonoBehaviour
 	/// </summary>
 	private void Resume()
 	{
+		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		pauseMenu.SetActive(false);
 		Time.timeScale = 1f;
@@ -76,6 +78,7 @@ public class PauseMenu : MonoBehaviour
 	/// </summary>
 	private void Pause()
 	{
+		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 		pauseMenu.SetActive(true);
 		Time.timeScale = 0f;

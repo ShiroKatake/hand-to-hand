@@ -29,6 +29,7 @@ public class GameOverManager : MonoBehaviour
 			winText.SetActive(false);
 			gameOverScreenContainer.SetActive(true);
 		}
+		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 		Time.timeScale = 0;
 		gameOver = true;
