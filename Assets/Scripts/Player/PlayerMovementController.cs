@@ -65,6 +65,8 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     /// </summary>
     private void Start()
     {
+		Debug.Log(moveSpeed);
+		Debug.Log(lookSpeed);
 	}
 
     //Core Recurring Methods-------------------------------------------------------------------------------------------------------------------------
@@ -145,7 +147,7 @@ public class PlayerMovementController : PrivateInstanceSerializableSingleton<Pla
     private void Move()
     {
         if (!jumping) movement = transform.TransformDirection(Vector3.forward) * moveFB + transform.TransformDirection(Vector3.right) * moveLR;
-        characterController.SimpleMove(movement * moveSpeed * Time.deltaTime);
+        characterController.Move(movement * moveSpeed * Time.deltaTime);
         if (jump && !jumping) StartCoroutine(Jump());
     }
 
